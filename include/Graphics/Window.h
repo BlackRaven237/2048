@@ -9,7 +9,7 @@ class Window {
     std::string mTitle;
     float mWidth;
     float mHeight;
-
+    bool mIsInitialized;
 public:
     Window(const std::string& title, float width, float height);
     ~Window();
