@@ -1,7 +1,7 @@
 #include "Graphics/Window.h"
 
-Window::Window(const std::string& title, float width, float height) : 
-    mTitle(title), mWidth(width), mHeight(height), 
+Window::Window(const std::string& title, float width, float height, Color color) : 
+    mTitle(title), mWidth(width), mHeight(height), mColor(color),
     mIsInitialized(false), mWindow(nullptr), mRenderer(nullptr){}
 
 Window::~Window() {
@@ -57,6 +57,7 @@ void Window::ShutDown() {
 
 void Window::Clear() {
     if (mRenderer) {
+        SDL_SetRenderDrawColor(mRenderer, mColor.red, mColor.green, mColor.blue, 255);
         SDL_RenderClear(mRenderer);
     }
 }

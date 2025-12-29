@@ -10,8 +10,9 @@ class Window {
     float mWidth;
     float mHeight;
     bool mIsInitialized;
+    Color mColor;
 public:
-    Window(const std::string& title, float width, float height);
+    Window(const std::string& title, float width, float height, Color color);
     ~Window();
     bool Initialize();
     void ShutDown();
