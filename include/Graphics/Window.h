@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <string>
-#include "include/Core/Color.h"
+#include "Core/Color.h"
 
 class Window {
     SDL_Window* mWindow;
@@ -17,4 +17,5 @@ public:
     void ShutDown();
     void Clear();
     void Present();
+    SDL_Renderer* GetRenderer();
 };

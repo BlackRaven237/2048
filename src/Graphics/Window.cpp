@@ -1,4 +1,4 @@
-#include "include/Graphics/Window.h"
+#include "Graphics/Window.h"
 
 Window::Window(const std::string& title, float width, float height) : 
     mTitle(title), mWidth(width), mHeight(height), 
@@ -65,4 +65,8 @@ void Window::Present() {
     if (mRenderer) {
         SDL_RenderPresent(mRenderer);
     }
+}
+
+SDL_Renderer* Window::GetRenderer() {
+    return mRenderer;
 }
