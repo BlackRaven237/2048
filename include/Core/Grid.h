@@ -3,16 +3,22 @@
 #include <vector>
 #include <memory>
 
-class Grid {
+class Grid
+{
     float mWidth;
-    float mHeight;
     std::vector<Tile> mCells;
     std::vector<std::unique_ptr<Tile>> mTiles;
     Color mColor;
-public:
-    Grid(float width, float height, Color color = Color::Gainsboro()) : mWidth(width), mHeight(height) {}
+    Coord2D mPosition;
 
-    bool Initialize();
+public:
+    Grid(Coord2D pos, float width);
+    void Initialize(int NumberofCells, int NumberofTiles);
+    void MoveTiles(Key key);
     void Update();
-    void Render(); 
+    void Render(SDL_Renderer* renderer);
+
+private:
+    int CalculateTileIndex(int row, int column);
+    void SetCellsPosition(float size, float margin);
 };
