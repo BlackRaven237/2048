@@ -15,7 +15,8 @@ class Grid
 public:
     Grid(Coord2D pos, float width);
     void Initialize(int NumberofCells, int NumberofTiles);
-    void Update(Key key);
+    void MoveTiles(Key key);
+    void Update();
     void Render(SDL_Renderer* renderer);
 
 private:
