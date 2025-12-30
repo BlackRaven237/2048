@@ -10,12 +10,13 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
     float margin = (mWidth * 0.05) / 5;
 
     for(int i=0; i<NumberofCells; ++i) {
-        mCells.push_back(Tile(i, size));
+        mCells.push_back(Cell(i, size));
     }
-    Grid::SetCellsPosition(size, margin);
+    SetCellsPosition(size, margin);
 
     for(int i=0; i<NumberofTiles; ++i) {
-        mTiles.push_back(std::make_unique<Tile>(Tile(i, size)));
+        Coord2D position(mCells[i].position);
+        mTiles.push_back(Tile(position, i, i, size));
     }
 }
 
@@ -25,9 +26,8 @@ void Grid::SetCellsPosition(float size, float margin) {
     for (int row=0; row<4; ++row) {
         x = mPosition.x + margin;
         for (int column=0; column<4; ++column) {
-            cellIndex = CalculateTileIndex(row, column);
-            mCells[cellIndex].position.x = x;
-            mCells[cellIndex].position.y = y;
+            cellIndex = CalculateCellIndex(row, column);
+            mCells[cellIndex].position = Coord2D(x, y);
             // move to the x-coordinate of next cell (horizontally)
             x += size + margin;
         }
@@ -36,8 +36,17 @@ void Grid::SetCellsPosition(float size, float margin) {
     }
 }
 
-void Grid::Update() { 
- 
+void Grid::Update() {
+    for (auto& tile : mTiles) {
+        int newIndex = tile.CalculateTileIndex();
+        tile.position = Coord2D(mCells[newIndex].position);
+    }
+}
+
+void Grid::MoveTiles(Key key) {
+    for (auto& tile : mTiles) {
+        tile.Move(key);
+    }
 }
 
 void Grid::Render(SDL_Renderer* renderer) {
@@ -53,8 +62,17 @@ void Grid::Render(SDL_Renderer* renderer) {
     for(auto& cell : mCells) {
         cell.Render(renderer);
     }
+
+    for(auto& tile : mTiles) {
+        tile.Render(renderer);
+    }
 }
 
-int Grid::CalculateTileIndex(int row, int column) {
+int Grid::CalculateCellIndex(int row, int column) {
     return row * 4 + column;
+}
+
+int Grid::GenerateRandomIndex() {
+    std::uniform_int_distribution<int> dist(0, 15);
+    return dist(mRandomGenerator);
 }
