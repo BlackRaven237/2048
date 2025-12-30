@@ -16,6 +16,7 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
 
     for(int i=0; i<NumberofTiles; ++i) {
         Coord2D position(mCells[i].position);
+        mCells[i].ChangeState();
         mTiles.push_back(Tile(position, i, i, size));
     }
 }
@@ -38,8 +39,7 @@ void Grid::SetCellsPosition(float size, float margin) {
 
 void Grid::Update() {
     for (auto& tile : mTiles) {
-        int newIndex = tile.CalculateTileIndex();
-        tile.position = Coord2D(mCells[newIndex].position);
+        tile.Update(mCells);
     }
 }
 
