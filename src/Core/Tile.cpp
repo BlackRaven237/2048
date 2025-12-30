@@ -1,41 +1,52 @@
 #include "Core/Tile.h"
 
 Tile::Tile(Coord2D pos, int rowValue, int columnValue, float size) : 
-        position(pos), row(rowValue), column(columnValue), 
-        mIndex(CalculateTileIndex()), size(size), color(Color::Green()) {}
+    position(pos), row(rowValue), column(columnValue), 
+    mIndex(CalculateTileIndex()), size(size), color(Color::Green()) {}
 
 Tile::Tile(const Tile& other) : 
     position(other.position), row(other.row), column(other.column), 
     mIndex(other.mIndex), size(other.size), color(other.color) {}
 
-// void Tile::Update(std::vector<Tile>& cells) {
 
-// }
-// bool Tile::IsValidMove() {
-//     return row > 0 && row < 3 && column > 0 && column < 3;
-// }
+void Tile::Move(std::vector<Cell>& cells, Key key) {
+    int previousIndex = mIndex;
+    int rowValue = row, columnValue = column;
 
-void Tile::Move(Key key) {
     switch (key)
     {
         case Key::UP:
-            if(row > 0) row--;
+            rowValue--;
             break;
-        case Key::DOWN:
-            if(row < 3) row++;
+        case Key::DOWN: 
+            rowValue++;
             break;
-        case Key::LEFT:
-            if(column > 0) column--;
+        case Key::LEFT: 
+            columnValue--;
             break;
         case Key::RIGHT:
-            if(column < 3) column++;
+            columnValue++;
             break;
     }
+
+    if(!IsValidMove(rowValue, columnValue)) return;
+    int nextIndex = rowValue * 4 + columnValue;
+    if(cells[nextIndex].GetState()) return;
+
+    row = rowValue;
+    column = columnValue;
     mIndex = CalculateTileIndex();
+    cells[mIndex].ChangeState();
+    cells[previousIndex].ChangeState();
 }
 
-int Tile::GenerateRandomIndex() {
-    return 10;
+void Tile::Update(std::vector<Cell>& cells, Key key) {
+    Move(cells, key);
+    position = Coord2D(cells[mIndex].position);
+}
+
+bool Tile::IsValidMove(int rowValue, int columnValue) {
+    return rowValue >= 0 && rowValue < 4 && columnValue >= 0 && columnValue < 4;
 }
 
 void Tile::Render(SDL_Renderer* renderer) {
