@@ -41,9 +41,7 @@ void Grid::SetCellsPosition(float size, float margin) {
 
 void Grid::Update(Key key) {
     for (auto& tile : mTiles) {
-        tile.Move(mCells, key);
-        int index = tile.GetTileIndex();
-        tile.position = Coord2D(mCells[index].position);
+        tile.Update(mCells, key);
     }
 }
 
