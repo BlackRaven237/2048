@@ -65,11 +65,10 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
         Direction = Key::RIGHT;
         break;
     }
-    mGrid.MoveTiles(Direction);
 }
 
 void GameEngine::Update() {
-    mGrid.Update();
+    mGrid.Update(Direction);
 }
 
 void GameEngine::Render(SDL_Renderer* renderer) {
