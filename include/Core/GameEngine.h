@@ -5,6 +5,7 @@
 class GameEngine {
     Window mWindow;
     Grid mGrid;
+    Key Direction;
     bool mRunning;
 public:
     GameEngine(const std::string& title, float width, float height);
