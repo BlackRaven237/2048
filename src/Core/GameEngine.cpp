@@ -53,22 +53,22 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
     switch (key)
     {
     case SDLK_UP:
-        mGrid.MoveTiles(Key::UP);
+        Direction = Key::UP;
         break;
     case SDLK_DOWN:
-        mGrid.MoveTiles(Key::DOWN);
+        Direction = Key::DOWN;
         break;
     case SDLK_LEFT:
-        mGrid.MoveTiles(Key::LEFT);
+        Direction = Key::LEFT;
         break;
     case SDLK_RIGHT:
-        mGrid.MoveTiles(Key::RIGHT);
+        Direction = Key::RIGHT;
         break;
     }
 }
 
 void GameEngine::Update() {
-    mGrid.Update();
+    mGrid.Update(Direction);
 }
 
 void GameEngine::Render(SDL_Renderer* renderer) {
