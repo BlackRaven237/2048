@@ -1,16 +1,17 @@
 #pragma once
 #include "Tile.h"
 #include <vector>
+#include <random>
 #include <memory>
 
 class Grid
 {
     float mWidth;
-    std::vector<Tile> mCells;
-    std::vector<std::unique_ptr<Tile>> mTiles;
+    std::vector<Cell> mCells;
+    std::vector<Tile> mTiles;
     Color mColor;
     Coord2D mPosition;
-
+    std::mt19937 mRandomGenerator;
 public:
     Grid(Coord2D pos, float width);
     void Initialize(int NumberofCells, int NumberofTiles);
@@ -19,6 +20,7 @@ public:
     void Render(SDL_Renderer* renderer);
 
 private:
-    int CalculateTileIndex(int row, int column);
+    int CalculateCellIndex(int row, int column);
+    int GenerateRandomIndex();
     void SetCellsPosition(float size, float margin);
 };
