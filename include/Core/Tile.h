@@ -1,6 +1,7 @@
 #pragma once
 #include "Color.h"
 #include <SDL3/SDL.h>
+#include <vector>
 #include <iostream>
 
 struct Coord2D {
@@ -25,10 +26,12 @@ public:
     float size;
     Color color;
 
-    Cell(int index, float size) : mIndex(index), size(size), color(Color::LightGray()), mIsOccupied(false) {}
-    void ChangeState() {
-        mIsOccupied = !mIsOccupied;
-    }
+    Cell(int index, float size) : 
+        mIndex(index), size(size), 
+        color(Color::LightGray()), mIsOccupied(false) {}
+
+    void ChangeState() { mIsOccupied = !mIsOccupied; }
+    bool GetState() { return mIsOccupied; }
 
     void Render(SDL_Renderer* renderer) {
         SDL_FRect cell = {
@@ -54,13 +57,12 @@ public:
 
     Tile(Coord2D pos, int rowValue, int columnValue, float size);
     Tile(const Tile& other);
-    //void Update(std::vector<Cell>& cells);
-    void Move(Key key);
+    void Update(std::vector<Cell>& cells, Key key);
+    void Move(std::vector<Cell>& cells, Key key);
     void Render(SDL_Renderer* renderer);
-    int CalculateTileIndex() {
-        return row * 4 + column;
-    }
+    int CalculateTileIndex() { return row * 4 + column; }
     int GetTileIndex() { return mIndex; }
 private:
     int GenerateRandomIndex();
+    bool IsValidMove(int rowValue, int columnValue);
 };
