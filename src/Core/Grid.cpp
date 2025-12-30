@@ -15,9 +15,11 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
     SetCellsPosition(size, margin);
 
     for(int i=0; i<NumberofTiles; ++i) {
-        Coord2D position(mCells[i].position);
-        mCells[i].ChangeState();
-        mTiles.push_back(Tile(position, i, i, size));
+        int r = GenerateRandomIndex(), c = GenerateRandomIndex();
+        int index = CalculateCellIndex(r, c);
+        Coord2D position(mCells[index].position);
+        mCells[index].ChangeState();
+        mTiles.push_back(Tile(position, r, c, size));
     }
 }
 
@@ -37,15 +39,11 @@ void Grid::SetCellsPosition(float size, float margin) {
     }
 }
 
-void Grid::Update() {
+void Grid::Update(Key key) {
     for (auto& tile : mTiles) {
-        tile.Update(mCells);
-    }
-}
-
-void Grid::MoveTiles(Key key) {
-    for (auto& tile : mTiles) {
-        tile.Move(key);
+        tile.Move(mCells, key);
+        int index = tile.GetTileIndex();
+        tile.position = Coord2D(mCells[index].position);
     }
 }
 
@@ -73,6 +71,6 @@ int Grid::CalculateCellIndex(int row, int column) {
 }
 
 int Grid::GenerateRandomIndex() {
-    std::uniform_int_distribution<int> dist(0, 15);
+    std::uniform_int_distribution<int> dist(0, 3);
     return dist(mRandomGenerator);
 }
