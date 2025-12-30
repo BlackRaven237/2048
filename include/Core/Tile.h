@@ -1,6 +1,5 @@
 #pragma once
 #include "Color.h"
-#include <random>
 #include <SDL3/SDL.h>
 #include <iostream>
 
@@ -8,11 +7,7 @@ struct Coord2D {
     float x;
     float y;
     Coord2D(float xValue = 0.0f, float yValue = 0.0f) : x(xValue), y(yValue) {}
-};
-
-enum class TileType {
-    CELL,
-    TILE
+    Coord2D(const Coord2D& other) : x(other.x), y(other.y) {}
 };
 
 enum class Key {
@@ -22,23 +17,50 @@ enum class Key {
     RIGHT
 };
 
-class Tile {
+class Cell {
     int mIndex;
     bool mIsOccupied;
-    std::mt19937 mRandomGenerator;
-    
 public:
     Coord2D position;
     float size;
     Color color;
 
-    Tile(int index, float size);
+    Cell(int index, float size) : mIndex(index), size(size), color(Color::LightGray()), mIsOccupied(false) {}
+    void ChangeState() {
+        mIsOccupied = !mIsOccupied;
+    }
+
+    void Render(SDL_Renderer* renderer) {
+        SDL_FRect cell = {
+            position.x,
+            position.y,
+            size,
+            size
+        };
+
+        SDL_SetRenderDrawColor(renderer, color.red, color.green, color.blue, 255);
+        SDL_RenderFillRect(renderer, &cell);
+    }
+};
+
+class Tile {
+    int row;
+    int column;
+    int mIndex;
+public: 
+    Coord2D position;
+    float size;
+    Color color;
+
+    Tile(Coord2D pos, int rowValue, int columnValue, float size);
     Tile(const Tile& other);
-
+    //void Update(std::vector<Cell>& cells);
     void Move(Key key);
-    void Update();
-
     void Render(SDL_Renderer* renderer);
+    int CalculateTileIndex() {
+        return row * 4 + column;
+    }
+    int GetTileIndex() { return mIndex; }
 private:
     int GenerateRandomIndex();
 };
