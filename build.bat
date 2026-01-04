@@ -15,7 +15,9 @@ set LDFLAGS=-lSDL3
 
 REM ====== Directories ======
 set INCLUDE_DIR=include
-set SOURCES=main.cpp src\Core\*.cpp src\Graphics\*.cpp
+set SOURCES=main.cpp ^
+            src\Core\*.cpp ^
+            src\Graphics\*.cpp
 set OUTPUT_NAME=App
 set OUTPUT_DIR=build\bin
 
