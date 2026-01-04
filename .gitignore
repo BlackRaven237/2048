@@ -1,2 +1,6 @@
-# Git ignores .exe files
+# Git ignores 
+
+# [1] all executable files (.exe)
 *.exe
+# [2] all object files (.o)
+*.o
