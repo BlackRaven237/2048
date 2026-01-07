@@ -1,11 +1,12 @@
 #pragma once
 #include "Grid.h"
-#include "Graphics/Window.h"
+#include "Graphics\Window.h"
 
 class GameEngine {
     Window mWindow;
     Grid mGrid;
     Key Direction;
+    bool IsKeyPressed;
     bool mRunning;
 public:
     GameEngine(const std::string& title, float width, float height);

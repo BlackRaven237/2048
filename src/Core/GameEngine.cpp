@@ -1,10 +1,11 @@
-#include "Core/GameEngine.h"
+#include "Core\GameEngine.h"
 #include <iostream>
 
-GameEngine::GameEngine(const std::string& title, float width, float height)
-    :  mWindow(title, width, height, Color::TomatoOrange()),
+GameEngine::GameEngine(const std::string& title, float width, float height) : 
+    mWindow(title, width, height, Color::TomatoOrange()),
     mGrid(Coord2D(static_cast<float>(width * 0.25), static_cast<float>(height * 0.1875)), width / 2), 
-    mRunning(false) {}
+    mRunning(false),
+    IsKeyPressed(false) {}
 
 GameEngine::~GameEngine() {
     GameEngine::ShutDown();
@@ -43,6 +44,7 @@ void GameEngine::HandleEvents() {
             mRunning = false;
             break;
         case SDL_EVENT_KEY_DOWN:
+            IsKeyPressed = true;
             GameEngine::HandleInputs(event.key.key);
             break;
         }
@@ -68,7 +70,12 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
 }
 
 void GameEngine::Update() {
-    mGrid.Update(Direction);
+    mGrid.Update();
+
+    if (IsKeyPressed) {
+        mGrid.MoveTiles(Direction);
+        IsKeyPressed = false;
+    }
 }
 
 void GameEngine::Render(SDL_Renderer* renderer) {
