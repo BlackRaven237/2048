@@ -11,6 +11,5 @@ int main (int argc, char* argv[]) {
         std::cerr << "Game Engine couldn't launch" << std::endl;
     }
     game.Run();
-    game.ShutDown();
     return 0;
 }
