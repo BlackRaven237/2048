@@ -4,3 +4,5 @@
 *.exe
 # [2] all object files (.o)
 *.o
+# [3] all text files (.txt)
+*.txt
