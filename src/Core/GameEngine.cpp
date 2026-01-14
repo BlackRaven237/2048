@@ -66,6 +66,10 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
     case SDLK_RIGHT:
         Direction = Key::RIGHT;
         break;
+    case SDLK_R:
+        mGrid.Initialize(16, 2);
+        std::cout << "Restart" << std::endl;
+        break;
     }
 }
 
