@@ -2,21 +2,20 @@
 #define GRID_H
 
 #include "Tile.h"
-#include <vector>
 #include <random>
 #include <memory>
 
 class Grid
 {
     float mWidth;
-    std::vector<Cell> mCells;
-    std::vector<std::vector<Tile>> mTiles;
+    std::vector<std::vector<Cell>> mCells;
+    std::vector<Tile> mTiles;
     size_t mMaxTiles;
     Color mColor;
-    Coord2D mPosition;
+    Point m_position;
     std::mt19937 mRandomGenerator;
 public:
-    Grid(Coord2D pos, float width);
+    Grid(Point pos, float width);
     void Initialize(int NumberofCells, int NumberofTiles);
     void SpawnNewTiles(float size);
     void MoveTiles(Key key);
