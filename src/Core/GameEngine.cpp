@@ -3,7 +3,7 @@
 
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
     mWindow(title, width, height, Color::TomatoOrange()),
-    mGrid(Coord2D(static_cast<float>(width * 0.25), static_cast<float>(height * 0.1875)), width / 2), 
+    mGrid(Point(static_cast<float>(width * 0.25), static_cast<float>(height * 0.1875)), width / 2), 
     Direction(Key::NONE), IsKeyPressed(false), mRunning(false) {}
 
 GameEngine::~GameEngine() {
@@ -13,7 +13,7 @@ GameEngine::~GameEngine() {
 bool GameEngine::Initialize() {
     if(!mWindow.Initialize()) return false;
 
-    mGrid.Initialize(16, 2);
+    mGrid.Initialize(4, 2);
 
     mRunning = true;
     std::cout << "GameEngine has been initialized" << std::endl;
