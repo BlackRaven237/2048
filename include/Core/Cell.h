@@ -1,7 +1,26 @@
 #ifndef CELL_H
 #define CELL_H
 
-#include "Tile.h"
+#include "Color.h"
+#include <SDL3/SDL.h>
+#include <vector>
+#include <iostream>
+
+struct Coord2D {
+    float x;
+    float y;
+    Coord2D(float xValue = 0.0f, float yValue = 0.0f) : x(xValue), y(yValue) {}
+    Coord2D(const Coord2D& other) : x(other.x), y(other.y) {}
+    Coord2D operator=(const Coord2D& other) { return Coord2D(other); }
+};
+
+enum class Key {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+    NONE
+};
 
 class Cell {
     int mIndex;
@@ -40,4 +59,5 @@ void Cell::Render(SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, color.red, color.green, color.blue, 255);
     SDL_RenderFillRect(renderer, &cell);
 }
+
 #endif
