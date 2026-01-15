@@ -1,4 +1,6 @@
-#pragma once
+#ifndef COLOR_H
+#define COLOR_H
+
 #include <cstdint>
 
 struct Color
@@ -25,3 +27,5 @@ struct Color
     static Color Black() { return Color(0, 0, 0, 0); }
     static Color TomatoOrange() { return Color(255, 99, 71); }
 };
+
+#endif

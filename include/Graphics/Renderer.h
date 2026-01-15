@@ -1,3 +1,6 @@
+#ifndef RENDERER_H
+#define RENDERER_H
+
 #include <SDL3/SDL.h>
 #include "Core/Color.h"
 
@@ -13,3 +16,5 @@ public:
     void Present();
     SDL_Renderer* GetRenderer() { return mRenderer; };
 };
+
+#endif

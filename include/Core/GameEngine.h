@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GAME_ENGINE_H
+#define GAME_ENGINE_H
+
 #include "Grid.h"
 #include "Graphics\Window.h"
 
@@ -20,3 +22,5 @@ private:
     void Update();
     void Render(SDL_Renderer* renderer);
 };
+
+#endif

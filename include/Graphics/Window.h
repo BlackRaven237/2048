@@ -1,4 +1,6 @@
-#pragma once
+#ifndef WINDOW_H
+#define WINDOW_H
+
 #include <string>
 #include "Core/Color.h"
 #include "Renderer.h"
@@ -19,3 +21,5 @@ public:
     void Present();
     SDL_Renderer* GetRenderer();
 };
+
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GRID_H
+#define GRID_H
+
 #include "Tile.h"
 #include <vector>
 #include <random>
@@ -8,7 +10,7 @@ class Grid
 {
     float mWidth;
     std::vector<Cell> mCells;
-    std::vector<Tile> mTiles;
+    std::vector<std::vector<Tile>> mTiles;
     size_t mMaxTiles;
     Color mColor;
     Coord2D mPosition;
@@ -26,3 +28,5 @@ private:
     int GenerateRandomIndex();
     void SetCellsPosition(float size, float margin);
 };
+
+#endif
