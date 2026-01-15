@@ -23,7 +23,7 @@ set BIN_DIR=%BUILD_DIR%\bin
 set OUTPUT_NAME=App
 
 REM ====== Vérifications des ressources ======
-echo [1/3] 📝 Vérification du ressources....
+echo [1/4] 📝 Vérification du ressources....
 if not exist "%IMGUI_DIR%" (
     echo    ❌ Répertoire Imgui non-trouvé !!!
     echo    Pour gérer ce problème, Télécharger Dear Imgui sur https://github.com/ocornut/imgui.git 
@@ -32,16 +32,13 @@ if not exist "%IMGUI_DIR%" (
 echo       ✅ Répertoire Imgui trouvé !!!
 echo.
 
-if not exist "%BUILD_DIR%" (
-    echo       🎨 Création du dossier build....
-    mkdir %BUILD_DIR%
-    mkdir %OBJ_DIR%
-    mkdir %BIN_DIR%
-    echo       ✅ Répertoire Build créé !!!
-)
+echo [2/4] 🎨 Préparation du répertoire Build....
+if not exist "%OBJ_DIR%" mkdir %OBJ_DIR%
+if not exist "%BIN_DIR%" mkdir %BIN_DIR%
+echo       ✅ Répertoire Build prêt !!!
 
 REM ====== Compilation des fichiers objets (.o) ======
-echo [2/3] 🛠️  Compilation des fichiers objets....
+echo [3/4] 🛠️  Compilation des fichiers objets....
 
 if not exist "%BUILD_DIR%\modif_date.txt" (
     echo Last modification dates >> %BUILD_DIR%\modif_date.txt
@@ -91,7 +88,7 @@ echo       ✅ Compilation des fichiers objets réussi.
 echo.
 
 REM ====== Édition des liens (ld) ======
-echo [3/3] ⛓️  Édition des liens (linking)....
+echo [4/4] ⛓️  Édition des liens (linking)....
 %CXX% %CXXFLAGS% %OBJ_FILES% %INCLUDE_DIR% -o %BIN_DIR%\%OUTPUT_NAME% %LDFLAGS%
 
 echo       ✅ Éxecutable créer avec succès.
