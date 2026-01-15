@@ -3,6 +3,8 @@
 #include <ctime>
 
 int main (int argc, char* argv[]) {
+    (void) argc;
+    (void) argv;
     srand(static_cast<unsigned int>(time(nullptr)));
 
     std::cout << " ====== Welcome to my 2048 puzzle Game ====== " << std::endl;
