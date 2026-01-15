@@ -1,7 +1,7 @@
 #include "Core/Cell.h"
 
-Cell::Cell(int index, float size) : 
-    mIndex(index), mIsOccupied(false), 
+Cell::Cell(Coord coord, float size) : 
+    mCoord(coord), mIsOccupied(false), 
     size(size), color(Color::LightGray()) {}
 
 void Cell::ChangeState() { 

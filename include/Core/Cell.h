@@ -6,12 +6,20 @@
 #include <vector>
 #include <iostream>
 
-struct Coord2D {
+struct Coord {
+    int row;
+    int column;
+    Coord(int rowValue = 0, int columnValue = 0) : row(rowValue), column(columnValue) {}
+    Coord(const Coord& other) : row(other.row), column(other.column) {}
+    Coord operator=(const Coord& other) { return Coord(other); }
+};
+
+struct Point {
     float x;
     float y;
-    Coord2D(float xValue = 0.0f, float yValue = 0.0f) : x(xValue), y(yValue) {}
-    Coord2D(const Coord2D& other) : x(other.x), y(other.y) {}
-    Coord2D operator=(const Coord2D& other) { return Coord2D(other); }
+    Point(float xValue = 0.0f, float yValue = 0.0f) : x(xValue), y(yValue) {}
+    Point(const Point& other) : x(other.x), y(other.y) {}
+    Point operator=(const Point& other) { return Point(other); }
 };
 
 enum class Key {
@@ -23,14 +31,14 @@ enum class Key {
 };
 
 class Cell {
-    int mIndex;
+    Coord mCoord;
     bool mIsOccupied;
 public:
-    Coord2D position;
+    Point position;
     float size;
     Color color;
 
-    Cell(int index, float size);
+    Cell(Coord coord, float size);
     void ChangeState();
     bool GetState();
     void Render(SDL_Renderer* renderer);
