@@ -35,14 +35,12 @@ echo.
 echo [2/4] 🎨 Préparation du répertoire Build....
 if not exist "%OBJ_DIR%" mkdir %OBJ_DIR%
 if not exist "%BIN_DIR%" mkdir %BIN_DIR%
+if not exist "%BUILD_DIR%\modif_date.txt" echo Last modification dates >> %BUILD_DIR%\modif_date.txt
 echo       ✅ Répertoire Build prêt !!!
+echo.
 
 REM ====== Compilation des fichiers objets (.o) ======
 echo [3/4] 🛠️  Compilation des fichiers objets....
-
-if not exist "%BUILD_DIR%\modif_date.txt" (
-    echo Last modification dates >> %BUILD_DIR%\modif_date.txt
-)
 
 set OBJ_FILES=
 set OBJ_FILE=
@@ -87,8 +85,8 @@ for /r %%f in (*.cpp) do (
 echo       ✅ Compilation des fichiers objets réussi.
 echo.
 
-REM ====== Édition des liens (ld) ======
-echo [4/4] ⛓️  Édition des liens (linking)....
+REM ====== Éditeur de liens (ld) ======
+echo [4/4] ⛓️  Éditeur de liens (linking)....
 %CXX% %CXXFLAGS% %OBJ_FILES% %INCLUDE_DIR% -o %BIN_DIR%\%OUTPUT_NAME% %LDFLAGS%
 
 echo       ✅ Éxecutable créer avec succès.
