@@ -12,6 +12,10 @@ bool Cell::GetState() {
     return mIsOccupied; 
 }
 
+Coord Cell::GetCoord() const { 
+    return mCoord; 
+}
+
 void Cell::Render(SDL_Renderer* renderer) {
     SDL_FRect cell = {
         position.x,

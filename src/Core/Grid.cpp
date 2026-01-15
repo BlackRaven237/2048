@@ -23,9 +23,13 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
     SetCellsPosition(size, margin);
 
     for(int i=0; i<NumberofTiles; ++i) {
-        int r = GenerateRandomIndex(), c = GenerateRandomIndex();
-        mCells[r][c].ChangeState();
-        mTiles.push_back(Tile(Point(mCells[r][c].position), Coord(r, c), size));
+        int row = GenerateRandomIndex(), column = GenerateRandomIndex();
+        row = i+1, column = i;
+        mCells[row][column].ChangeState();
+        mTiles.push_back(
+            Tile(Point(mCells[row][column].position), 
+            Coord(mCells[row][column].GetCoord()), size)
+        );
     }
 }
 

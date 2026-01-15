@@ -51,6 +51,7 @@ public:
     Cell(Coord coord, float size);
     void ChangeState();
     bool GetState();
+    Coord GetCoord() const;
     void Render(SDL_Renderer* renderer);
 };
 
