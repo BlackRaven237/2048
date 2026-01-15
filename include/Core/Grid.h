@@ -9,7 +9,7 @@ class Grid
     float mWidth;
     std::vector<Cell> mCells;
     std::vector<Tile> mTiles;
-    int mMaxTiles;
+    size_t mMaxTiles;
     Color mColor;
     Coord2D mPosition;
     std::mt19937 mRandomGenerator;
