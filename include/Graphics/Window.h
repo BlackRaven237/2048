@@ -1,16 +1,15 @@
 #pragma once
-#include <SDL3/SDL.h>
 #include <string>
 #include "Core/Color.h"
+#include "Renderer.h"
 
 class Window {
     std::string mTitle;
     float mWidth;
     float mHeight;
     SDL_Window* mWindow;
-    SDL_Renderer* mRenderer;
+    Renderer mRenderer;
     bool mIsInitialized;
-    Color mColor;
 public:
     Window(const std::string& title, float width, float height, Color color);
     ~Window();

@@ -1,8 +1,8 @@
 #include "Graphics/Window.h"
 
 Window::Window(const std::string& title, float width, float height, Color color) : 
-    mTitle(title), mWidth(width), mHeight(height), 
-    mWindow(nullptr), mRenderer(nullptr), mIsInitialized(false), mColor(color) {}
+    mTitle(title), mWidth(width), mHeight(height),
+    mWindow(nullptr), mRenderer(color), mIsInitialized(false) {}
 
 Window::~Window() {
     Window::ShutDown();
@@ -20,18 +20,17 @@ bool Window::Initialize() {
         static_cast<int>(mHeight),
         SDL_WINDOW_RESIZABLE
     );
+
     if(!mWindow) {
         SDL_Log("Window couldn't created: %s\n", SDL_GetError());
         SDL_Quit();
         return false;
     }
 
-    mRenderer = SDL_CreateRenderer(mWindow, nullptr);
-    if(!mRenderer) {
+    if(!mRenderer.CreateRenderer(mWindow)) {
         SDL_Log("Renderer couldn't created: %s\n", SDL_GetError());
         SDL_DestroyWindow(mWindow);
         SDL_Quit();
-        return false;
     }
 
     mIsInitialized = true;
@@ -40,10 +39,7 @@ bool Window::Initialize() {
 }
 
 void Window::ShutDown() {
-    if (mRenderer) {
-        SDL_DestroyRenderer(mRenderer);
-        mRenderer = nullptr;
-    }
+    mRenderer.DestroyRenderer();
 
     if (mWindow) {
         SDL_DestroyWindow(mWindow);
@@ -56,18 +52,13 @@ void Window::ShutDown() {
 }
 
 void Window::Clear() {
-    if (mRenderer) {
-        SDL_SetRenderDrawColor(mRenderer, mColor.red, mColor.green, mColor.blue, 255);
-        SDL_RenderClear(mRenderer);
-    }
+    mRenderer.Clear();
 }
 
 void Window::Present() {
-    if (mRenderer) {
-        SDL_RenderPresent(mRenderer);
-    }
+    mRenderer.Present();
 }
 
 SDL_Renderer* Window::GetRenderer() {
-    return mRenderer;
+    return mRenderer.GetRenderer();
 }
