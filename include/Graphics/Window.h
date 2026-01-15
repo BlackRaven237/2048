@@ -4,11 +4,11 @@
 #include "Core/Color.h"
 
 class Window {
-    SDL_Window* mWindow;
-    SDL_Renderer* mRenderer;
     std::string mTitle;
     float mWidth;
     float mHeight;
+    SDL_Window* mWindow;
+    SDL_Renderer* mRenderer;
     bool mIsInitialized;
     Color mColor;
 public:

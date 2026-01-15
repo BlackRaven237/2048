@@ -1,8 +1,8 @@
 #include "Graphics/Window.h"
 
 Window::Window(const std::string& title, float width, float height, Color color) : 
-    mTitle(title), mWidth(width), mHeight(height), mColor(color),
-    mIsInitialized(false), mWindow(nullptr), mRenderer(nullptr){}
+    mTitle(title), mWidth(width), mHeight(height), 
+    mWindow(nullptr), mRenderer(nullptr), mIsInitialized(false), mColor(color) {}
 
 Window::~Window() {
     Window::ShutDown();

@@ -9,13 +9,15 @@ struct Coord2D {
     float y;
     Coord2D(float xValue = 0.0f, float yValue = 0.0f) : x(xValue), y(yValue) {}
     Coord2D(const Coord2D& other) : x(other.x), y(other.y) {}
+    Coord2D operator=(const Coord2D& other) { return Coord2D(other); }
 };
 
 enum class Key {
     UP,
     DOWN,
     LEFT,
-    RIGHT
+    RIGHT,
+    NONE
 };
 
 class Cell {
@@ -27,8 +29,8 @@ public:
     Color color;
 
     Cell(int index, float size) : 
-        mIndex(index), size(size), 
-        color(Color::LightGray()), mIsOccupied(false) {}
+        mIndex(index), mIsOccupied(false), 
+        size(size), color(Color::LightGray()) {}
 
     void ChangeState() { mIsOccupied = !mIsOccupied; }
     bool GetState() { return mIsOccupied; }
@@ -57,7 +59,7 @@ public:
 
     Tile(Coord2D pos, int rowValue, int columnValue, float size);
     Tile(const Tile& other);
-    void Update(std::vector<Cell>& cells, Key key);
+    void Update(std::vector<Cell>& cells);
     void Move(std::vector<Cell>& cells, Key key);
     void Render(SDL_Renderer* renderer);
     int CalculateTileIndex() { return row * 4 + column; }

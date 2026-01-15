@@ -4,8 +4,7 @@
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
     mWindow(title, width, height, Color::TomatoOrange()),
     mGrid(Coord2D(static_cast<float>(width * 0.25), static_cast<float>(height * 0.1875)), width / 2), 
-    mRunning(false),
-    IsKeyPressed(false) {}
+    Direction(Key::NONE), IsKeyPressed(false), mRunning(false) {}
 
 GameEngine::~GameEngine() {
     GameEngine::ShutDown();

@@ -1,6 +1,10 @@
 #include "Core/Grid.h"
+#include <cstdlib>
+#include <ctime>
 
-Grid::Grid(Coord2D pos, float width) : mPosition(pos), mWidth(width), mColor(Color::Gainsboro()) {}
+Grid::Grid(Coord2D pos, float width) : 
+    mWidth(width), mMaxTiles(16), mColor(Color::Gainsboro()), 
+    mPosition(pos) {}
 
 void Grid::Initialize(int NumberofCells, int NumberofTiles) {
     mCells.clear();
@@ -17,9 +21,9 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
     for(int i=0; i<NumberofTiles; ++i) {
         int r = GenerateRandomIndex(), c = GenerateRandomIndex();
         int index = CalculateCellIndex(r, c);
-        Coord2D position(mCells[index].position);
         mCells[index].ChangeState();
-        mTiles.push_back(Tile(position, r, c, size));
+
+        mTiles.push_back(Tile(Coord2D(mCells[index].position), r, c, size));
     }
 }
 
@@ -39,9 +43,86 @@ void Grid::SetCellsPosition(float size, float margin) {
     }
 }
 
-void Grid::Update(Key key) {
+void Grid::MoveTiles(Key key) {
+        // switch (key)
+        // {
+        // case Key::UP:
+
+        //     break;
+        // case Key::DOWN:
+        //     for (int i=3; i>0; i--) {
+        //         for (int j=3; j>0; j--) {
+        //             int idx = CalculateCellIndex(i, j);
+        //             mTiles[idx].Move(mCells, key);
+        //         }
+        //     }
+        //     break;
+        // case Key::LEFT:
+        //     for (int j=0; j<3; j++) {
+        //         for (int i=3; i>=0; i--) {
+        //             int idx = CalculateCellIndex(i, j);
+        //             mTiles[idx].Move(mCells, key);
+        //         }
+        //     }
+        //     break;
+        // case Key::RIGHT:
+        //     for (int j=3; j>=0; j--) {
+        //         for (int i=0; i<3; i++) {
+        //             int idx = CalculateCellIndex(i, j);
+        //             mTiles[idx].Move(mCells, key);
+        //         }
+        //     }
+        //     break;
+        // }
+    if (key == Key::UP || key == Key::LEFT) {
+        for (auto& tile : mTiles) {
+            tile.Move(mCells, key);
+        }
+    }
+    if (key == Key::DOWN) {
+        for (int i=3; i>=0; i--) {
+            for (int j=3; j>=0; j--) {
+                int idx = CalculateCellIndex(i, j);
+                mTiles[idx].Move(mCells, key);
+            }
+        }
+    }
+        if (key == Key::RIGHT) {
+        for (int i=0; i<3; i++) {
+            for (int j=3; j>0; j--) {
+                int idx = CalculateCellIndex(i, j);
+                mTiles[idx].Move(mCells, key);
+            }
+        }
+    }
+    SpawnNewTiles(mCells[0].size);
+}
+
+void Grid::Update() {
     for (auto& tile : mTiles) {
-        tile.Update(mCells, key);
+        tile.Update(mCells);
+    }
+}
+
+void Grid::SpawnNewTiles(float size) {
+    if (mTiles.size() > mMaxTiles - 1) return;
+    int idx, r, c;
+    bool check = true;
+
+    do {
+        r = GenerateRandomIndex(), c = GenerateRandomIndex();
+        idx = CalculateCellIndex(r, c);
+        if (!mCells[idx].GetState()) check = false;
+    } while(check);
+    mCells[idx].ChangeState();
+
+    mTiles.push_back(Tile(Coord2D(mCells[idx].position), r, c, size));
+    uint8_t red=135, g=130, b=120;
+    for (int i=2; i<mTiles.size(); i++) {
+        mTiles[i].color = Color(red, g, b);
+        red = red + 35;
+        g = g + 30;
+        b = b + 20;
     }
 }
 
@@ -69,6 +150,7 @@ int Grid::CalculateCellIndex(int row, int column) {
 }
 
 int Grid::GenerateRandomIndex() {
-    std::uniform_int_distribution<int> dist(0, 3);
-    return dist(mRandomGenerator);
+    // std::uniform_int_distribution<int> dist(0, 3);
+    // return dist(mRandomGenerator);
+    return rand() % 4;
 }
