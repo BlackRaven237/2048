@@ -24,7 +24,6 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
 
     for(int i=0; i<NumberofTiles; ++i) {
         int row = GenerateRandomIndex(), column = GenerateRandomIndex();
-        row = i+1, column = i;
         mCells[row][column].ChangeState();
         mTiles.push_back(
             Tile(
