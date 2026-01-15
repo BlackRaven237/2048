@@ -10,7 +10,7 @@ echo.
 REM ====== Options de compilation ======
 set CXX=clang++
 set STANDARD=-std=c++20
-set CXXFLAGS=%STANDARD% -O2 -g 
+set CXXFLAGS=%STANDARD% -Wall -Wextra -O2 -g 
 set LDFLAGS=-lSDL3
 
 REM ====== Gestion des répertoires ======
