@@ -44,7 +44,7 @@ void Tile::Move(std::vector<Cell> &cells, Key key)
 void Tile::Update(std::vector<Cell> &cells)
 {
     // Move(cells, key);
-    position = Point(cells[mIndex].position);
+    // position = Point(cells[mIndex].position);
 }
 
 bool Tile::IsValidMove(int rowValue, int columnValue)

@@ -27,8 +27,11 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
         row = i+1, column = i;
         mCells[row][column].ChangeState();
         mTiles.push_back(
-            Tile(Point(mCells[row][column].position), 
-            Coord(mCells[row][column].GetCoord()), size)
+            Tile(
+                Point(mCells[row][column].position), 
+                Coord(mCells[row][column].GetCoord()), 
+                size
+            )
         );
     }
 }

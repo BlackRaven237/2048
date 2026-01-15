@@ -16,8 +16,9 @@ public:
     void Update(std::vector<Cell>& cells);
     void Move(std::vector<Cell>& cells, Key key);
     void Render(SDL_Renderer* renderer);
+    Coord GetCoord() const { return mCoord; }
     int CalculateTileIndex() { return mCoord.row * 4 +  mCoord.column; }
-    int GetTileIndex() { return mIndex; }
+    int GetTileIndex() const { return mIndex; }
 private:
     int GenerateRandomIndex();
     bool IsValidMove(int rowValue, int columnValue);
