@@ -4,20 +4,19 @@
 #include "Cell.h"
 
 class Tile {
-    int row;
-    int column;
+    Coord mCoord;
     int mIndex;
 public: 
-    Coord2D position;
+    Point position;
     float size;
     Color color;
 
-    Tile(Coord2D pos, int rowValue, int columnValue, float size);
+    Tile(Point pos, Coord coord, float size);
     Tile(const Tile& other);
     void Update(std::vector<Cell>& cells);
     void Move(std::vector<Cell>& cells, Key key);
     void Render(SDL_Renderer* renderer);
-    int CalculateTileIndex() { return row * 4 + column; }
+    int CalculateTileIndex() { return mCoord.row * 4 +  mCoord.column; }
     int GetTileIndex() { return mIndex; }
 private:
     int GenerateRandomIndex();
