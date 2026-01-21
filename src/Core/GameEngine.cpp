@@ -2,7 +2,7 @@
 #include <iostream>
 
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
-    mWindow(title, width, height, Color::TomatoOrange()),
+    mWindow(title, width, height),
     mGrid(Point(static_cast<float>(width * 0.25), static_cast<float>(height * 0.1875)), width / 2), 
     Direction(Key::NONE), IsKeyPressed(false), mRunning(false) {}
 

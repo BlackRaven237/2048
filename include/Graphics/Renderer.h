@@ -7,9 +7,8 @@
 class Renderer
 {
     SDL_Renderer* mRenderer;
-    Color mColor;
 public:
-    Renderer(Color color);
+    bool SetRenderDrawColor(Color color);
     bool CreateRenderer(SDL_Window* window);
     void DestroyRenderer();
     void Clear();

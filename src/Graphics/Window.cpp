@@ -1,8 +1,8 @@
 #include "Graphics/Window.h"
 
-Window::Window(const std::string& title, float width, float height, Color color) : 
+Window::Window(const std::string& title, float width, float height) : 
     mTitle(title), mWidth(width), mHeight(height),
-    mWindow(nullptr), mRenderer(color), mIsInitialized(false) {}
+    mWindow(nullptr), mRenderer(new Renderer), mIsInitialized(false) {}
 
 Window::~Window() {
     Window::ShutDown();
@@ -27,7 +27,7 @@ bool Window::Initialize() {
         return false;
     }
 
-    if(!mRenderer.CreateRenderer(mWindow)) {
+    if(!mRenderer->CreateRenderer(mWindow)) {
         SDL_Log("Renderer couldn't created: %s\n", SDL_GetError());
         SDL_DestroyWindow(mWindow);
         SDL_Quit();
@@ -39,7 +39,11 @@ bool Window::Initialize() {
 }
 
 void Window::ShutDown() {
-    mRenderer.DestroyRenderer();
+    if (mRenderer) {
+        mRenderer->DestroyRenderer();
+        delete mRenderer;
+        mRenderer = nullptr;
+    }
 
     if (mWindow) {
         SDL_DestroyWindow(mWindow);
@@ -52,13 +56,14 @@ void Window::ShutDown() {
 }
 
 void Window::Clear() {
-    mRenderer.Clear();
+    mRenderer->SetRenderDrawColor(Color::TomatoOrange());
+    mRenderer->Clear();
 }
 
 void Window::Present() {
-    mRenderer.Present();
+    mRenderer->Present();
 }
 
 SDL_Renderer* Window::GetRenderer() {
-    return mRenderer.GetRenderer();
+    return mRenderer->GetRenderer();
 }

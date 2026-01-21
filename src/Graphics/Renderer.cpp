@@ -1,6 +1,12 @@
 #include "Graphics/Renderer.h"
 
-Renderer::Renderer(Color color) : mColor(color) {}
+bool Renderer::SetRenderDrawColor(Color color) {
+    if(mRenderer) {
+        SDL_SetRenderDrawColor(mRenderer, color.red, color.green, color.blue, 255);
+        return true;
+    }
+    return false;
+}
 
 bool Renderer::CreateRenderer(SDL_Window* window) {
     mRenderer = SDL_CreateRenderer(window, nullptr);
@@ -9,15 +15,12 @@ bool Renderer::CreateRenderer(SDL_Window* window) {
 }
 
 void Renderer::DestroyRenderer() {
-    if (mRenderer) {
-        SDL_DestroyRenderer(mRenderer);
-        mRenderer = nullptr;
-    }
+    SDL_DestroyRenderer(mRenderer);
+    mRenderer = nullptr;
 }
 
 void Renderer::Clear() {
     if (mRenderer) {
-        SDL_SetRenderDrawColor(mRenderer, mColor.red, mColor.green, mColor.blue, 255);
         SDL_RenderClear(mRenderer);
     }
 }

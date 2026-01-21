@@ -10,10 +10,10 @@ class Window {
     float mWidth;
     float mHeight;
     SDL_Window* mWindow;
-    Renderer mRenderer;
+    Renderer* mRenderer;
     bool mIsInitialized;
 public:
-    Window(const std::string& title, float width, float height, Color color);
+    Window(const std::string& title, float width, float height);
     ~Window();
     bool Initialize();
     void ShutDown();
