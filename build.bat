@@ -25,9 +25,9 @@ set OUTPUT_NAME=App
 REM ====== Vérifications des ressources ======
 echo [1/4] 📝 Vérification du ressources....
 if not exist "%IMGUI_DIR%" (
-    echo    ❌ Répertoire Imgui non-trouvé !!!
-    echo    Pour gérer ce problème, Télécharger Dear Imgui sur https://github.com/ocornut/imgui.git 
-    exit /b 1
+    echo       ❌ Répertoire Imgui non-trouvé !!!
+    echo       Pour gérer ce problème, Télécharger Dear Imgui sur https://github.com/ocornut/imgui.git 
+    rem exit /b 1
 )
 echo       ✅ Répertoire Imgui trouvé !!!
 echo.
@@ -73,7 +73,7 @@ for /r %%f in (*.cpp) do (
 )
 
 if %CHECK% equ "TRUE" (
-    echo       🙂 Aucun fichier n'a été modifié.
+    echo       🙂 Aucun fichier source n'a été modifié.
 )
 
 @REM ====== Mises à jour des nouvelles dates de modifications ======
@@ -89,7 +89,12 @@ REM ====== Éditeur de liens (ld) ======
 echo [4/4] ⛓️  Éditeur de liens (linking)....
 %CXX% %CXXFLAGS% %OBJ_FILES% %INCLUDE_DIR% -o %BIN_DIR%\%OUTPUT_NAME% %LDFLAGS%
 
-echo       ✅ Éxecutable créer avec succès.
+if not exist "%BIN_DIR%\%OUTPUT_NAME%.exe" (
+    echo       ❌ Aucun éxecutable créer !!!
+    echo       Erreur générer au linkage(ld)
+) else (
+    echo       ✅ Éxecutable créer avec succès.
+)
 echo.
 
 echo    =================================================
