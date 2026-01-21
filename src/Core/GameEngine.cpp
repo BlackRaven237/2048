@@ -25,12 +25,28 @@ void GameEngine::ShutDown() {
 }
 
 void GameEngine::Run() {
+    Uint64 LastUpdateTime = 0, frames = 0;
     while(mRunning) {
+        Uint64 CurrentTime = SDL_GetTicks();
+
         GameEngine::HandleEvents();
         GameEngine::Update();
         GameEngine::Render(mWindow.GetRenderer());
+
         // ~60 FPS
         SDL_Delay(16);
+        frames++;
+
+        // elasped time for each frame
+        // Uint64 deltaTime = SDL_GetTicks() - CurrentTime;
+
+        // FPS Count
+        if (CurrentTime > LastUpdateTime + 1000) {
+            LastUpdateTime = CurrentTime;
+            std::string name = "🧩 2048 - FPS: " + std::to_string(frames);
+            SDL_SetWindowTitle(mWindow.GetWindow(), name.c_str());
+            frames = 0;
+        }
     }
 }
 
