@@ -5,7 +5,20 @@ Window::Window(const std::string& title, float width, float height) :
     mWindow(nullptr), mRenderer(new Renderer), mIsInitialized(false) {}
 
 Window::~Window() {
-    Window::ShutDown();
+    if (mRenderer) {
+        mRenderer->DestroyRenderer();
+        delete mRenderer;
+        mRenderer = nullptr;
+    }
+
+    if (mWindow) {
+        SDL_DestroyWindow(mWindow);
+        mWindow = nullptr;
+    }
+
+    SDL_Quit();
+    mIsInitialized = false;
+    SDL_Log("Window has successfully been closed");
 }
 
 bool Window::Initialize() {
@@ -36,23 +49,6 @@ bool Window::Initialize() {
     mIsInitialized = true;
     SDL_Log("Window has been successfully initialized");
     return true;
-}
-
-void Window::ShutDown() {
-    if (mRenderer) {
-        mRenderer->DestroyRenderer();
-        delete mRenderer;
-        mRenderer = nullptr;
-    }
-
-    if (mWindow) {
-        SDL_DestroyWindow(mWindow);
-        mWindow = nullptr;
-    }
-
-    SDL_Quit();
-    mIsInitialized = false;
-    SDL_Log("Window has successfully been closed");
 }
 
 void Window::Clear() {

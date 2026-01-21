@@ -2,7 +2,6 @@
 #define WINDOW_H
 
 #include <string>
-#include "Core/Color.h"
 #include "Renderer.h"
 
 class Window {
@@ -16,7 +15,6 @@ public:
     Window(const std::string& title, float width, float height);
     ~Window();
     bool Initialize();
-    void ShutDown();
     void Clear();
     void Present();
     SDL_Renderer* GetRenderer();
