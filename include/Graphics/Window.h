@@ -17,6 +17,7 @@ public:
     bool Initialize();
     void Clear();
     void Present();
+    SDL_Window* GetWindow();
     SDL_Renderer* GetRenderer();
 };
 
