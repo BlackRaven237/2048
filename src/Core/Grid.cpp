@@ -11,8 +11,6 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
     mCells.clear();
     mTiles.clear();
 
-    float margin = (mWidth * 0.05) / 5;
-
     for(int i=0; i<NumberofCells; ++i) {
         std::vector<Cell> row; // create a new row
         for (int j=0; j<NumberofCells; ++j) {
@@ -24,7 +22,7 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
 
     for(int i=0; i<NumberofTiles; ++i) {
         int row = GenerateRandomIndex(), column = GenerateRandomIndex();
-        mCells[row][column].ChangeState();
+        mCells[row][column].SetOccupied(true);
         mTiles.push_back(
             Tile(
                 Point(mCells[row][column].position), 
@@ -60,23 +58,27 @@ void Grid::MoveTiles(Key direction) {
         default: break;
     }
 
-    SpawnNewTiles(mCells[0][0].size);
+    SpawnNewTiles(cellSize);
 }
 
 void Grid::Update() {
-    int n = (int)mCells.size();
-    for (int row=0; row<n; ++row) {
-        for (int cols=0; cols<n; ++cols) {
-            //Coord new_coord = mCells[row][cols].GetCoord();
-            int idx = CalculateCellIndex(row, cols);
-            mTiles[idx].position = mCells[row][cols].position;
-            //mTiles[idx].SetCoord(new_coord);
+    for (auto tile : mTiles) {
+        tile.Move(mCells[tile.tileRow][tile.tileColumn].position);
+    }
+
+    for (auto& row : mCells) {
+        for (auto& cell : row) {
+            cell.SetOccupied(false);
         }
+    }
+
+    for (auto& tile : mTiles) {
+        mCells[tile.tileRow][tile.tileColumn].SetOccupied(true);
     }
 }
 
 void Grid::SpawnNewTiles(float size) {
-    if (mTiles.size() > mMaxTiles - 1) return;
+    if (mTiles.size() >= mMaxTiles) return;
     int r, c;
     bool check = true;
 
@@ -84,7 +86,7 @@ void Grid::SpawnNewTiles(float size) {
         r = GenerateRandomIndex(), c = GenerateRandomIndex();
         if (!mCells[r][c].GetState()) check = false;
     } while(check);
-    mCells[r][c].ChangeState();
+    mCells[r][c].SetOccupied(true);
 
     mTiles.push_back(Tile(Point(mCells[r][c].position), r, c, size));
 
@@ -107,9 +109,9 @@ void Grid::Render(SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, mColor.red, mColor.green, mColor.blue, 255);
     SDL_RenderFillRect(renderer, &Grid);
 
-    for(auto& cell : mCells) {
-        for (int i=0; i<4; i++) {
-            cell[i].Render(renderer);
+    for(auto& row : mCells) {
+        for (auto& cell : row) {
+            cell.Render(renderer);
         }
     }
 
@@ -123,8 +125,6 @@ int Grid::CalculateCellIndex(int row, int column) {
 }
 
 int Grid::GenerateRandomIndex() {
-    // std::uniform_int_distribution<int> dist(0, 3);
-    // return dist(mRandomGenerator);
     return rand() % 4;
 }
 
@@ -195,9 +195,9 @@ void Grid::Transpose() {
     }
 }
 
-void Grid::Reverse(std::vector<Cell>& row) {
+//void Grid::Reverse(std::vector<Cell>& row) {
 
-}
+//}
 
 void Grid::showCells() {
     std::cout << "current cell position" << std::endl;

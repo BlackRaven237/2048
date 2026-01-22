@@ -37,7 +37,7 @@ public:
     Color color;
 
     Cell(int row, int column, float size);
-    void ChangeState();
+    void SetOccupied(bool value);
     bool GetState();
     void Render(SDL_Renderer* renderer);
 };

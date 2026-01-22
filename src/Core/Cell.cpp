@@ -1,11 +1,11 @@
 #include "Core/Cell.h"
 
 Cell::Cell(int row, int column, float size) : 
-    cellRow(row), cellColumn(column), mIsOccupied(false), 
+    mIsOccupied(false), cellRow(row), cellColumn(column), 
     size(size), color(Color::LightGray()) {}
 
-void Cell::ChangeState() { 
-    mIsOccupied = !mIsOccupied; 
+void Cell::SetOccupied(bool value) { 
+    mIsOccupied = value; 
 }
 
 bool Cell::GetState() { 

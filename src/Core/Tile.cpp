@@ -11,7 +11,8 @@ Tile::Tile(const Tile &other) :
     size(other.size), color(other.color) {}
 
 void Tile::Move(Point targetPosition) {
-    
+    position.x += targetPosition.x;
+    position.y += targetPosition.y;
 }
 
 
