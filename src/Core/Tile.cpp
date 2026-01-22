@@ -10,7 +10,8 @@ Tile::Tile(const Tile &other) :
     tileRow(other.tileRow), tileColumn(other.tileColumn),
     size(other.size), color(other.color) {}
 
-void Tile::Slide(std::vector<Cell> &cells, Key direction) {
+void Tile::Move(Point targetPosition) {
+    
 }
 
 

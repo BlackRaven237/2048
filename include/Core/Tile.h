@@ -16,7 +16,7 @@ public:
     Tile(const Tile& other);
 
     void Update();
-    void Slide(std::vector<Cell> &cells, Key direction);
+    void Move(Point targetPosition);
     void Render(SDL_Renderer* renderer);
     
     int CalculateTileIndex() { return tileRow * 4 +  tileColumn; }
