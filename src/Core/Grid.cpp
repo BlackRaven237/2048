@@ -5,23 +5,22 @@
 
 Grid::Grid(Point position, float width) : 
     mWidth(width), mMaxTiles(16), mColor(Color::Gainsboro()), 
-    m_position(position) {}
+    m_position(position), cellSize((mWidth * 0.95) / 4) {}
 
 void Grid::Initialize(int NumberofCells, int NumberofTiles) {
     mCells.clear();
     mTiles.clear();
 
-    float size = (mWidth * 0.95) / 4;
     float margin = (mWidth * 0.05) / 5;
 
     for(int i=0; i<NumberofCells; ++i) {
         std::vector<Cell> row; // create a new row
         for (int j=0; j<NumberofCells; ++j) {
-            row.push_back(Cell(i, j, size)); // Add cells to row
+            row.push_back(Cell(i, j, cellSize)); // Add cells to row
         }
         mCells.push_back(row); // Add the row to mCells
     }
-    InitializeCellsPosition(size, margin);
+    InitializeCellsPosition();
 
     for(int i=0; i<NumberofTiles; ++i) {
         int row = GenerateRandomIndex(), column = GenerateRandomIndex();
@@ -31,23 +30,24 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
                 Point(mCells[row][column].position), 
                 row,
                 column, 
-                size
+                cellSize
             )
         );
     }
 }
 
-void Grid::InitializeCellsPosition(float size, float margin) {
+void Grid::InitializeCellsPosition() {
+    float margin = (mWidth * 0.05) / 5;
     float x = 0.0f, y = m_position.y + margin;
     for (int row=0; row<4; ++row) {
         x = m_position.x + margin;
         for (int column=0; column<4; ++column) {
             // move to the x-coordinate of next cell (horizontally)
             mCells[row][column].position = Point(x, y);
-            x += size + margin;
+            x += cellSize + margin;
         }
         // move to the y-coordinate of next cell (vertically)
-        y += size + margin;
+        y += cellSize + margin;
     }
 }
 

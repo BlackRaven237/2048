@@ -14,6 +14,7 @@ class Grid
     size_t mMaxTiles;
     Color mColor;
     Point m_position;
+    float cellSize;
 public:
     Grid(Point position, float width);
     void Initialize(int NumberofCells, int NumberofTiles);
@@ -24,7 +25,7 @@ public:
 private:
     int CalculateCellIndex(int row, int column);
     int GenerateRandomIndex();
-    void InitializeCellsPosition(float size, float margin);
+    void InitializeCellsPosition();
 
     std::vector<Cell> slideRow(const std::vector<Cell>& row);
     void slideUp();
