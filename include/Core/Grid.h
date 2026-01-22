@@ -20,20 +20,18 @@ public:
     void Initialize(int NumberofCells, int NumberofTiles);
     void SpawnNewTiles(float size);
     void MoveTiles(Key key);
-    void Update();
+    void Update(float deltaTime);
     void Render(SDL_Renderer* renderer);
 private:
     int CalculateCellIndex(int row, int column);
     int GenerateRandomIndex();
     void InitializeCellsPosition();
 
-    std::vector<Cell> slideRow(const std::vector<Cell>& row);
+    std::vector<Tile*> CollectTilesinRow(const std::vector<Cell>& row);
     void slideUp();
     void slideDown();
     void slideLeft();
     void slideRight();
-    void Transpose();
-    void Reverse(std::vector<Cell>& row);
 
     void showCells();
 };

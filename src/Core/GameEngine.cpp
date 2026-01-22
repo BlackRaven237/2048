@@ -30,16 +30,14 @@ void GameEngine::Run() {
         Uint64 CurrentTime = SDL_GetTicks();
 
         GameEngine::HandleEvents();
-        GameEngine::Update();
-        GameEngine::Render(mWindow.GetRenderer());
-
-        // ~60 FPS
-        SDL_Delay(16);
-        frames++;
 
         // elasped time for each frame
-        // Uint64 deltaTime = SDL_GetTicks() - CurrentTime;
+        Uint64 deltaTime = (SDL_GetTicks() - CurrentTime) / 1000;
 
+        GameEngine::Update(deltaTime);
+        GameEngine::Render(mWindow.GetRenderer());
+        
+        frames++;
         // FPS Count
         if (CurrentTime > LastUpdateTime + 1000) {
             LastUpdateTime = CurrentTime;
@@ -47,6 +45,9 @@ void GameEngine::Run() {
             SDL_SetWindowTitle(mWindow.GetWindow(), name.c_str());
             frames = 0;
         }
+
+        // limiting to ~60 FPS
+        SDL_Delay(16);
     }
 }
 
@@ -88,12 +89,10 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
     }
 }
 
-void GameEngine::Update() {
-    
-
+void GameEngine::Update(float deltaTime) {
     if (IsKeyPressed) {
         mGrid.MoveTiles(Direction);
-        mGrid.Update();
+        mGrid.Update(deltaTime);
         IsKeyPressed = false;
     }
 }

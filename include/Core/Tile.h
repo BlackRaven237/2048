@@ -16,7 +16,7 @@ public:
     Tile(const Tile& other);
 
     void Update();
-    void Move(Point targetPosition);
+    void Move(Point targetPosition, float deltaTime);
     void Render(SDL_Renderer* renderer);
     
     int CalculateTileIndex() { return tileRow * 4 +  tileColumn; }

@@ -10,9 +10,10 @@ Tile::Tile(const Tile &other) :
     tileRow(other.tileRow), tileColumn(other.tileColumn),
     size(other.size), color(other.color) {}
 
-void Tile::Move(Point targetPosition) {
-    position.x += targetPosition.x;
-    position.y += targetPosition.y;
+void Tile::Move(Point targetPosition, float deltaTime) {
+    float speed = 1200.0f;
+    position.x += (targetPosition.x - position.x); //* deltaTime * speed;
+    position.y += (targetPosition.y - position.y); //* deltaTime * speed;
 }
 
 
