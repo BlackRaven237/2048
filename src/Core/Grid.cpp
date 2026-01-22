@@ -21,7 +21,7 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
         }
         mCells.push_back(row); // Add the row to mCells
     }
-    SetCellsPosition(size, margin);
+    InitializeCellsPosition(size, margin);
 
     for(int i=0; i<NumberofTiles; ++i) {
         int row = GenerateRandomIndex(), column = GenerateRandomIndex();
@@ -37,7 +37,7 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
     }
 }
 
-void Grid::SetCellsPosition(float size, float margin) {
+void Grid::InitializeCellsPosition(float size, float margin) {
     float x = 0.0f, y = m_position.y + margin;
     for (int row=0; row<4; ++row) {
         x = m_position.x + margin;
@@ -201,7 +201,7 @@ void Grid::Reverse(std::vector<Cell>& row) {
 
 void Grid::showCells() {
     std::cout << "current cell position" << std::endl;
-    
+
     for (auto& row : mCells) {
         for (auto& cell : row) {
             std::cout << "[" << cell.cellRow << ", " << cell.cellColumn << "]";

@@ -24,7 +24,7 @@ public:
 private:
     int CalculateCellIndex(int row, int column);
     int GenerateRandomIndex();
-    void SetCellsPosition(float size, float margin);
+    void InitializeCellsPosition(float size, float margin);
 
     std::vector<Cell> slideRow(const std::vector<Cell>& row);
     void slideUp();
