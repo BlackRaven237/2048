@@ -13,7 +13,7 @@ public:
     void DestroyRenderer();
     void Clear();
     void Present();
-    SDL_Renderer* GetRenderer() { return mRenderer; };
+    SDL_Renderer* GetRenderer() const { return mRenderer; };
 };
 
 #endif

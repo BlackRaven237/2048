@@ -60,9 +60,9 @@ void Window::Present() {
     mRenderer->Present();
 }
 
-SDL_Window* Window::GetWindow() {
+SDL_Window* Window::GetWindow() const {
     return mWindow;
 }
-SDL_Renderer* Window::GetRenderer() {
+SDL_Renderer* Window::GetRenderer() const {
     return mRenderer->GetRenderer();
 }

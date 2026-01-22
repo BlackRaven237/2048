@@ -17,8 +17,8 @@ public:
     bool Initialize();
     void Clear();
     void Present();
-    SDL_Window* GetWindow();
-    SDL_Renderer* GetRenderer();
+    SDL_Window* GetWindow() const;
+    SDL_Renderer* GetRenderer() const;
 };
 
 #endif
