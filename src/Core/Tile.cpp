@@ -1,46 +1,22 @@
 #include "Core/Tile.h"
 
-Tile::Tile(Point pos, Coord coord, float size) : 
-    mCoord(coord), mIndex(CalculateTileIndex()), 
-    position(pos), size(size), color(Color::Green()) {}
+Tile::Tile(Point pos, int row, int column, float size) : 
+    mIndex(CalculateTileIndex()), position(pos), 
+    tileRow(row), tileColumn(column), 
+    size(size), color(Color::Green()) {}
 
 Tile::Tile(const Tile &other) : 
-    mCoord(other.mCoord), mIndex(other.mIndex), 
-    position(other.position), size(other.size), color(other.color) {}
+    mIndex(other.mIndex), position(other.position), 
+    tileRow(other.tileRow), tileColumn(other.tileColumn),
+    size(other.size), color(other.color) {}
 
-void Tile::Slide(std::vector<Cell> &cells, Key direction)
-{
-    int rowValue = mCoord.row, columnValue = mCoord.column;
-    while(true) {
-        switch (direction) {
-        case Key::UP: rowValue--; break;
-        case Key::DOWN: rowValue++; break;
-        case Key::LEFT: columnValue--; break;
-        case Key::RIGHT: columnValue++; break;
-        default: break;
-        }
-    
-        if(!IsValidMove(rowValue, columnValue)) return;
-        
-        int nextIndex = rowValue * 4 + columnValue;
-        if(cells[nextIndex].GetState()) return;
-        mCoord.row = rowValue;
-        mCoord.column = columnValue;
-        cells[mIndex].ChangeState();
-        mIndex = CalculateTileIndex();
-        cells[mIndex].ChangeState();
-    }
+void Tile::Slide(std::vector<Cell> &cells, Key direction) {
 }
 
-void Tile::Update(std::vector<Cell> &cells)
-{
-    // Move(cells, key);
-    // position = cells[mIndex].position;
-}
 
-bool Tile::IsValidMove(int rowValue, int columnValue)
+bool Tile::IsValidMove(int row, int column)
 {
-    return rowValue >= 0 && rowValue < 4 && columnValue >= 0 && columnValue < 4;
+    return row >= 0 && row < 4 && column >= 0 && column < 4;
 }
 
 void Tile::Render(SDL_Renderer *renderer)

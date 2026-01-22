@@ -6,19 +6,6 @@
 #include <vector>
 #include <iostream>
 
-struct Coord {
-    int row;
-    int column;
-    Coord(int rowValue = 0, int columnValue = 0) : row(rowValue), column(columnValue) {}
-    Coord(const Coord& other) : row(other.row), column(other.column) {}
-    Coord& operator=(const Coord& other) {
-        if (this == &other) return *this;
-        this->row = other.row;
-        this->column = other.row;
-        return *this; 
-    }
-};
-
 struct Point {
     float x;
     float y;
@@ -41,17 +28,17 @@ enum class Key {
 };
 
 class Cell {
-    Coord mCoord;
     bool mIsOccupied;
 public:
+    int cellRow;
+    int cellColumn;
     Point position;
     float size;
     Color color;
 
-    Cell(Coord coord, float size);
+    Cell(int row, int column, float size);
     void ChangeState();
     bool GetState();
-    Coord GetCoord() const;
     void Render(SDL_Renderer* renderer);
 };
 

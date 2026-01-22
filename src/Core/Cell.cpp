@@ -1,7 +1,7 @@
 #include "Core/Cell.h"
 
-Cell::Cell(Coord coord, float size) : 
-    mCoord(coord), mIsOccupied(false), 
+Cell::Cell(int row, int column, float size) : 
+    cellRow(row), cellColumn(column), mIsOccupied(false), 
     size(size), color(Color::LightGray()) {}
 
 void Cell::ChangeState() { 
@@ -10,10 +10,6 @@ void Cell::ChangeState() {
 
 bool Cell::GetState() { 
     return mIsOccupied; 
-}
-
-Coord Cell::GetCoord() const { 
-    return mCoord; 
 }
 
 void Cell::Render(SDL_Renderer* renderer) {

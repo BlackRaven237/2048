@@ -89,10 +89,11 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
 }
 
 void GameEngine::Update() {
-    mGrid.Update();
+    
 
     if (IsKeyPressed) {
         mGrid.MoveTiles(Direction);
+        mGrid.Update();
         IsKeyPressed = false;
     }
 }

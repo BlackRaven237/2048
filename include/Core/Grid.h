@@ -3,6 +3,7 @@
 
 #include "Tile.h"
 #include <random>
+#include <algorithm>
 #include <memory>
 
 class Grid
@@ -13,9 +14,8 @@ class Grid
     size_t mMaxTiles;
     Color mColor;
     Point m_position;
-    std::mt19937 mRandomGenerator;
 public:
-    Grid(Point pos, float width);
+    Grid(Point position, float width);
     void Initialize(int NumberofCells, int NumberofTiles);
     void SpawnNewTiles(float size);
     void MoveTiles(Key key);
@@ -25,6 +25,16 @@ private:
     int CalculateCellIndex(int row, int column);
     int GenerateRandomIndex();
     void SetCellsPosition(float size, float margin);
+
+    std::vector<Cell> slideRow(const std::vector<Cell>& row);
+    void slideUp();
+    void slideDown();
+    void slideLeft();
+    void slideRight();
+    void Transpose();
+    void Reverse(std::vector<Cell>& row);
+
+    void showCells();
 };
 
 #endif
