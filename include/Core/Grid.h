@@ -21,7 +21,6 @@ public:
     void MoveTiles(Key key);
     void Update();
     void Render(SDL_Renderer* renderer);
-    void Test();
 private:
     int CalculateCellIndex(int row, int column);
     int GenerateRandomIndex();

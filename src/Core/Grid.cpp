@@ -51,7 +51,7 @@ void Grid::SetCellsPosition(float size, float margin) {
 
 void Grid::MoveTiles(Key key) {
     for (auto tile : mTiles) {
-        tile.Move(mCells[0], key);
+        tile.Slide(mCells[0], key);
     }
     SpawnNewTiles(mCells[0][0].size);
 }

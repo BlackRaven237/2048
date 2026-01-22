@@ -13,8 +13,8 @@ public:
 
     Tile(Point pos, Coord coord, float size);
     Tile(const Tile& other);
-    void Update(std::vector<Cell>& cells);
-    void Move(std::vector<Cell>& cells, Key key);
+    void Update(std::vector<Cell> &cells);
+    void Slide(std::vector<Cell> &cells, Key direction);
     void Render(SDL_Renderer* renderer);
     Coord GetCoord() const { return mCoord; }
     int CalculateTileIndex() { return mCoord.row * 4 +  mCoord.column; }
