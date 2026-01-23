@@ -50,11 +50,23 @@ void Grid::InitializeCellsPosition() {
 
 void Grid::MoveTiles(Key direction) {
     switch (direction) {
-        case Key::UP: slideUp(); return;
-        case Key::DOWN: slideDown(); return;
-        case Key::LEFT: slideLeft(); return;
-        case Key::RIGHT: slideRight(); return;
+        case Key::UP: slideUp(); break;;
+        case Key::DOWN: slideDown(); break;
+        case Key::LEFT: slideLeft(); break;
+        case Key::RIGHT: slideRight(); break;
         default: break;
+    }
+
+    // Consider all cells are not occupied
+    for (auto& row : mCells) {
+        for (auto& cell : row) {
+            cell.SetOccupied(false);
+        }
+    }
+
+    // Set the occupation state only to occupied cells 
+    for (auto& tile : mTiles) {
+        mCells[tile.row][tile.column].SetOccupied(true);
     }
 
     SpawnNewTiles(cellSize);
@@ -63,16 +75,6 @@ void Grid::MoveTiles(Key direction) {
 void Grid::Update(float deltaTime) {
     for (auto& tile : mTiles) {
         tile.Move(mCells[tile.row][tile.column].position, deltaTime);
-    }
-
-    for (auto& row : mCells) {
-        for (auto& cell : row) {
-            cell.SetOccupied(false);
-        }
-    }
-
-    for (auto& tile : mTiles) {
-        mCells[tile.row][tile.column].SetOccupied(true);
     }
 }
 
