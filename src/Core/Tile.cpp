@@ -1,12 +1,12 @@
 #include "Core/Tile.h"
 
 Tile::Tile(Vector2D pos, int row, int column, float size) : 
-    mIndex(CalculateTileIndex()), position(pos), 
+    m_value(2), position(pos), 
     row(row), column(column), 
     size(size), color(Color::Green()) {}
 
 Tile::Tile(const Tile &other) : 
-    mIndex(other.mIndex), position(other.position), 
+    m_value(other.m_value), position(other.position), 
     row(other.row), column(other.column),
     size(other.size), color(other.color) {}
 

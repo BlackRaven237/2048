@@ -4,7 +4,7 @@
 #include "Cell.h"
 
 class Tile {
-    int mIndex;
+    int m_value;
 public: 
     Vector2D position;
     int row;
@@ -18,8 +18,7 @@ public:
     void Move(Vector2D targetPosition, float deltaTime);
     void Render(SDL_Renderer* renderer);
     
-    int CalculateTileIndex() { return row * 4 +  column; }
-    int GetTileIndex() const { return mIndex; }
+    int GetTileIndex() const { return m_value; }
 private:
     bool IsValidMove(int row, int column);
 };
