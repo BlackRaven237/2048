@@ -2,7 +2,7 @@
 #define RENDERER_H
 
 #include <SDL3/SDL.h>
-#include "Core/Color.h"
+#include "Helpers/color.h"
 
 class Renderer
 {

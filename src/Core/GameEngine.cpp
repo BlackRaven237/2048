@@ -1,5 +1,4 @@
 #include "Core\GameEngine.h"
-#include <iostream>
 
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
     mWindow(title, width, height),

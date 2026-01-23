@@ -1,7 +1,4 @@
 #include "Core/Grid.h"
-#include <cstdlib>
-#include <ctime>
-#include <utility>
 
 Grid::Grid(Point position, float width) : 
     mWidth(width), mMaxTiles(16), mColor(Color::Gainsboro()), 

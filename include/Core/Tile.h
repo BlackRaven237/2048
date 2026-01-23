@@ -18,7 +18,7 @@ public:
     void Move(Point targetPosition, float deltaTime);
     void Render(SDL_Renderer* renderer);
     
-    int CalculateTileIndex() { return tileRow * 4 +  tileColumn; }
+    int CalculateTileIndex() { return row * 4 +  column; }
     int GetTileIndex() const { return mIndex; }
 private:
     bool IsValidMove(int row, int column);

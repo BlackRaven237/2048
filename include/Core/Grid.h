@@ -2,9 +2,10 @@
 #define GRID_H
 
 #include "Tile.h"
-#include <random>
-#include <algorithm>
+#include <vector>
 #include <memory>
+#include <utility>
+#include <cstdlib>
 
 class Grid
 {

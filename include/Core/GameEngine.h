@@ -3,6 +3,7 @@
 
 #include "Grid.h"
 #include "Graphics\Window.h"
+#include <iostream>
 #include <SDL3/SDL_timer.h>
 
 class GameEngine {
