@@ -38,7 +38,7 @@ public:
 
     Cell(int row, int column, float size);
     void SetOccupied(bool value);
-    bool GetState();
+    bool isOccupied();
     void Render(SDL_Renderer* renderer);
 };
 

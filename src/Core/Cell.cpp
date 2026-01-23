@@ -8,7 +8,7 @@ void Cell::SetOccupied(bool value) {
     mIsOccupied = value; 
 }
 
-bool Cell::GetState() { 
+bool Cell::isOccupied() { 
     return mIsOccupied; 
 }
 

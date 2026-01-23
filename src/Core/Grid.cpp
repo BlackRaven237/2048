@@ -84,7 +84,7 @@ void Grid::SpawnNewTiles(float size) {
 
     do {
         row = GenerateRandomIndex(), column = GenerateRandomIndex();
-        if (!mCells[row][column].GetState()) check = false;
+        if (!mCells[row][column].isOccupied()) check = false;
     } while(check);
     mCells[row][column].SetOccupied(true);
 
