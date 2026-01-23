@@ -18,7 +18,9 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
     InitializeCellsPosition();
 
     for(int i=0; i<NumberofTiles; ++i) {
-        int row = GenerateRandomIndex(), column = GenerateRandomIndex();
+        int row = rand() % mCells.size();
+        int column = rand() % mCells.size();
+        
         mCells[row][column].SetOccupied(true);
         mTiles.push_back(
             Tile(
@@ -71,11 +73,12 @@ void Grid::Update(float deltaTime) {
         mCells[tile.row][tile.column].SetOccupied(true);
     }
 
-    SpawnNewTiles(cellSize);
+    if (mTiles.size() <= mMaxTiles) {
+        SpawnNewTiles(cellSize);
+    }
 }
 
 void Grid::SpawnNewTiles(float size) {
-    if (mTiles.size() >= mMaxTiles) return;
 
     // Collecting the row and column of empty cells
     std::vector<std::pair<int, int>> emptyCells;
@@ -126,10 +129,6 @@ void Grid::Render(SDL_Renderer* renderer) {
 void Grid::Clear() {
     mTiles.clear();
     mCells.clear();
-}
-
-int Grid::GenerateRandomIndex() {
-    return rand() % 4;
 }
 
 Tile* Grid::getTileAt(int row, int column) {

@@ -16,7 +16,7 @@ class Grid
     Color mColor;
     Vector2D m_position;
     float cellSize;
-    
+
 public:
     Grid(Vector2D position, float width);
     void Initialize(int NumberofCells, int NumberofTiles);
@@ -29,7 +29,6 @@ public:
     void Render(SDL_Renderer* renderer);
 
 private:
-    int GenerateRandomIndex();
     void InitializeCellsPosition();
 
     Tile* getTileAt(int row, int column);
