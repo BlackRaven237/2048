@@ -63,7 +63,7 @@ void Grid::MoveTiles(Key direction) {
 
 void Grid::Update(float deltaTime) {
     for (auto& tile : mTiles) {
-        tile.Move(mCells[tile.tileRow][tile.tileColumn].position, deltaTime);
+        tile.Move(mCells[tile.row][tile.column].position, deltaTime);
     }
 
     for (auto& row : mCells) {
@@ -73,7 +73,7 @@ void Grid::Update(float deltaTime) {
     }
 
     for (auto& tile : mTiles) {
-        mCells[tile.tileRow][tile.tileColumn].SetOccupied(true);
+        mCells[tile.row][tile.column].SetOccupied(true);
     }
 }
 
@@ -131,7 +131,7 @@ int Grid::GenerateRandomIndex() {
 
 Tile* Grid::getTileAt(int row, int column) {
     for(auto& tile : mTiles) {
-        if (tile.tileRow == row && tile.tileColumn == column) {
+        if (tile.row == row && tile.column == column) {
             return &tile;
         }
     }
@@ -142,7 +142,7 @@ std::vector<Tile*> Grid::CollectTiles(const std::vector<Cell>& row) {
     // Collecting tiles from occupied cells
     std::vector<Tile*> RowTiles;
     for (const auto& cell : row) {
-        Tile* tile = getTileAt(cell.cellRow, cell.cellColumn);
+        Tile* tile = getTileAt(cell.row, cell.column);
         if (tile) {
             RowTiles.push_back(tile);
         }
@@ -168,7 +168,7 @@ void Grid::slideLeft() {
     for(auto& row : mCells) {
         std::vector<Tile*> rowTiles = CollectTiles(row);
         for (size_t i = 0; i < rowTiles.size(); ++i) {
-            rowTiles[i]->tileColumn = i; 
+            rowTiles[i]->column = i; 
         }
     }
 }
@@ -178,7 +178,7 @@ void Grid::slideRight() {
         std::vector<Tile*> rowTiles = CollectTiles(row);
         int targetColumn = 3;
         for (int i = (int)rowTiles.size() - 1; i>=0; --i) {
-            rowTiles[i]->tileColumn = targetColumn;
+            rowTiles[i]->column = targetColumn;
             targetColumn--;
         }
     }
@@ -190,7 +190,7 @@ void Grid::slideUp() {
     for (auto& col : TransposedCells) {
         std::vector<Tile*> colTiles = CollectTiles(col);
         for (size_t i = 0; i < colTiles.size(); ++i) {
-            colTiles[i]->tileRow = i;
+            colTiles[i]->row = i;
         }
     }
 }
@@ -202,7 +202,7 @@ void Grid::slideDown() {
         std::vector<Tile*> colTiles = CollectTiles(col);
         int targetColumn = 3;
         for (int i = (int)colTiles.size() - 1; i >= 0; --i) {
-            colTiles[i]->tileRow = targetColumn;
+            colTiles[i]->row = targetColumn;
             targetColumn--;
         }
     }

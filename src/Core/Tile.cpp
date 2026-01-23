@@ -2,12 +2,12 @@
 
 Tile::Tile(Point pos, int row, int column, float size) : 
     mIndex(CalculateTileIndex()), position(pos), 
-    tileRow(row), tileColumn(column), 
+    row(row), column(column), 
     size(size), color(Color::Green()) {}
 
 Tile::Tile(const Tile &other) : 
     mIndex(other.mIndex), position(other.position), 
-    tileRow(other.tileRow), tileColumn(other.tileColumn),
+    row(other.row), column(other.column),
     size(other.size), color(other.color) {}
 
 void Tile::Move(Point targetPosition, float deltaTime) {

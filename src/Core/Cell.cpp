@@ -1,7 +1,7 @@
 #include "Core/Cell.h"
 
 Cell::Cell(int row, int column, float size) : 
-    mIsOccupied(false), cellRow(row), cellColumn(column), 
+    mIsOccupied(false), row(row), column(column), 
     size(size), color(Color::LightGray()) {}
 
 void Cell::SetOccupied(bool value) { 

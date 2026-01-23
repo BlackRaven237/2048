@@ -7,8 +7,8 @@ class Tile {
     int mIndex;
 public: 
     Point position;
-    int tileRow;
-    int tileColumn;
+    int row;
+    int column;
     float size;
     Color color;
 

@@ -30,8 +30,8 @@ enum class Key {
 class Cell {
     bool mIsOccupied;
 public:
-    int cellRow;
-    int cellColumn;
+    int row;
+    int column;
     Point position;
     float size;
     Color color;
