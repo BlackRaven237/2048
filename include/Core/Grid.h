@@ -13,7 +13,7 @@ class Grid
     std::vector<std::vector<Cell>> mCells;
     std::vector<Tile> mTiles;
     size_t mMaxTiles;
-    Color mColor;
+    Color m_color;
     Vector2D m_position;
     float cellSize;
 

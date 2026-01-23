@@ -1,7 +1,7 @@
 #include "Core/Grid.h"
 
 Grid::Grid(Vector2D position, float width) : 
-    mWidth(width), mMaxTiles(16), mColor(Color::Gainsboro()), 
+    mWidth(width), mMaxTiles(16), m_color(Color::Gainsboro()), 
     m_position(position), cellSize((mWidth * 0.95) / 4) {}
 
 void Grid::Initialize(int NumberofCells, int NumberofTiles) {
@@ -113,7 +113,7 @@ void Grid::Render(SDL_Renderer* renderer) {
         mWidth,
         mWidth
     };
-    SDL_SetRenderDrawColor(renderer, mColor.red, mColor.green, mColor.blue, 255);
+    SDL_SetRenderDrawColor(renderer, m_color.red, m_color.green, m_color.blue, 255);
     SDL_RenderFillRect(renderer, &Grid);
 
     for(auto& row : mCells) {
