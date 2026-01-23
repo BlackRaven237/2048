@@ -1,6 +1,6 @@
 #include "Core/Grid.h"
 
-Grid::Grid(Point position, float width) : 
+Grid::Grid(Vector2D position, float width) : 
     mWidth(width), mMaxTiles(16), mColor(Color::Gainsboro()), 
     m_position(position), cellSize((mWidth * 0.95) / 4) {}
 
@@ -22,7 +22,7 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
         mCells[row][column].SetOccupied(true);
         mTiles.push_back(
             Tile(
-                Point(mCells[row][column].position), 
+                mCells[row][column].position, 
                 row,
                 column, 
                 cellSize
@@ -38,7 +38,7 @@ void Grid::InitializeCellsPosition() {
         x = m_position.x + margin;
         for (int column=0; column<4; ++column) {
             // move to the x-coordinate of next cell (horizontally)
-            mCells[row][column].position = Point(x, y);
+            mCells[row][column].position = Vector2D(x, y);
             x += cellSize + margin;
         }
         // move to the y-coordinate of next cell (vertically)
@@ -85,7 +85,7 @@ void Grid::SpawnNewTiles(float size) {
     } while(check);
     mCells[row][column].SetOccupied(true);
 
-    mTiles.push_back(Tile(Point(mCells[row][column].position), row, column, size));
+    mTiles.push_back(Tile(Vector2D(mCells[row][column].position), row, column, size));
 
     uint8_t red=135, g=130, b=120;
     for (size_t i=2; i<mTiles.size(); i++) {

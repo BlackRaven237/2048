@@ -1,6 +1,6 @@
 #include "Core/Tile.h"
 
-Tile::Tile(Point pos, int row, int column, float size) : 
+Tile::Tile(Vector2D pos, int row, int column, float size) : 
     mIndex(CalculateTileIndex()), position(pos), 
     row(row), column(column), 
     size(size), color(Color::Green()) {}
@@ -10,10 +10,10 @@ Tile::Tile(const Tile &other) :
     row(other.row), column(other.column),
     size(other.size), color(other.color) {}
 
-void Tile::Move(Point targetPosition, float deltaTime) {
-    float speed = 1200.0f;
-    position.x += (targetPosition.x - position.x); //* deltaTime * speed;
-    position.y += (targetPosition.y - position.y); //* deltaTime * speed;
+void Tile::Move(Vector2D targetPosition, float deltaTime) {
+    float speed = 200.0f;
+    position.x += (targetPosition.x - position.x) * deltaTime * speed;
+    position.y += (targetPosition.y - position.y) * deltaTime * speed;
 }
 
 

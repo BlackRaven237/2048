@@ -2,7 +2,7 @@
 
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
     mWindow(title, width, height),
-    mGrid(Point(static_cast<float>(width * 0.25), static_cast<float>(height * 0.1875)), width / 2), 
+    mGrid(Vector2D(static_cast<float>(width * 0.25), static_cast<float>(height * 0.1875)), width / 2), 
     Direction(Key::NONE), IsKeyPressed(false), mRunning(false) {}
 
 GameEngine::~GameEngine() {
@@ -26,12 +26,12 @@ void GameEngine::ShutDown() {
 void GameEngine::Run() {
     Uint64 LastUpdateTime = 0, frames = 0;
     while(mRunning) {
-        Uint64 CurrentTime = SDL_GetTicks();
 
         GameEngine::HandleEvents();
 
+        Uint64 CurrentTime = SDL_GetTicks();
         // elasped time for each frame
-        Uint64 deltaTime = (SDL_GetTicks() - CurrentTime) / 1000;
+        float deltaTime = (SDL_GetTicks() - CurrentTime) / 1000.0f;
 
         GameEngine::Update(deltaTime);
         GameEngine::Render(mWindow.GetRenderer());
@@ -39,12 +39,13 @@ void GameEngine::Run() {
         frames++;
         // FPS Count
         if (CurrentTime > LastUpdateTime + 1000) {
-            LastUpdateTime = CurrentTime;
+            
             std::string name = "🧩 2048 - FPS: " + std::to_string(frames);
             SDL_SetWindowTitle(mWindow.GetWindow(), name.c_str());
             frames = 0;
+            LastUpdateTime = CurrentTime;
         }
-
+        
         // limiting to ~60 FPS
         SDL_Delay(16);
     }
@@ -100,4 +101,4 @@ void GameEngine::Render(SDL_Renderer* renderer) {
     mWindow.Clear();
     mGrid.Render(renderer);
     mWindow.Present();
-}
+} 

@@ -14,10 +14,10 @@ class Grid
     std::vector<Tile> mTiles;
     size_t mMaxTiles;
     Color mColor;
-    Point m_position;
+    Vector2D m_position;
     float cellSize;
 public:
-    Grid(Point position, float width);
+    Grid(Vector2D position, float width);
     void Initialize(int NumberofCells, int NumberofTiles);
     void Clear();
 

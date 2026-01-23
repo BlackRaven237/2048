@@ -10,7 +10,7 @@ class Cell {
 public:
     int row;
     int column;
-    Point position;
+    Vector2D position;
     float size;
     Color color;
 
