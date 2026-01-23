@@ -1,7 +1,7 @@
 #ifndef CELL_H
 #define CELL_H
 
-#include "Color.h"
+#include "Helpers/color.h"
 #include "Helpers/structs.h"
 #include <SDL3/SDL.h>
 #include <vector>
