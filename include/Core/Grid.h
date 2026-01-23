@@ -18,10 +18,12 @@ class Grid
 public:
     Grid(Point position, float width);
     void Initialize(int NumberofCells, int NumberofTiles);
-    void SpawnNewTiles(float size);
+    void Clear();
+
     void MoveTiles(Key key);
     void Update(float deltaTime);
-    void Clear();
+    void SpawnNewTiles(float size);
+    
     void Render(SDL_Renderer* renderer);
 
 private:
