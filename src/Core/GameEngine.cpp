@@ -50,7 +50,10 @@ void GameEngine::Run() {
         }
         
         // limiting to ~60 FPS
-        SDL_Delay(16);
+        Uint64 frameTime = SDL_GetTicks() - CurrentTime;
+        if (frameTime < 16) {
+            SDL_Delay(16 - frameTime);
+        }
     }
 }
 
