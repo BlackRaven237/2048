@@ -48,14 +48,12 @@ void Grid::InitializeCellsPosition() {
 
 void Grid::MoveTiles(Key direction) {
     switch (direction) {
-        case Key::UP: slideUp(); break;
-        case Key::DOWN: slideDown(); break;
-        case Key::LEFT: slideLeft(); break;
-        case Key::RIGHT: slideRight(); break;
+        case Key::UP: slideUp(); return;
+        case Key::DOWN: slideDown(); return;
+        case Key::LEFT: slideLeft(); return;
+        case Key::RIGHT: slideRight(); return;
         default: break;
     }
-
-    SpawnNewTiles(cellSize);
 }
 
 void Grid::Update(float deltaTime) {
@@ -72,27 +70,35 @@ void Grid::Update(float deltaTime) {
     for (auto& tile : mTiles) {
         mCells[tile.row][tile.column].SetOccupied(true);
     }
+
+    SpawnNewTiles(cellSize);
 }
 
 void Grid::SpawnNewTiles(float size) {
-    if (mTiles.size() >= mMaxTiles - 1) return;
-    int row, column;
-    bool check = true;
+    if (mTiles.size() >= mMaxTiles) return;
 
-    do {
-        row = GenerateRandomIndex(), column = GenerateRandomIndex();
-        if (!mCells[row][column].isOccupied()) check = false;
-    } while(check);
-    mCells[row][column].SetOccupied(true);
+    // Collecting the row and column of empty cells
+    std::vector<std::pair<int, int>> emptyCells;
+    for (auto& row : mCells) {
+        for (auto& cell : row) {
+            if (!cell.isOccupied()) emptyCells.push_back({cell.row, cell.column});
+        }
+    }
 
-    mTiles.push_back(Tile(Vector2D(mCells[row][column].position), row, column, size));
+    if (!emptyCells.empty()) {
+        // Choosing a random pair in those empty cells
+        int randomIndex = rand() % emptyCells.size();
+        int row = emptyCells[randomIndex].first;
+        int column = emptyCells[randomIndex].second;
 
-    uint8_t red=135, g=130, b=120;
-    for (size_t i=2; i<mTiles.size(); i++) {
-        mTiles[i].color = Color(red, g, b);
-        red = red + 35;
-        g = g + 30;
-        b = b + 20;
+        // Marks cell as occupied
+        mCells[row][column].SetOccupied(true);
+
+        // Creating a new tile 
+        Tile newTile(Vector2D(mCells[row][column].position), row, column, size);
+
+        newTile.color = Color(238, 228, 218);
+        mTiles.push_back(newTile);
     }
 }
 

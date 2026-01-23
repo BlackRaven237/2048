@@ -16,6 +16,7 @@ class Grid
     Color mColor;
     Vector2D m_position;
     float cellSize;
+    
 public:
     Grid(Vector2D position, float width);
     void Initialize(int NumberofCells, int NumberofTiles);
