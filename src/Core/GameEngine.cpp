@@ -33,7 +33,11 @@ void GameEngine::Run() {
         // elasped time for each frame
         float deltaTime = (SDL_GetTicks() - CurrentTime) / 1000.0f;
 
-        GameEngine::Update(deltaTime);
+        if (IsKeyPressed) {
+            GameEngine::Update(deltaTime);
+            IsKeyPressed = false;
+        } 
+
         GameEngine::Render(mWindow.GetRenderer());
         
         frames++;
@@ -90,11 +94,8 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
 }
 
 void GameEngine::Update(float deltaTime) {
-    if (IsKeyPressed) {
-        mGrid.MoveTiles(Direction);
-        mGrid.Update(deltaTime);
-        IsKeyPressed = false;
-    }
+    mGrid.MoveTiles(Direction);
+    mGrid.Update(deltaTime);
 }
 
 void GameEngine::Render(SDL_Renderer* renderer) {
