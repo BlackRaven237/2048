@@ -1,5 +1,6 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
+#include <cmath>
 
 enum class Key {
     UP,
@@ -19,6 +20,22 @@ struct Vector2D {
         this->x = other.x;
         this->y = other.y;
         return *this;
+    }
+
+    Vector2D operator+(const Vector2D& other) {
+        float dx = x + other.x;
+        float dy = y + other.y;
+        return Vector2D(dx, dy);
+    }
+
+    Vector2D operator-(const Vector2D& other) {
+        float dx = x - other.x;
+        float dy = y - other.y;
+        return Vector2D(dx, dy);
+    }
+
+    Vector2D operator*(float scalar) {
+        return Vector2D(x * scalar, y * scalar);
     }
 };
 
