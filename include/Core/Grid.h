@@ -29,10 +29,10 @@ private:
     void InitializeCellsPosition();
 
     Tile* getTileAt(int row, int column);
-    std::vector<Tile*> CollectTilesinRow(const std::vector<Cell>& row);
+    std::vector<Tile*> CollectTiles(const std::vector<Cell>& row);
     std::vector<std::vector<Cell>> Transpose();
     void showCells();
-    
+
     void slideUp();
     void slideDown();
     void slideLeft();

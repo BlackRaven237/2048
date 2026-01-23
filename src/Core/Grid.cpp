@@ -138,7 +138,7 @@ Tile* Grid::getTileAt(int row, int column) {
     return nullptr;
 }
 
-std::vector<Tile*> Grid::CollectTilesinRow(const std::vector<Cell>& row) {
+std::vector<Tile*> Grid::CollectTiles(const std::vector<Cell>& row) {
     // Collecting tiles from occupied cells
     std::vector<Tile*> RowTiles;
     for (const auto& cell : row) {
@@ -153,7 +153,7 @@ std::vector<Tile*> Grid::CollectTilesinRow(const std::vector<Cell>& row) {
 
 void Grid::slideLeft() {
     for(auto& row : mCells) {
-        std::vector<Tile*> rowTiles = CollectTilesinRow(row);
+        std::vector<Tile*> rowTiles = CollectTiles(row);
         for (size_t i = 0; i < rowTiles.size(); ++i) {
             rowTiles[i]->tileColumn = i; 
         }
@@ -162,7 +162,7 @@ void Grid::slideLeft() {
 
 void Grid::slideRight() {
     for(auto& row : mCells) {
-        std::vector<Tile*> rowTiles = CollectTilesinRow(row);
+        std::vector<Tile*> rowTiles = CollectTiles(row);
         int targetColumn = 3;
         for (int i = (int)rowTiles.size() - 1; i>=0; --i) {
             rowTiles[i]->tileColumn = targetColumn;
@@ -175,7 +175,7 @@ void Grid::slideUp() {
     std::vector<std::vector<Cell>> TransposedCells = Transpose();
 
     for (auto& col : TransposedCells) {
-        std::vector<Tile*> colTiles = CollectTilesinRow(col);
+        std::vector<Tile*> colTiles = CollectTiles(col);
         for (size_t i = 0; i < colTiles.size(); ++i) {
             colTiles[i]->tileRow = i;
         }
@@ -198,7 +198,7 @@ void Grid::slideDown() {
     std::vector<std::vector<Cell>> TransposedCells = Transpose();
 
     for (auto& col : TransposedCells) {
-        std::vector<Tile*> colTiles = CollectTilesinRow(col);
+        std::vector<Tile*> colTiles = CollectTiles(col);
         int targetColumn = 3;
         for (int i = (int)colTiles.size() - 1; i >= 0; --i) {
             colTiles[i]->tileRow = targetColumn;
