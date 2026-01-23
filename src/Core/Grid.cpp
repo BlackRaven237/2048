@@ -78,17 +78,17 @@ void Grid::Update(float deltaTime) {
 }
 
 void Grid::SpawnNewTiles(float size) {
-    if (mTiles.size() >= mMaxTiles) return;
-    int r, c;
+    if (mTiles.size() >= mMaxTiles - 1) return;
+    int row, column;
     bool check = true;
 
     do {
-        r = GenerateRandomIndex(), c = GenerateRandomIndex();
-        if (!mCells[r][c].GetState()) check = false;
+        row = GenerateRandomIndex(), column = GenerateRandomIndex();
+        if (!mCells[row][column].GetState()) check = false;
     } while(check);
-    mCells[r][c].SetOccupied(true);
+    mCells[row][column].SetOccupied(true);
 
-    mTiles.push_back(Tile(Point(mCells[r][c].position), r, c, size));
+    mTiles.push_back(Tile(Point(mCells[row][column].position), row, column, size));
 
     uint8_t red=135, g=130, b=120;
     for (size_t i=2; i<mTiles.size(); i++) {
@@ -120,23 +120,31 @@ void Grid::Render(SDL_Renderer* renderer) {
     }
 }
 
-int Grid::CalculateCellIndex(int row, int column) {
-    return row * 4 + column;
+void Grid::Clear() {
+    mTiles.clear();
+    mCells.clear();
 }
 
 int Grid::GenerateRandomIndex() {
     return rand() % 4;
 }
 
+Tile* Grid::getTileAt(int row, int column) {
+    for(auto& tile : mTiles) {
+        if (tile.tileRow == row && tile.tileColumn == column) {
+            return &tile;
+        }
+    }
+    return nullptr;
+}
 
 std::vector<Tile*> Grid::CollectTilesinRow(const std::vector<Cell>& row) {
     // Collecting tiles from occupied cells
     std::vector<Tile*> RowTiles;
     for (const auto& cell : row) {
-        for (auto& tile : mTiles) {
-            if (tile.tileRow == cell.cellRow && tile.tileColumn == cell.cellColumn) {
-                RowTiles.push_back(&tile);
-            }
+        Tile* tile = getTileAt(cell.cellRow, cell.cellColumn);
+        if (tile) {
+            RowTiles.push_back(tile);
         }
     }
 

@@ -21,12 +21,14 @@ public:
     void SpawnNewTiles(float size);
     void MoveTiles(Key key);
     void Update(float deltaTime);
+    void Clear();
     void Render(SDL_Renderer* renderer);
+
 private:
-    int CalculateCellIndex(int row, int column);
     int GenerateRandomIndex();
     void InitializeCellsPosition();
 
+    Tile* getTileAt(int row, int column);
     std::vector<Tile*> CollectTilesinRow(const std::vector<Cell>& row);
     void slideUp();
     void slideDown();
