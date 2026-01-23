@@ -10,13 +10,20 @@ echo.
 REM ====== Options de compilation ======
 set CXX=clang++
 set STANDARD=-std=c++20
-set CXXFLAGS=%STANDARD% -Wall -Wextra -O2 -g 
-set LDFLAGS=-lSDL3
+set CXXFLAGS=%STANDARD% -Wall -Wextra -O2 -g
 
 REM ====== Gestion des répertoires ======
-set IMGUI_DIR=external-libs/Imgui
-set IMGUI_INCLUDES=-I%IMGUI_DIR% -I%IMGUI_DIR%/backends
+
+REM ==== Imgui ====
+set IMGUI_DIR=external-libs\Imgui
+set IMGUI_INCLUDES=-I%IMGUI_DIR% -I%IMGUI_DIR%\backends
 set INCLUDE_DIR=-Iinclude %IMGUI_INCLUDES%
+
+REM ==== SDL3 ====
+set SDL3_DIR=external-libs\SDL3
+set SDL3_LIBS=-lSDL3 -lSDL3_ttf
+
+REM ==== Build ====
 set BUILD_DIR=build
 set OBJ_DIR=%BUILD_DIR%\obj
 set BIN_DIR=%BUILD_DIR%\bin
@@ -87,7 +94,7 @@ echo.
 
 REM ====== Éditeur de liens (ld) ======
 echo [4/4] ⛓️  Éditeur de liens (linking)....
-%CXX% %CXXFLAGS% %OBJ_FILES% %INCLUDE_DIR% -o %BIN_DIR%\%OUTPUT_NAME% %LDFLAGS%
+%CXX% %CXXFLAGS% %OBJ_FILES% %INCLUDE_DIR% -o %BIN_DIR%\%OUTPUT_NAME% -L%SDL3_DIR% %SDL3_LIBS%
 
 if not exist "%BIN_DIR%\%OUTPUT_NAME%.exe" (
     echo       ❌ Aucun éxecutable créer !!!
