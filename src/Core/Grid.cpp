@@ -152,9 +152,8 @@ std::vector<Tile*> Grid::CollectTilesinRow(const std::vector<Cell>& row) {
 }
 
 void Grid::slideLeft() {
-    std::vector<Tile*> rowTiles;
     for(auto& row : mCells) {
-        rowTiles = CollectTilesinRow(row);
+        std::vector<Tile*> rowTiles = CollectTilesinRow(row);
         for (size_t i = 0; i < rowTiles.size(); ++i) {
             rowTiles[i]->tileColumn = i; 
         }
@@ -162,9 +161,8 @@ void Grid::slideLeft() {
 }
 
 void Grid::slideRight() {
-    std::vector<Tile*> rowTiles;
     for(auto& row : mCells) {
-        rowTiles = CollectTilesinRow(row);
+        std::vector<Tile*> rowTiles = CollectTilesinRow(row);
         int targetColumn = 3;
         for (int i = (int)rowTiles.size() - 1; i>=0; --i) {
             rowTiles[i]->tileColumn = targetColumn;
@@ -174,37 +172,37 @@ void Grid::slideRight() {
 }
 
 void Grid::slideUp() {
-    for (int col = 0; col < 4; ++col) {
-        std::vector<Tile*> colTiles;
-        for (int row = 0; row < 4; ++row) {
-            for (auto& tile : mTiles) {
-                if (tile.tileRow == row && tile.tileColumn == col) {
-                    colTiles.push_back(&tile);
-                }
-            }
-        }
+    std::vector<std::vector<Cell>> TransposedCells = Transpose();
 
+    for (auto& col : TransposedCells) {
+        std::vector<Tile*> colTiles = CollectTilesinRow(col);
         for (size_t i = 0; i < colTiles.size(); ++i) {
             colTiles[i]->tileRow = i;
         }
     }
 }
 
-void Grid::slideDown() {
-    for (int col = 0; col < 4; ++col) {
-        std::vector<Tile*> colTiles;
-        for (int row = 3; row >= 0; --row) {
-            for (auto& tile : mTiles) {
-                if (tile.tileRow == row && tile.tileColumn == col) {
-                    colTiles.push_back(&tile);
-                }
-            }
+std::vector<std::vector<Cell>> Grid::Transpose() {
+    std::vector<std::vector<Cell>> Transposed;
+    for(int j=0; j < (int)mCells.size(); ++j) {
+        std::vector<Cell> column;
+        for(int i=0; i < (int)mCells.size(); ++i) {
+            column.push_back(mCells[i][j]);
         }
+        Transposed.push_back(column);
+    }
+    return Transposed;
+}
 
-        int targetRow = 3;
-        for (size_t i = 0; i < colTiles.size(); ++i) {
-            colTiles[i]->tileRow = targetRow;
-            targetRow--;
+void Grid::slideDown() {
+    std::vector<std::vector<Cell>> TransposedCells = Transpose();
+
+    for (auto& col : TransposedCells) {
+        std::vector<Tile*> colTiles = CollectTilesinRow(col);
+        int targetColumn = 3;
+        for (int i = (int)colTiles.size() - 1; i >= 0; --i) {
+            colTiles[i]->tileRow = targetColumn;
+            targetColumn--;
         }
     }
 }

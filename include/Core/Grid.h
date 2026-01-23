@@ -30,12 +30,13 @@ private:
 
     Tile* getTileAt(int row, int column);
     std::vector<Tile*> CollectTilesinRow(const std::vector<Cell>& row);
+    std::vector<std::vector<Cell>> Transpose();
+    void showCells();
+    
     void slideUp();
     void slideDown();
     void slideLeft();
     void slideRight();
-
-    void showCells();
 };
 
 #endif
