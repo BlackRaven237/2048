@@ -14,8 +14,7 @@ public:
 
     Tile(Point pos, int row, int column, float size);
     Tile(const Tile& other);
-
-    void Update();
+    
     void Move(Point targetPosition, float deltaTime);
     void Render(SDL_Renderer* renderer);
     
