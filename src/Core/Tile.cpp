@@ -10,12 +10,13 @@ Tile::Tile(const Tile &other) :
     row(other.row), column(other.column),
     size(other.size), color(other.color) {}
 
-void Tile::Move(Vector2D targetPosition, float deltaTime) {
-    float dx = targetPosition.x - position.x;
-    float dy = targetPosition.y - position.y;
-    
-    float speed = 200.0f;
-    position = position + Vector2D(dx, dy); //* deltaTime * speed;//* deltaTime * speed;
+void Tile::Move(Vector2D targetPosition, float deltaTime) {    
+    float speed = 12.0f;
+    position.x += (targetPosition.x - position.x) * speed * deltaTime;
+    position.y += (targetPosition.y - position.y) * speed * deltaTime;
+
+    if (std::abs(targetPosition.x - position.x) < 0.5f) position.x = targetPosition.x;
+    if (std::abs(targetPosition.y - position.y) < 0.5f) position.y = targetPosition.y;
 }
 
 

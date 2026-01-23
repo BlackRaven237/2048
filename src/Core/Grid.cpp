@@ -56,6 +56,8 @@ void Grid::MoveTiles(Key direction) {
         case Key::RIGHT: slideRight(); return;
         default: break;
     }
+
+    SpawnNewTiles(cellSize);
 }
 
 void Grid::Update(float deltaTime) {
@@ -72,13 +74,10 @@ void Grid::Update(float deltaTime) {
     for (auto& tile : mTiles) {
         mCells[tile.row][tile.column].SetOccupied(true);
     }
-
-    if (mTiles.size() <= mMaxTiles) {
-        SpawnNewTiles(cellSize);
-    }
 }
 
 void Grid::SpawnNewTiles(float size) {
+    if (mTiles.size() >= mMaxTiles) return;
 
     // Collecting the row and column of empty cells
     std::vector<std::pair<int, int>> emptyCells;

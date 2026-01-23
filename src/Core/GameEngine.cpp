@@ -24,30 +24,29 @@ void GameEngine::ShutDown() {
 }
 
 void GameEngine::Run() {
-    Uint64 LastUpdateTime = 0, frames = 0;
-    while(mRunning) {
+    Uint64 LastUpdateTime = SDL_GetTicks();
+    Uint64 fpsTimer = SDL_GetTicks();
+    int frames = 0;
 
+    while(mRunning) {
         GameEngine::HandleEvents();
 
         Uint64 CurrentTime = SDL_GetTicks();
         // elasped time for each frame
-        float deltaTime = (SDL_GetTicks() - CurrentTime) / 1000.0f;
+        float deltaTime = (CurrentTime - LastUpdateTime) / 1000.0f;
+        LastUpdateTime = CurrentTime;
 
-        if (IsKeyPressed) {
-            GameEngine::Update(deltaTime);
-            IsKeyPressed = false;
-        } 
+        GameEngine::Update(deltaTime);
 
         GameEngine::Render(mWindow.GetRenderer());
         
         frames++;
         // FPS Count
-        if (CurrentTime > LastUpdateTime + 1000) {
-            
+        if (SDL_GetTicks() > fpsTimer + 1000) {
             std::string name = "🧩 2048 - FPS: " + std::to_string(frames);
             SDL_SetWindowTitle(mWindow.GetWindow(), name.c_str());
             frames = 0;
-            LastUpdateTime = CurrentTime;
+            fpsTimer = SDL_GetTicks();
         }
         
         // limiting to ~60 FPS
@@ -94,7 +93,11 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
 }
 
 void GameEngine::Update(float deltaTime) {
-    mGrid.MoveTiles(Direction);
+    if (IsKeyPressed) {
+        mGrid.MoveTiles(Direction);
+        IsKeyPressed = false;
+    }
+
     mGrid.Update(deltaTime);
 }
 
