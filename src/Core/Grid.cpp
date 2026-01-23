@@ -151,6 +151,19 @@ std::vector<Tile*> Grid::CollectTiles(const std::vector<Cell>& row) {
     return RowTiles;
 }
 
+
+std::vector<std::vector<Cell>> Grid::Transpose() {
+    std::vector<std::vector<Cell>> Transposed;
+    for(int j=0; j < (int)mCells.size(); ++j) {
+        std::vector<Cell> column;
+        for(int i=0; i < (int)mCells.size(); ++i) {
+            column.push_back(mCells[i][j]);
+        }
+        Transposed.push_back(column);
+    }
+    return Transposed;
+}
+
 void Grid::slideLeft() {
     for(auto& row : mCells) {
         std::vector<Tile*> rowTiles = CollectTiles(row);
@@ -182,18 +195,6 @@ void Grid::slideUp() {
     }
 }
 
-std::vector<std::vector<Cell>> Grid::Transpose() {
-    std::vector<std::vector<Cell>> Transposed;
-    for(int j=0; j < (int)mCells.size(); ++j) {
-        std::vector<Cell> column;
-        for(int i=0; i < (int)mCells.size(); ++i) {
-            column.push_back(mCells[i][j]);
-        }
-        Transposed.push_back(column);
-    }
-    return Transposed;
-}
-
 void Grid::slideDown() {
     std::vector<std::vector<Cell>> TransposedCells = Transpose();
 
@@ -205,16 +206,4 @@ void Grid::slideDown() {
             targetColumn--;
         }
     }
-}
-
-void Grid::showCells() {
-    std::cout << "current cell position" << std::endl;
-
-    for (auto& row : mCells) {
-        for (auto& cell : row) {
-            std::cout << "[" << cell.cellRow << ", " << cell.cellColumn << "]";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "\n";
 }
