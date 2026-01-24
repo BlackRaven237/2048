@@ -1,4 +1,4 @@
-#include "include/Core/GameEngine.h"
+#include "../include/Core/GameEngine.h"
 #include <cstdlib>
 #include <ctime>
 
