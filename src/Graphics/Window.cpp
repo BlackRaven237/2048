@@ -84,20 +84,28 @@ Font* Window::GetFont() const {
 }
 
 void Window::RenderText(const std::string& text, float x, float y, const Color& color) {
-    SDL_Texture* texture = mFont->LoadText(mRenderer->GetRenderer(), text, color);
+    if (!mFont->GetFont() || !mRenderer->GetRenderer()) return;
+
+    SDL_Surface* surface = TTF_RenderText_Solid(mFont->GetFont(), text.c_str(), text.length(), 
+        {(Uint8)color.red, (Uint8)color.green, (Uint8)color.blue, (Uint8)color.alpha});
+        
+    if (!surface) return;
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(mRenderer->GetRenderer(), surface);
 
     if(!texture) {
-        SDL_Log("❌ Couldn't load texture %s\n", SDL_GetError());
+        SDL_DestroySurface(surface);
         return;
     }
 
     SDL_FRect dstRect = { x, y, 
-        static_cast<float>(mFont->GetSurface()->w), 
-        static_cast<float>(mFont->GetSurface()->h)
+        static_cast<float>(surface->w), 
+        static_cast<float>(surface->h)
     };
 
     SDL_RenderTexture(mRenderer->GetRenderer(), texture, NULL, &dstRect);
     mRenderer->Present();
 
-    if(texture) SDL_DestroyTexture(texture);
+    SDL_DestroySurface(surface);
+    SDL_DestroyTexture(texture);
 }
