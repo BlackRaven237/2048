@@ -51,10 +51,12 @@ bool Window::Initialize() {
         SDL_Log("❌ Couldn't create renderer: %s\n", SDL_GetError());
         SDL_DestroyWindow(mWindow);
         SDL_Quit();
+        return false;
     }
 
     if(!mFont->InitializeFont("assets/fonts/Roboto-Bold.ttf")) {
         SDL_Log("❌ Couldn't load TTF: %s\n", SDL_GetError());
+        return false;
     }
 
     mIsInitialized = true;
@@ -104,8 +106,6 @@ void Window::RenderText(const std::string& text, float x, float y, const Color& 
     };
 
     SDL_RenderTexture(mRenderer->GetRenderer(), texture, NULL, &dstRect);
-    mRenderer->Present();
-
     SDL_DestroySurface(surface);
     SDL_DestroyTexture(texture);
 }
