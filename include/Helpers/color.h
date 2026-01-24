@@ -24,9 +24,9 @@ struct Color
     static Color Yellow() { return Color(255, 255, 0); }
     static Color LightGray() { return Color(205, 193, 180); }
     static Color Gainsboro() { return Color(220, 220, 220); }
-    static Color Black() { return Color(0, 0, 0, 0); }
-    static Color White() { return Color(0, 0, 0, 0); }
     static Color TomatoOrange() { return Color(255, 99, 71); }
+    static Color White() { return Color(255, 255, 255); }
+    static Color Black() { return Color(0, 0, 0, 0); }
 };
 
 #endif
