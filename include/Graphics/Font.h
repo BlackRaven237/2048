@@ -2,6 +2,7 @@
 #define FONT_H
 
 #include <SDL3_ttf/SDL_ttf.h>
+#include <string>
 #include "Helpers/color.h"
 
 class Font {
@@ -19,8 +20,7 @@ public:
     }
 
     void CloseFont() {
-        if(!font) return;
-        if(!mSurface) return;
+        if(!font || !mSurface) return;
 
         TTF_CloseFont(font);
         font = nullptr;
@@ -40,8 +40,10 @@ public:
         };
     }
 
-    SDL_Texture* LoadText(SDL_Renderer* renderer, const char* text) {
-        mSurface = TTF_RenderText_Solid(font, text, 0, mColor);
+    SDL_Texture* LoadText(SDL_Renderer* renderer, const std::string& text) {
+        if (!font || !renderer) return nullptr;
+
+        mSurface = TTF_RenderText_Solid(font, text.c_str(), text.length(), mColor);
         SDL_Texture* mSurfaceTexture = SDL_CreateTextureFromSurface(renderer, mSurface);
 
         if(!mSurfaceTexture) return nullptr;
