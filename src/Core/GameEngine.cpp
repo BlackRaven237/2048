@@ -29,6 +29,7 @@ void GameEngine::Run() {
     int frames = 0;
 
     while(mRunning) {
+        mWindow.RenderText("Hello world !!!", 10.0f, 10.0f, Color::White());
         GameEngine::HandleEvents();
 
         Uint64 CurrentTime = SDL_GetTicks();
@@ -45,6 +46,7 @@ void GameEngine::Run() {
         if (SDL_GetTicks() > fpsTimer + 1000) {
             std::string name = "🧩 2048 - FPS: " + std::to_string(frames);
             SDL_SetWindowTitle(mWindow.GetWindow(), name.c_str());
+            mWindow.RenderText(std::to_string(frames) + " FPS", 400.0f, 10.0f, Color::White());
             frames = 0;
             fpsTimer = SDL_GetTicks();
         }
@@ -90,7 +92,7 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
         break;
     case SDLK_R:
         mGrid.Initialize(16, 2);
-        std::cout << "Restart" << std::endl;
+        std::cout << "🔁 Restart" << std::endl;
         break;
     }
 }
