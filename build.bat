@@ -30,13 +30,19 @@ set BIN_DIR=%BUILD_DIR%\bin
 set OUTPUT_NAME=App
 
 REM ====== Vérifications des ressources ======
-echo [1/4] 📝 Vérification du ressources....
+echo [1/4] 📝 Vérification des ressources....
 if not exist "%IMGUI_DIR%" (
-    echo       ❌ Répertoire Imgui non-trouvé !!!
+    echo       ❌ Répertoire Imgui introuvable !!!
     echo       Pour gérer ce problème, Télécharger Dear Imgui sur https://github.com/ocornut/imgui.git 
     rem exit /b 1
 )
 echo       ✅ Répertoire Imgui trouvé !!!
+
+if not exist "C:\msys64\ucrt64\include\SDL3" (
+    echo       ❌ Répertoire SDL3 introuvable !!!
+    exit /b 1
+)
+echo       ✅ Répertoire SDL3 trouvé !!!
 echo.
 
 echo [2/4] 🎨 Préparation du répertoire Build....
@@ -98,7 +104,8 @@ echo [4/4] ⛓️  Éditeur de liens (linking)....
 
 if not exist "%BIN_DIR%\%OUTPUT_NAME%.exe" (
     echo       ❌ Aucun éxecutable créer !!!
-    echo       Erreur générer au linkage(ld)
+    echo       Erreur générer au niveau du linker
+    exit /b 1
 ) else (
     echo       ✅ Éxecutable créer avec succès.
 )
