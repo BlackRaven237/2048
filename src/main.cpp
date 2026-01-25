@@ -15,10 +15,10 @@ int main (int argc, char* argv[]) {
     Game->Run();
 
     if (Game) {
-        std::cout << "👋 Thanks for playing" << std::endl;
         delete Game;
         Game = nullptr;
     }
 
+    std::cout << "👋 Thanks for playing" << std::endl;
     return 0;
 }
