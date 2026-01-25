@@ -1,17 +1,21 @@
 #include "Core\GameEngine.h"
 
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
-    mWindow(title, width, height),
+    mWindow(new Window(title, width, height)),
     mGrid(Vector2D(static_cast<float>(width * 0.25), static_cast<float>(height * 0.1875)), width / 2), 
     Direction(Key::NONE), IsKeyPressed(false), 
     isInitialized(false), mRunning(false) {}
 
 GameEngine::~GameEngine() {
+    if (mWindow) {
+        delete mWindow;
+        mWindow = nullptr;
+    }
     GameEngine::ShutDown();
 }
 
 bool GameEngine::Initialize() {
-    if(!mWindow.Initialize()) isInitialized = false;
+    if(!mWindow->Initialize()) isInitialized = false;
 
     mGrid.Initialize(4, 2);
 
@@ -44,13 +48,13 @@ void GameEngine::Run() {
         frames++;
         if (SDL_GetTicks() > fpsTimer + 1000) {
             std::string newTitle = "🧩 2048 - FPS: " + std::to_string(frames);
-            SDL_SetWindowTitle(mWindow.GetWindow(), newTitle.c_str());
+            SDL_SetWindowTitle(mWindow->GetWindow(), newTitle.c_str());
             m_fpsCount = std::to_string(frames) + " FPS";
             frames = 0;
             fpsTimer = SDL_GetTicks();
         }
 
-        GameEngine::Render(mWindow.GetRenderer());
+        GameEngine::Render(mWindow->GetRenderer());
         
         // limiting to ~60 FPS
         SDL_Delay(16);
@@ -105,9 +109,9 @@ void GameEngine::Update(float deltaTime) {
 }
 
 void GameEngine::Render(SDL_Renderer* renderer) {
-    mWindow.Clear();
+    mWindow->Clear();
     mGrid.Render(renderer);
-    mWindow.RenderText("Hello World!!!", 10.0f, 10.0f, Color::White());
-    mWindow.RenderText(m_fpsCount, 400.0f, 10.0f, Color::White());
-    mWindow.Present();
+    mWindow->RenderText("Hello World!!!", 10.0f, 10.0f, Color::White());
+    mWindow->RenderText(m_fpsCount, 400.0f, 10.0f, Color::White());
+    mWindow->Present();
 }

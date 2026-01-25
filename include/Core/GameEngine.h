@@ -7,7 +7,7 @@
 #include <SDL3/SDL_timer.h>
 
 class GameEngine {
-    Window mWindow;
+    Window* mWindow;
     Grid mGrid;
     Key Direction;
     bool IsKeyPressed;
