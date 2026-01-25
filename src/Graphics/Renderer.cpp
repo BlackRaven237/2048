@@ -10,6 +10,8 @@ bool Renderer::SetRenderDrawColor(Color color) {
 
 bool Renderer::CreateRenderer(SDL_Window* window) {
     mRenderer = SDL_CreateRenderer(window, nullptr);
+    SDL_SetRenderVSync(mRenderer, 1);
+
     if(!mRenderer) { return false; }
     return true;
 }

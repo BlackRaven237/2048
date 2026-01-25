@@ -57,7 +57,7 @@ void GameEngine::Run() {
         GameEngine::Render();
         
         // limiting to ~60 FPS
-        SDL_Delay(16);
+        // Achieved by the use of SDL_RenderVSync() in Renderer class
     }
 }
 
