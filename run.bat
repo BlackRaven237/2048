@@ -9,9 +9,9 @@ echo.
 
 REM ====== Gestion des répertoires ======
 set BIN_DIR=build\bin
-set OUTPUT_NAME=App
+set OUTPUT_NAME=%BIN_DIR%\App
 
-if not exist "%BIN_DIR%\%OUTPUT_NAME%.exe" (
+if not exist "%OUTPUT_NAME%.exe" (
     echo        ❌ Pas d'éxecutable trouvé !!!
     echo        Relancer build.bat
     exit /b 1
@@ -20,5 +20,5 @@ echo    ✅ Éxecutable trouvé.
 echo    🎉 Lancement de l'éxecutable....
 echo.
 
-.\%BIN_DIR%\%OUTPUT_NAME%.exe
+.\%OUTPUT_NAME%
 pause >nul
