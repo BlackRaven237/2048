@@ -103,24 +103,24 @@ void Grid::SpawnNewTiles(float size) {
     }
 }
 
-void Grid::Render(SDL_Renderer* renderer) {
+void Grid::Render(Window* window) {
     SDL_FRect Grid = {
         m_position.x,
         m_position.y,
         mWidth,
         mWidth
     };
-    SDL_SetRenderDrawColor(renderer, m_color.red, m_color.green, m_color.blue, 255);
-    SDL_RenderFillRect(renderer, &Grid);
+    SDL_SetRenderDrawColor(window->GetRenderer(), m_color.red, m_color.green, m_color.blue, 255);
+    SDL_RenderFillRect(window->GetRenderer(), &Grid);
 
     for(auto& row : mCells) {
         for (auto& cell : row) {
-            cell.Render(renderer);
+            cell.Render(window->GetRenderer());
         }
     }
 
     for(auto& tile : mTiles) {
-        tile.Render(renderer);
+        tile.Render(window);
     }
 }
 

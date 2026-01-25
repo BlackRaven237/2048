@@ -16,10 +16,9 @@ public:
     Tile(Vector2D pos, int row, int column, float size);
     Tile(const Tile& other);
 
-    void Initialize();
     void Move(Vector2D targetPosition, float deltaTime);
-    void Render(SDL_Renderer* renderer);
-    //void RenderValue(Window& window, SDL_Renderer* renderer);
+    void Render(Window* window);
+    void RenderValue(Window* window);
     
     int GetTileValue() const { return m_value; }
 };

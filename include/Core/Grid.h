@@ -7,8 +7,7 @@
 #include <utility>
 #include <cstdlib>
 
-class Grid
-{
+class Grid {
     float mWidth;
     std::vector<std::vector<Cell>> mCells;
     std::vector<Tile> mTiles;
@@ -27,7 +26,7 @@ public:
     void UpdateOccupiedCells();
     void SpawnNewTiles(float size);
     
-    void Render(SDL_Renderer* renderer);
+    void Render(Window* window);
 
 private:
     void InitializeCellsPosition();
