@@ -11,19 +11,26 @@ Tile::Tile(const Tile &other) :
     size(other.size), color(other.color) {}
 
 void Tile::Move(Vector2D targetPosition, float deltaTime) {    
-    float speed = 20.0f;
+    float speed = 30.0f;
     position.x += (targetPosition.x - position.x) * speed * deltaTime;
     position.y += (targetPosition.y - position.y) * speed * deltaTime;
 
-    if (std::abs(targetPosition.x - position.x) < 0.1f) position.x = targetPosition.x;
-    if (std::abs(targetPosition.y - position.y) < 0.1f) position.y = targetPosition.y;
+    if (std::abs(targetPosition.x - position.x) < 0.01f) position.x = targetPosition.x;
+    if (std::abs(targetPosition.y - position.y) < 0.01f) position.y = targetPosition.y;
 }
 
+// void Tile::Initialize() {
+//     font.InitializeFont("assets/fonts/Roboto-Bold.ttf");
+//     font.SetFontColor(Color::Black());
+// }
 
-bool Tile::IsValidMove(int row, int column)
-{
-    return row >= 0 && row < 4 && column >= 0 && column < 4;
-}
+// void Tile::RenderValue(Window& window, SDL_Renderer *renderer) {
+//     std::string value = std::to_string(m_value);
+
+//     //float surfaceSize = static_cast<float>(surface->w) / 8;
+//     //float x = (size - surfaceSize) / 2;
+//     window.RenderText(value, position.x, position.y, Color::White());
+// }
 
 void Tile::Render(SDL_Renderer *renderer)
 {
@@ -31,7 +38,8 @@ void Tile::Render(SDL_Renderer *renderer)
         position.x,
         position.y,
         size,
-        size};
+        size
+    };
 
     SDL_SetRenderDrawColor(renderer, color.red, color.green, color.blue, 255);
     SDL_RenderFillRect(renderer, &tile);
