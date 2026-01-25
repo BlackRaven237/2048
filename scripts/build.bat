@@ -38,7 +38,15 @@ set OBJ_FILES=
 set OBJ_FILE=
 set /a OBJ_COUNT=0
 
-echo [1/5] 📝 Vérifications des ressources....
+echo [1/5] 🎨 Préparation du répertoire Build....
+if not exist "%OBJ_DIR%" mkdir -p %OBJ_DIR%
+if not exist "%BIN_DIR%" mkdir -p %BIN_DIR%
+if not exist "%LIBS_DIR%" mkdir -p %LIBS_DIR%
+if not exist "%BUILD_DIR%\modif_date.txt" echo Last modification dates >> %BUILD_DIR%\modif_date.txt
+echo       ✅ Répertoire Build prêt !!!
+echo.
+
+echo [2/5] 📝 Vérifications des ressources....
 if not exist "%IMGUI_DIR%" (
     echo       ❌ Répertoire Imgui introuvable !!!
     echo       Pour gérer ce problème, Télécharger Dear Imgui sur https://github.com/ocornut/imgui.git 
@@ -51,14 +59,6 @@ if not exist "%SDL3_DIR%\SDL3" (
     exit /b 1
 )
 echo       ✅ Répertoire SDL3 trouvé !!!
-echo.
-
-echo [2/5] 🎨 Préparation du répertoire Build....
-if not exist "%OBJ_DIR%" mkdir -p %OBJ_DIR%
-if not exist "%BIN_DIR%" mkdir -p %BIN_DIR%
-if not exist "%LIBS_DIR%" mkdir -p %LIBS_DIR%
-if not exist "%BUILD_DIR%\modif_date.txt" echo Last modification dates >> %BUILD_DIR%\modif_date.txt
-echo       ✅ Répertoire Build prêt !!!
 echo.
 
 echo [3/5] 🔎 Vérification des bibliothèques....
@@ -78,7 +78,6 @@ if not exist "%LIBS_DIR%\libImgui.a" (
 
         if !errorlevel! neq 0 (
             echo       ❌ Erreur générer: %%~nxf
-            echo       ❌ Bibliothèque Imgui créer avec succès !!!
             exit /b 1
         )
 
@@ -147,7 +146,7 @@ if not exist "%OUTPUT_NAME%.exe" (
     echo       Erreur générer au niveau du linker
     exit /b 1
 ) else (
-    echo       ✅ Éxecutable créer avec succès.
+    echo       🎉 Éxecutable créer avec succès.
     echo.
 )
 
