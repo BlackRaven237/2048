@@ -9,7 +9,7 @@ echo.
 
 REM ====== Gestion des répertoires ======
 set BIN_DIR=build\bin
-set OUTPUT_NAME=%BIN_DIR%\App
+set OUTPUT_NAME=%BIN_DIR%\Game
 
 if not exist "%OUTPUT_NAME%.exe" (
     echo        ❌ Pas d'éxecutable trouvé !!!

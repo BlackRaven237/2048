@@ -96,7 +96,7 @@ if not exist "%LIBS_DIR%\libImgui.a" (
 echo       ✅ Archive Imgui trouvé !!!
 echo.
 
-echo [4/5] 🛠️ Compilation des fichiers sources en objets....
+echo [4/5] 🛠️  Compilation des fichiers sources en objets....
 set LAST_MODIF_DATE=
 set CURRENT_MODIF_DATE=
 set CHECK="TRUE"
