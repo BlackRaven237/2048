@@ -24,7 +24,7 @@ public:
     void MoveTiles(Key key);
     void Update(float deltaTime);
     void UpdateOccupiedCells();
-    void SpawnNewTiles(float size);
+    void AddNewTile(float size);
     
     void Render(Window* window);
 

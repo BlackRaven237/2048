@@ -53,7 +53,7 @@ void Grid::MoveTiles(Key direction) {
     }
 
     UpdateOccupiedCells(); // Update cells status
-    SpawnNewTiles(cellSize); // Add a new tile
+    AddNewTile(cellSize); // Add a new tile
 }
 
 void Grid::UpdateOccupiedCells() {
@@ -75,7 +75,7 @@ void Grid::Update(float deltaTime) {
     }
 }
 
-void Grid::SpawnNewTiles(float size) {
+void Grid::AddNewTile(float size) {
     if (mTiles.size() >= mMaxTiles) return;
 
     // Collecting the row and column of empty cells
