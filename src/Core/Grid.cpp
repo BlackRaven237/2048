@@ -22,14 +22,9 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
         int column = rand() % mCells.size();
         
         mCells[row][column].SetOccupied(true);
-        mTiles.push_back(
-            Tile(
-                mCells[row][column].position, 
-                row,
-                column, 
-                cellSize
-            )
-        );
+
+        Tile newTile = Tile(mCells[row][column].position, row, column, cellSize);
+        mTiles.push_back(newTile);
     }
 }
 
@@ -57,19 +52,21 @@ void Grid::MoveTiles(Key direction) {
         default: break;
     }
 
+    UpdateOccupiedCells(); // Update cells status
+    SpawnNewTiles(cellSize); // Add a new tile
+}
+
+void Grid::UpdateOccupiedCells() {
     // Consider all cells are not occupied
     for (auto& row : mCells) {
         for (auto& cell : row) {
             cell.SetOccupied(false);
         }
     }
-
     // Set the occupation state only to occupied cells 
     for (auto& tile : mTiles) {
         mCells[tile.row][tile.column].SetOccupied(true);
     }
-
-    SpawnNewTiles(cellSize);
 }
 
 void Grid::Update(float deltaTime) {
@@ -127,9 +124,17 @@ void Grid::Render(SDL_Renderer* renderer) {
     }
 }
 
-void Grid::Clear() {
-    mTiles.clear();
-    mCells.clear();
+void Grid::EmptyGrid() {
+    // for (auto& tile : mTiles) {
+    //     mTiles.pop_back();
+    // }
+
+    // for (auto& row : mCells) {
+    //     for(auto& cell : row) {
+    //         row.pop_back();
+    //     }
+    //     mCells.pop_back();
+    // }
 }
 
 Tile* Grid::getTileAt(int row, int column) {
@@ -153,7 +158,6 @@ std::vector<Tile*> Grid::CollectTiles(const std::vector<Cell>& row) {
 
     return RowTiles;
 }
-
 
 std::vector<std::vector<Cell>> Grid::Transpose() {
     std::vector<std::vector<Cell>> Transposed;
