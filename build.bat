@@ -61,7 +61,7 @@ if not exist "%BUILD_DIR%\modif_date.txt" echo Last modification dates >> %BUILD
 echo       ✅ Répertoire Build prêt !!!
 echo.
 
-echo [3/5] 📝 Vérification des bibliothèques....
+echo [3/5] 🔎 Vérification des bibliothèques....
 if not exist "%LIBS_DIR%\SDL3.dll" if not exist "%LIBS_DIR%\SDL3_ttf.dll" (
     echo       ⛔ Aucune bibliothèque SDL3 trouvé !!!
     exit /b 1
@@ -69,7 +69,7 @@ if not exist "%LIBS_DIR%\SDL3.dll" if not exist "%LIBS_DIR%\SDL3_ttf.dll" (
 echo       ✅ Bibliothèques SDL3 trouvé !!!
 
 if not exist "%LIBS_DIR%\libImgui.a" (
-    echo       ⏳ Création d'une bibliothèque Imgui !!!
+    echo       📦 Création d'une archive Imgui !!!
     REM ==== Compilation des fichiers sources imgui en fichiers objets
     for /r %%f in (%IMGUI_DIR%\*.cpp %IMGUI_DIR%\backends\*.cpp) do (
         echo        Compilation: %%~nxf
@@ -87,16 +87,16 @@ if not exist "%LIBS_DIR%\libImgui.a" (
     )
 
     ar rcs %LIBS_DIR%\libImgui.a %OBJ_FILES%
-    echo       ✅ Bibliothèque Imgui créer avec succès !!!
+    echo       ✅ Archive Imgui créer avec succès !!!
 
     REM ==== Reset variables ====
     set OBJ_FILES=
     set OBJ_FILE=
 )
-echo       ✅ Bibliothèque Imgui trouvé !!!
+echo       ✅ Archive Imgui trouvé !!!
 echo.
 
-echo [4/5] 🛠️  Compilation des fichiers sources en objets....
+echo [4/5] 🛠️ Compilation des fichiers sources en objets....
 set LAST_MODIF_DATE=
 set CURRENT_MODIF_DATE=
 set CHECK="TRUE"
@@ -152,13 +152,14 @@ if not exist "%OUTPUT_NAME%.exe" (
 )
 
 echo    =================================================
-echo                   RESUME DE COMPILATION
+echo                   RÉSUMÉ DE COMPILATION
 echo                   ---------------------
 echo.
 echo      Nombres de fichiers objets: %OBJ_COUNT%
 echo      Executable: %OUTPUT_NAME%.exe
 echo      Emplacement: %OUTPUT_NAME%
-echo      Prochaine étape: run.bat ou %OUTPUT_NAME%.exe
+echo      Lancement: run.bat ou %OUTPUT_NAME%.exe
+echo      Néttoyage: clean.bat
 echo    =================================================
 
 pause >nul
