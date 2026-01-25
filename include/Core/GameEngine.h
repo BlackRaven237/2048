@@ -11,7 +11,9 @@ class GameEngine {
     Grid mGrid;
     Key Direction;
     bool IsKeyPressed;
+    bool isInitialized;
     bool mRunning;
+    std::string m_fpsCount;
 public:
     GameEngine(const std::string& title, float width, float height);
     ~GameEngine();

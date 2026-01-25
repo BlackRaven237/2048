@@ -3,24 +3,26 @@
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
     mWindow(title, width, height),
     mGrid(Vector2D(static_cast<float>(width * 0.25), static_cast<float>(height * 0.1875)), width / 2), 
-    Direction(Key::NONE), IsKeyPressed(false), mRunning(false) {}
+    Direction(Key::NONE), IsKeyPressed(false), 
+    isInitialized(false), mRunning(false) {}
 
 GameEngine::~GameEngine() {
     GameEngine::ShutDown();
 }
 
 bool GameEngine::Initialize() {
-    if(!mWindow.Initialize()) return false;
+    if(!mWindow.Initialize()) isInitialized = false;
 
     mGrid.Initialize(4, 2);
 
+    isInitialized = true;
     mRunning = true;
-    std::cout << "GameEngine has been initialized" << std::endl;
-    return true;
+    std::cout << "🚀 GameEngine is correctly initialized" << std::endl;
+    return isInitialized;
 }
 
 void GameEngine::ShutDown() {
-    std::cout << "GameEngine successfully closed" << std::endl;
+    std::cout << "🛑 GameEngine correctly stops" << std::endl;
 }
 
 void GameEngine::Run() {
@@ -29,33 +31,29 @@ void GameEngine::Run() {
     int frames = 0;
 
     while(mRunning) {
-        mWindow.RenderText("Hello world !!!", 10.0f, 10.0f, Color::White());
         GameEngine::HandleEvents();
 
-        Uint64 CurrentTime = SDL_GetTicks();
         // elasped time for each frame
+        Uint64 CurrentTime = SDL_GetTicks();
         float deltaTime = (CurrentTime - LastUpdateTime) / 1000.0f;
         LastUpdateTime = CurrentTime;
 
         GameEngine::Update(deltaTime);
 
-        GameEngine::Render(mWindow.GetRenderer());
-        
+        // FPS calculation
         frames++;
-        // FPS Count
         if (SDL_GetTicks() > fpsTimer + 1000) {
-            std::string name = "🧩 2048 - FPS: " + std::to_string(frames);
-            SDL_SetWindowTitle(mWindow.GetWindow(), name.c_str());
-            mWindow.RenderText(std::to_string(frames) + " FPS", 400.0f, 10.0f, Color::White());
+            std::string newTitle = "🧩 2048 - FPS: " + std::to_string(frames);
+            SDL_SetWindowTitle(mWindow.GetWindow(), newTitle.c_str());
+            m_fpsCount = std::to_string(frames) + " FPS";
             frames = 0;
             fpsTimer = SDL_GetTicks();
         }
+
+        GameEngine::Render(mWindow.GetRenderer());
         
         // limiting to ~60 FPS
-        Uint64 frameTime = SDL_GetTicks() - CurrentTime;
-        if (frameTime < 16) {
-            SDL_Delay(16 - frameTime);
-        }
+        SDL_Delay(16);
     }
 }
 
@@ -109,5 +107,7 @@ void GameEngine::Update(float deltaTime) {
 void GameEngine::Render(SDL_Renderer* renderer) {
     mWindow.Clear();
     mGrid.Render(renderer);
+    mWindow.RenderText("Hello World!!!", 10.0f, 10.0f, Color::White());
+    mWindow.RenderText(m_fpsCount, 400.0f, 10.0f, Color::White());
     mWindow.Present();
-} 
+}
