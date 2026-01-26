@@ -2,7 +2,8 @@
 
 Grid::Grid(Vector2D position, float width) : 
     mWidth(width), mMaxTiles(16), m_color(Color::Gainsboro()), 
-    m_position(position), cellSize((mWidth * 0.95) / 4) {}
+    m_position(position), cellSize((mWidth * 0.95) / 4),
+    m_AccumulatedScore(0), mRandomGenerator(std::random_device{}()) {}
 
 void Grid::Initialize(int NumberofCells, int NumberofTiles) {
     mCells.clear();
@@ -77,7 +78,7 @@ void Grid::Update(float deltaTime) {
 
 void Grid::AddNewTile(float size) {
     if (mTiles.size() >= mMaxTiles) return;
-    int value = 2;
+    int value;
 
     // Collecting the row and column of empty cells
     std::vector<std::pair<int, int>> emptyCells;
@@ -89,12 +90,20 @@ void Grid::AddNewTile(float size) {
     if (emptyCells.empty()) return;
 
     // Choosing a random pair in those empty cells
-    int randomIndex = rand() % emptyCells.size();
+    std::uniform_int_distribution<int> dist2(0, emptyCells.size());
+    int randomIndex = dist2(mRandomGenerator);
     int row = emptyCells[randomIndex].first;
     int column = emptyCells[randomIndex].second;
 
     // Marks cell as occupied
     mCells[row][column].SetOccupied(true);
+
+    std::bernoulli_distribution dist(0.15f); // 15% for '4' 
+    if (dist(mRandomGenerator)) {
+        value = 4;
+    } else {
+        value = 2;
+    }
 
     // Creating a new tile 
     Tile newTile(value, mCells[row][column].position, row, column, size);
