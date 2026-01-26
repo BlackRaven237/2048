@@ -29,6 +29,14 @@ void Tile::RenderValue(Window* window) {
     window->RenderText(value, x, y, Color::White());
 }
 
+Color Tile::GetTextColor() const {
+    // Dark grey text for '2' and '4' values
+    if(m_value <= 4) return Color(119, 110, 101);
+    
+    // off-white for remaining values
+    return Color(249, 246, 242);
+}
+
 void Tile::Render(Window* window)
 {
     SDL_FRect tile = {

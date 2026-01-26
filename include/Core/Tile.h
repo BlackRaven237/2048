@@ -22,6 +22,9 @@ public:
     
     int GetValue() const { return m_value; }
     void SetValue(int value) { m_value = value; }
+
+private:
+    Color GetTextColor() const {}
 };
 
 #endif
