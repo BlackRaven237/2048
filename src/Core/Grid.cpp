@@ -88,29 +88,28 @@ void Grid::AddNewTile(float size) {
         }
     }
 
-    if (!emptyCells.empty()) {
+    if (emptyCells.empty()) return;
     
-        // Choosing a random pair in those empty cells
-        int randomIndex = rand() % emptyCells.size();
-        int row = emptyCells[randomIndex].first;
-        int column = emptyCells[randomIndex].second;
+    // Choosing a random pair in those empty cells
+    int randomIndex = rand() % emptyCells.size();
+    int row = emptyCells[randomIndex].first;
+    int column = emptyCells[randomIndex].second;
 
-        // Marks cell as occupied
-        mCells[row][column].SetOccupied(true);
+    // Marks cell as occupied
+    mCells[row][column].SetOccupied(true);
 
-        std::bernoulli_distribution dist(0.15f); // 15% for '4' 
-        if (dist(mRandomGenerator)) {
-            value = 4;
-        } else {
-            value = 2;
-        }
+    std::bernoulli_distribution dist(0.15f); // 15% for '4' 
+    if (dist(mRandomGenerator)) {
+        value = 4;
+    } else {
+        value = 2;
+    }
 
-        // Creating a new tile 
-        Tile newTile(value, mCells[row][column].position, row, column, size);
+    // Creating a new tile 
+    Tile newTile(value, mCells[row][column].position, row, column, size);
 
-        newTile.color = Color(238, 228, 218);
-        mTiles.push_back(newTile);
-    };
+    newTile.color = Color(238, 228, 218);
+    mTiles.push_back(newTile);
 }
 
 void Grid::Render(Window* window) {
