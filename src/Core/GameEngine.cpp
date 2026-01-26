@@ -96,6 +96,8 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
         mGrid.Initialize(16, 2);
         std::cout << "🔁 Restart" << std::endl;
         break;
+    default: 
+        break;
     }
 }
 
