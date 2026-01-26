@@ -10,7 +10,7 @@
 class Grid {
     float mWidth;
     std::vector<std::vector<Cell>> mCells;
-    std::vector<Tile> mTiles;
+    std::vector<std::unique_ptr<Tile>> mTiles;
     size_t mMaxTiles;
     Color m_color;
     Vector2D m_position;

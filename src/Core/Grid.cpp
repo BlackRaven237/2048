@@ -64,14 +64,14 @@ void Grid::UpdateOccupiedCells() {
         }
     }
     // Set the occupation state only to occupied cells 
-    for (auto& tile : mTiles) {
-        mCells[tile.row][tile.column].SetOccupied(true);
+    for (const auto& tile : mTiles) {
+        mCells[tile->row][tile->column].SetOccupied(true);
     }
 }
 
 void Grid::Update(float deltaTime) {
-    for (auto& tile : mTiles) {
-        tile.Move(mCells[tile.row][tile.column].position, deltaTime);
+    for (const auto& tile : mTiles) {
+        tile->Move(mCells[tile->row][tile->column].position, deltaTime);
     }
 }
 
@@ -106,14 +106,14 @@ void Grid::AddNewTile(float size) {
     }
 
     // Creating a new tile 
-    mTiles.push_back(Tile(value, mCells[row][column].position, row, column, size));
+    mTiles.push_back(std::make_unique<Tile>(value, mCells[row][column].position, row, column, size));
 }
 
 void Grid::RemoveDeadTiles() {
     mTiles.erase(
         std::remove_if(mTiles.begin(), mTiles.end(),
-            [](const Tile& t) { 
-                return t.GetValue() == 0; 
+            [](const std::unique_ptr<Tile>& t) { 
+                return t->GetValue() == 0; 
             }),
         mTiles.end()
     );
@@ -135,8 +135,8 @@ void Grid::Render(Window* window) {
         }
     }
 
-    for(auto& tile : mTiles) {
-        tile.Render(window);
+    for(const auto& tile : mTiles) {
+        tile->Render(window);
     }
 
     window->RenderText("Score: " + std::to_string(m_AccumulatedScore), m_position.x, m_position.y - 50.0f, Color::White());
@@ -154,8 +154,8 @@ void Grid::Clear() {
 
 Tile* Grid::GetTileAt(int row, int column) {
     for(auto& tile : mTiles) {
-        if (tile.row == row && tile.column == column) {
-            return &tile;
+        if (tile->row == row && tile->column == column) {
+            return tile.get();
         }
     }
     return nullptr;
