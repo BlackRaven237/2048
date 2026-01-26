@@ -91,15 +91,16 @@ void Grid::AddNewTile(float size) {
     if (emptyCells.empty()) return;
     
     // Choosing a random pair in those empty cells
-    int randomIndex = rand() % emptyCells.size();
+    std::uniform_int_distribution<int> dist(0, (int)emptyCells.size() - 1);
+    int randomIndex = dist(mRandomGenerator);
     int row = emptyCells[randomIndex].first;
     int column = emptyCells[randomIndex].second;
 
     // Marks cell as occupied
     mCells[row][column].SetOccupied(true);
 
-    std::bernoulli_distribution dist(0.15f); // 15% for '4' 
-    if (dist(mRandomGenerator)) {
+    std::bernoulli_distribution dist2(0.15f); // 15% for '4' 
+    if (dist2(mRandomGenerator)) {
         value = 4;
     } else {
         value = 2;
