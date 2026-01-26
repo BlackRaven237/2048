@@ -1,4 +1,5 @@
 #include "Core/Grid.h"
+#include <algorithm>
 
 Grid::Grid(Vector2D position, float width) : 
     mWidth(width), mMaxTiles(16), m_color(Color::Gainsboro()), 
@@ -48,10 +49,10 @@ void Grid::InitializeCellsPosition() {
 void Grid::MoveTiles(Key direction) {
     bool moved = false;
     switch (direction) {
-        case Key::UP: moved = slideUp(); break;
-        case Key::DOWN: moved = slideDown(); break;
-        case Key::LEFT: moved = slideLeft(); break;
-        case Key::RIGHT: moved = slideRight(); break;
+        case Key::UP:    moved = slideUp();     break;
+        case Key::DOWN:  moved = slideDown();   break;
+        case Key::LEFT:  moved = slideLeft();   break;
+        case Key::RIGHT: moved = slideRight();  break;
         default: break;
     }
 
@@ -156,6 +157,33 @@ Tile* Grid::GetTileAt(int row, int column) {
     return nullptr;
 }
 
+void Grid::RemoveTileAt(int row, int column) {
+    mTiles.erase(
+        std::remove_if(mTiles.begin(), mTiles.end(),
+            [row, column](const Tile& t) { 
+                return t.row == row && t.column == column; 
+            }),
+        mTiles.end()
+    );
+}
+    
+void Grid::Merge(std::vector<Tile*>& row) {
+    if (row.size() < 2) return;
+
+    for(size_t i=0; i+1 < row.size(); ++i) {
+        if(row[i]->GetValue() == row[i+1]->GetValue()) {
+            int newValue = row[i]->GetValue() * 2;
+            row[i]->SetValue(newValue);
+
+            int deleteRow = row[i+1]->row;
+            int deleteColumn = row[i+1]->column;
+
+            RemoveTileAt(deleteRow, deleteColumn);
+            row.erase(row.begin() + i + 1);
+        }
+    }
+}
+
 std::vector<Tile*> Grid::CollectTiles(const std::vector<Cell>& row) {
     // Collecting tiles from occupied cells
     std::vector<Tile*> RowTiles;
@@ -187,10 +215,14 @@ bool Grid::slideLeft() {
         std::vector<Tile*> rowTiles = CollectTiles(row);
         if(rowTiles.empty()) continue;
 
-        for (size_t i = 0; i < rowTiles.size(); ++i) {
-            rowTiles[i]->column = i; 
+        Merge(rowTiles);
+
+        for (int i = 0; i < (int)rowTiles.size(); ++i) {
+            if (rowTiles[i]->column != i) {
+                rowTiles[i]->column = i;
+                moved = true;
+            }
         }
-        moved = true;
     }
     return moved;
 }
@@ -201,12 +233,19 @@ bool Grid::slideRight() {
         std::vector<Tile*> rowTiles = CollectTiles(row);
         if(rowTiles.empty()) continue;
 
+        std::reverse(rowTiles.begin(), rowTiles.end());
+
+        Merge(rowTiles);
+
         int targetColumn = 3;
-        for (int i = (int)rowTiles.size() - 1; i>=0; --i) {
-            rowTiles[i]->column = targetColumn;
+        for (int i=0; i < (int)rowTiles.size(); ++i) {
+            if((int)rowTiles[i]->column != targetColumn) {
+                rowTiles[i]->column = targetColumn;
+                moved = true;
+            }
             targetColumn--;
         }
-        moved = true;
+        std::reverse(rowTiles.begin(), rowTiles.end());
     }
     return moved;
 }
@@ -218,10 +257,14 @@ bool Grid::slideUp() {
         std::vector<Tile*> colTiles = CollectTiles(col);
         if(colTiles.empty()) continue;
 
-        for (size_t i = 0; i < colTiles.size(); ++i) {
-            colTiles[i]->row = i;
+        Merge(colTiles);
+
+        for (int i = 0; i < (int)colTiles.size(); ++i) {
+            if(colTiles[i]->row != i) {
+                colTiles[i]->row = i;
+                moved = true;
+            }
         }
-        moved = true;
     }
     return moved;
 }
@@ -231,14 +274,21 @@ bool Grid::slideDown() {
     bool moved = false;
     for (auto& col : TransposedCells) {
         std::vector<Tile*> colTiles = CollectTiles(col);
+
         if(colTiles.empty()) continue;
+        std::reverse(colTiles.begin(), colTiles.end());
+        Merge(colTiles);
 
         int targetColumn = 3;
-        for (int i = (int)colTiles.size() - 1; i >= 0; --i) {
-            colTiles[i]->row = targetColumn;
+        for (size_t i=0; i < colTiles.size(); ++i) {
+            if((int)colTiles[i]->row != targetColumn) {
+                colTiles[i]->row = targetColumn;
+                moved = true;
+            }
             targetColumn--;
         }
-        moved = true;
+
+        std::reverse(colTiles.begin(), colTiles.end());
     }
     return moved;
 }
