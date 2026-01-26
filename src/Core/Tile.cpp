@@ -11,12 +11,12 @@ Tile::Tile(const Tile &other) :
     size(other.size), color(other.color) {}
 
 void Tile::Move(Vector2D targetPosition, float deltaTime) {    
-    float speed = 15.0f;
+    float speed = 20.0f;
     position.x += (targetPosition.x - position.x) * speed * deltaTime;
     position.y += (targetPosition.y - position.y) * speed * deltaTime;
 
-    if (std::abs(targetPosition.x - position.x) < 2.0f) position.x = targetPosition.x;
-    if (std::abs(targetPosition.y - position.y) < 2.0f) position.y = targetPosition.y;
+    if (std::abs(targetPosition.x - position.x) < 0.1f) position.x = targetPosition.x;
+    if (std::abs(targetPosition.y - position.y) < 0.1f) position.y = targetPosition.y;
 
     // Spawning pop-up effects
     if (scale < 1.0f) {
