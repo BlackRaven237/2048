@@ -25,6 +25,7 @@ public:
 
 private:
     Color GetTextColor() const;
+    Color GetColorBasedOnValue() const;
 };
 
 #endif
