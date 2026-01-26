@@ -190,7 +190,7 @@ bool Grid::Merge(std::vector<Tile*>& row) {
     return merged;
 }
 
-std::vector<Tile*> Grid::CollectTiles(const std::vector<Cell>& row) {
+std::vector<Tile*> Grid::Compressed(const std::vector<Cell>& row) {
     // Collecting tiles from occupied cells
     std::vector<Tile*> RowTiles;
     for (const auto& cell : row) {
@@ -218,7 +218,7 @@ std::vector<std::vector<Cell>> Grid::Transpose() {
 bool Grid::slideLeft() {
     bool moved = false;
     for(auto& row : mCells) {
-        std::vector<Tile*> rowTiles = CollectTiles(row);
+        std::vector<Tile*> rowTiles = Compressed(row);
         if(rowTiles.empty()) continue;
 
         if(Merge(rowTiles)) moved = true;
@@ -236,7 +236,7 @@ bool Grid::slideLeft() {
 bool Grid::slideRight() {
     bool moved = false;
     for(auto& row : mCells) {
-        std::vector<Tile*> rowTiles = CollectTiles(row);
+        std::vector<Tile*> rowTiles = Compressed(row);
         if(rowTiles.empty()) continue;
 
         std::reverse(rowTiles.begin(), rowTiles.end());
@@ -258,7 +258,7 @@ bool Grid::slideUp() {
     std::vector<std::vector<Cell>> TransposedCells = Transpose();
     bool moved = false;
     for (auto& col : TransposedCells) {
-        std::vector<Tile*> colTiles = CollectTiles(col);
+        std::vector<Tile*> colTiles = Compressed(col);
         if(colTiles.empty()) continue;
 
         if(Merge(colTiles)) moved = true;
@@ -277,7 +277,7 @@ bool Grid::slideDown() {
     std::vector<std::vector<Cell>> TransposedCells = Transpose();
     bool moved = false;
     for (auto& col : TransposedCells) {
-        std::vector<Tile*> colTiles = CollectTiles(col);
+        std::vector<Tile*> colTiles = Compressed(col);
 
         if(colTiles.empty()) continue;
 
