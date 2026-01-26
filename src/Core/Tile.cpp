@@ -1,7 +1,7 @@
 #include "Core/Tile.h"
 
-Tile::Tile(Vector2D pos, int row, int column, float size) : 
-    m_value(2), position(pos), 
+Tile::Tile(int value, Vector2D pos, int row, int column, float size) : 
+    m_value(value), position(pos), 
     row(row), column(column), 
     size(size), color(Color::Green()) {}
 
@@ -20,12 +20,11 @@ void Tile::Move(Vector2D targetPosition, float deltaTime) {
 }
 
 void Tile::RenderValue(Window* window) {
-    std::string value = std::to_string(2048);
+    std::string value = std::to_string(m_value);
+    //std::pair<float, float> text = window->textSize;
 
-    //float surfaceSize = static_cast<float>(surface->w) / 8;
-    //float x = (size - surfaceSize) / 2;
-    float x = position.x + (size / 4);
-    float y = position.y + ((size - 24) / 4);
+    float x = position.x; //+ ((size - text.first) / 4);
+    float y = position.y; //+ ((size - text.second) / 4);
 
     window->RenderText(value, x, y, Color::White());
 }

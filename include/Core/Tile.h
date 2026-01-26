@@ -13,14 +13,15 @@ public:
     float size;
     Color color;
 
-    Tile(Vector2D pos, int row, int column, float size);
+    Tile(int value, Vector2D pos, int row, int column, float size);
     Tile(const Tile& other);
 
     void Move(Vector2D targetPosition, float deltaTime);
     void Render(Window* window);
     void RenderValue(Window* window);
     
-    int GetTileValue() const { return m_value; }
+    int GetValue() const { return m_value; }
+    void SetValue(int value) { m_value = value; }
 };
 
 #endif

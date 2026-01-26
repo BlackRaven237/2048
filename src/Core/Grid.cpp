@@ -2,7 +2,8 @@
 
 Grid::Grid(Vector2D position, float width) : 
     mWidth(width), mMaxTiles(16), m_color(Color::Gainsboro()), 
-    m_position(position), cellSize((mWidth * 0.95) / 4) {}
+    m_position(position), cellSize((mWidth * 0.95) / 4),
+    m_AccumulatedScore(0), mRandomGenerator(std::random_device{}()) {}
 
 void Grid::Initialize(int NumberofCells, int NumberofTiles) {
     mCells.clear();
@@ -23,7 +24,7 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
         
         mCells[row][column].SetOccupied(true);
 
-        Tile newTile = Tile(mCells[row][column].position, row, column, cellSize);
+        Tile newTile = Tile(2, mCells[row][column].position, row, column, cellSize);
         mTiles.push_back(newTile);
     }
 }
@@ -77,6 +78,7 @@ void Grid::Update(float deltaTime) {
 
 void Grid::AddNewTile(float size) {
     if (mTiles.size() >= mMaxTiles) return;
+    int value;
 
     // Collecting the row and column of empty cells
     std::vector<std::pair<int, int>> emptyCells;
@@ -86,21 +88,29 @@ void Grid::AddNewTile(float size) {
         }
     }
 
-    if (!emptyCells.empty()) {
-        // Choosing a random pair in those empty cells
-        int randomIndex = rand() % emptyCells.size();
-        int row = emptyCells[randomIndex].first;
-        int column = emptyCells[randomIndex].second;
+    if (emptyCells.empty()) return;
+    
+    // Choosing a random pair in those empty cells
+    std::uniform_int_distribution<int> dist2(0, (int)emptyCells.size() - 1);
+    int randomIndex = dist2(mRandomGenerator);
+    int row = emptyCells[randomIndex].first;
+    int column = emptyCells[randomIndex].second;
 
-        // Marks cell as occupied
-        mCells[row][column].SetOccupied(true);
+    // Marks cell as occupied
+    mCells[row][column].SetOccupied(true);
 
-        // Creating a new tile 
-        Tile newTile(Vector2D(mCells[row][column].position), row, column, size);
-
-        newTile.color = Color(238, 228, 218);
-        mTiles.push_back(newTile);
+    std::bernoulli_distribution dist(0.15f); // 15% for '4' 
+    if (dist(mRandomGenerator)) {
+        value = 4;
+    } else {
+        value = 2;
     }
+
+    // Creating a new tile 
+    Tile newTile(value, mCells[row][column].position, row, column, size);
+
+    newTile.color = Color(238, 228, 218);
+    mTiles.push_back(newTile);
 }
 
 void Grid::Render(Window* window) {

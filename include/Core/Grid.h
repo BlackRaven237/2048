@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 #include <utility>
-#include <cstdlib>
+#include <random>
 
 class Grid {
     float mWidth;
@@ -17,6 +17,7 @@ class Grid {
     float cellSize;
 
     int m_AccumulatedScore;
+    mutable std::mt19937 mRandomGenerator;
 public:
     Grid(Vector2D position, float width);
     void Initialize(int NumberofCells, int NumberofTiles);

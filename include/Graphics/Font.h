@@ -11,7 +11,7 @@ public:
     bool InitializeFont(const char* file) {
         if (!TTF_Init()) return false;
 
-        font = TTF_OpenFont(file, 24.0f);
+        font = TTF_OpenFont(file, 30.0f);
 
         if(!font) return false;
         return true;
