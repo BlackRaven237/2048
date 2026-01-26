@@ -167,8 +167,9 @@ void Grid::RemoveTileAt(int row, int column) {
     );
 }
     
-void Grid::Merge(std::vector<Tile*>& row) {
-    if (row.size() < 2) return;
+bool Grid::Merge(std::vector<Tile*>& row) {
+    bool merged = false;
+    if (row.size() < 2) return false;
 
     for(size_t i=0; i+1 < row.size(); ++i) {
         if(row[i]->GetValue() == row[i+1]->GetValue()) {
@@ -180,8 +181,12 @@ void Grid::Merge(std::vector<Tile*>& row) {
 
             RemoveTileAt(deleteRow, deleteColumn);
             row.erase(row.begin() + i + 1);
+
+            merged = true;
         }
     }
+    
+    return merged;
 }
 
 std::vector<Tile*> Grid::CollectTiles(const std::vector<Cell>& row) {
@@ -215,7 +220,7 @@ bool Grid::slideLeft() {
         std::vector<Tile*> rowTiles = CollectTiles(row);
         if(rowTiles.empty()) continue;
 
-        Merge(rowTiles);
+        if(Merge(rowTiles)) moved = true;
 
         for (int i = 0; i < (int)rowTiles.size(); ++i) {
             if (rowTiles[i]->column != i) {
@@ -235,7 +240,7 @@ bool Grid::slideRight() {
 
         std::reverse(rowTiles.begin(), rowTiles.end());
 
-        Merge(rowTiles);
+        if(Merge(rowTiles)) moved = true;
 
         int targetColumn = 3;
         for (int i=0; i < (int)rowTiles.size(); ++i) {
@@ -257,7 +262,7 @@ bool Grid::slideUp() {
         std::vector<Tile*> colTiles = CollectTiles(col);
         if(colTiles.empty()) continue;
 
-        Merge(colTiles);
+        if(Merge(colTiles)) moved = true;
 
         for (int i = 0; i < (int)colTiles.size(); ++i) {
             if(colTiles[i]->row != i) {
@@ -277,7 +282,8 @@ bool Grid::slideDown() {
 
         if(colTiles.empty()) continue;
         std::reverse(colTiles.begin(), colTiles.end());
-        Merge(colTiles);
+        
+        if(Merge(colTiles)) moved = true;
 
         int targetColumn = 3;
         for (size_t i=0; i < colTiles.size(); ++i) {
@@ -287,8 +293,8 @@ bool Grid::slideDown() {
             }
             targetColumn--;
         }
-
         std::reverse(colTiles.begin(), colTiles.end());
     }
+
     return moved;
 }

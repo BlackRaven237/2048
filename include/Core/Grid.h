@@ -35,7 +35,7 @@ private:
 
     Tile* GetTileAt(int row, int column);
     void RemoveTileAt(int row, int column);
-    void Merge(std::vector<Tile*>& row);
+    bool Merge(std::vector<Tile*>& row);
     std::vector<Tile*> CollectTiles(const std::vector<Cell>& row);
     std::vector<std::vector<Cell>> Transpose();
 
