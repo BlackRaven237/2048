@@ -26,7 +26,7 @@ void Tile::RenderValue(Window* window) {
     float x = position.x; //+ ((size - text.first) / 4);
     float y = position.y; //+ ((size - text.second) / 4);
 
-    window->RenderText(value, x, y, Color::White());
+    window->RenderText(value, x, y, GetTextColor());
 }
 
 Color Tile::GetTextColor() const {
