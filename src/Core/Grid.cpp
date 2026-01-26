@@ -142,7 +142,7 @@ void Grid::Render(Window* window) {
     window->RenderText("Score: " + std::to_string(m_AccumulatedScore), m_position.x, m_position.y - 50.0f, Color::White());
 }
 
-void Grid::Clear() {
+void Grid::Reset() {
     mTiles.clear();
     m_AccumulatedScore = 0;
 
