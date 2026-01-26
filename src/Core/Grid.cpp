@@ -137,7 +137,7 @@ void Grid::EmptyGrid() {
     // }
 }
 
-Tile* Grid::getTileAt(int row, int column) {
+Tile* Grid::GetTileAt(int row, int column) {
     for(auto& tile : mTiles) {
         if (tile.row == row && tile.column == column) {
             return &tile;
@@ -150,7 +150,7 @@ std::vector<Tile*> Grid::CollectTiles(const std::vector<Cell>& row) {
     // Collecting tiles from occupied cells
     std::vector<Tile*> RowTiles;
     for (const auto& cell : row) {
-        Tile* tile = getTileAt(cell.row, cell.column);
+        Tile* tile = GetTileAt(cell.row, cell.column);
         if (tile) {
             RowTiles.push_back(tile);
         }

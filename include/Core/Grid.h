@@ -16,6 +16,7 @@ class Grid {
     Vector2D m_position;
     float cellSize;
 
+    int m_AccumulatedScore;
 public:
     Grid(Vector2D position, float width);
     void Initialize(int NumberofCells, int NumberofTiles);
@@ -27,11 +28,11 @@ public:
     void AddNewTile(float size);
     
     void Render(Window* window);
-
+    int GetScore() const { return m_AccumulatedScore; }
 private:
     void InitializeCellsPosition();
 
-    Tile* getTileAt(int row, int column);
+    Tile* GetTileAt(int row, int column);
     std::vector<Tile*> CollectTiles(const std::vector<Cell>& row);
     std::vector<std::vector<Cell>> Transpose();
 
