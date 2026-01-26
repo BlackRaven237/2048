@@ -24,7 +24,7 @@ public:
     void SetValue(int value) { m_value = value; }
 
 private:
-    Color GetTextColor() const {}
+    Color GetTextColor() const;
 };
 
 #endif
