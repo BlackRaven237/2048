@@ -17,7 +17,7 @@ GameEngine::~GameEngine() {
 bool GameEngine::Initialize() {
     if(!mWindow->Initialize()) isInitialized = false;
 
-    mGrid.Initialize(4, 2);
+    mGrid.Initialize(2);
 
     isInitialized = true;
     mRunning = true;
@@ -93,7 +93,8 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
         Direction = Key::RIGHT;
         break;
     case SDLK_R:
-        mGrid.Initialize(16, 2);
+        mGrid.Clear();
+        mGrid.Initialize(2);
         std::cout << "🔁 Restart" << std::endl;
         break;
     default: 

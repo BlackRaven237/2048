@@ -6,13 +6,13 @@ Grid::Grid(Vector2D position, float width) :
     m_position(position), cellSize((mWidth * 0.95) / 4),
     m_AccumulatedScore(0), mRandomGenerator(std::random_device{}()) {}
 
-void Grid::Initialize(int NumberofCells, int NumberofTiles) {
+void Grid::Initialize(int NumberofTiles) {
     mCells.clear();
     mTiles.clear();
 
-    for(int i=0; i<NumberofCells; ++i) {
+    for(int i=0; i < 4; ++i) {
         std::vector<Cell> row; // create a new row
-        for (int j=0; j<NumberofCells; ++j) {
+        for (int j=0; j < 4; ++j) {
             row.push_back(Cell(i, j, cellSize)); // Add cells to row
         }
         mCells.push_back(row); // Add the row to mCells
@@ -145,7 +145,7 @@ void Grid::Render(Window* window) {
 void Grid::Clear() {
     mTiles.clear();
     m_AccumulatedScore = 0;
-    
+
     for (auto& row : mCells) {
         for (auto& cell : row) {
             cell.SetOccupied(false);

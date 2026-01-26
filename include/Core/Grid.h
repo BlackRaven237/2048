@@ -20,7 +20,7 @@ class Grid {
     mutable std::mt19937 mRandomGenerator;
 public:
     Grid(Vector2D position, float width);
-    void Initialize(int NumberofCells, int NumberofTiles);
+    void Initialize(int NumberofTiles);
     void Clear();
 
     void MoveTiles(Key key);

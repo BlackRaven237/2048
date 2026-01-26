@@ -21,6 +21,9 @@ public:
     void Run();
     void ShutDown();
 private:
+    bool CheckWin();
+    bool IsGameOver();
+
     void HandleEvents();
     void HandleInputs(SDL_Keycode key);
     void Update(float deltaTime);
