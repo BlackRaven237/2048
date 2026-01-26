@@ -144,7 +144,8 @@ void Grid::Render(Window* window) {
 
 void Grid::Clear() {
     mTiles.clear();
-
+    m_AccumulatedScore = 0;
+    
     for (auto& row : mCells) {
         for (auto& cell : row) {
             cell.SetOccupied(false);
