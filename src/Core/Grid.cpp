@@ -91,8 +91,7 @@ void Grid::AddNewTile(float size) {
     if (!emptyCells.empty()) {
     
         // Choosing a random pair in those empty cells
-        std::uniform_int_distribution<int> dist2(0, (int)emptyCells.size() - 1);
-        int randomIndex = dist2(mRandomGenerator);
+        int randomIndex = rand() % emptyCells.size();
         int row = emptyCells[randomIndex].first;
         int column = emptyCells[randomIndex].second;
 

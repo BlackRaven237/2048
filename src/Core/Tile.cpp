@@ -20,7 +20,7 @@ void Tile::Move(Vector2D targetPosition, float deltaTime) {
 }
 
 void Tile::RenderValue(Window* window) {
-    std::string value = std::to_string(m_value);
+    std::string value = std::to_string(2048);
     //std::pair<float, float> text = window->textSize;
 
     float x = position.x; //+ ((size - text.first) / 4);
