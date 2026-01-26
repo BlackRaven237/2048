@@ -53,6 +53,8 @@ void Grid::MoveTiles(Key direction) {
         RemoveDeadTiles(); // Clean-up all dead cells
         UpdateOccupiedCells(); // Update cells status
         AddNewTile(cellSize); // Add a new tile
+
+        if (IsGameOver()) SDL_Log("Game Over! Final Score: %d", m_AccumulatedScore);
     }
 }
 
@@ -151,6 +153,46 @@ void Grid::Reset() {
             cell.SetOccupied(false);
         }
     }
+}
+
+bool Grid::IsGameOver() {
+    // If we have fewer than 16 tiles, the game definitely isn't over.
+    if (mTiles.size() < mMaxTiles) {
+        return false;
+    }
+
+    // Checks for any possible horizontal or vertical merges.
+    for (int r = 0; r < 4; ++r) {
+        for (int c = 0; c < 4; ++c) {
+            Tile* current = GetTileAt(r, c);
+            if (!current) continue;
+
+            // Check neighbor to the RIGHT
+            if (c < 3) {
+                Tile* rightNeighbor = GetTileAt(r, c + 1);
+                if (rightNeighbor && current->GetValue() == rightNeighbor->GetValue()) {
+                    return false; // A horizontal merge is possible
+                }
+            }
+
+            // Check neighbor BELOW
+            if (r < 3) {
+                Tile* downNeighbor = GetTileAt(r + 1, c);
+                if (downNeighbor && current->GetValue() == downNeighbor->GetValue()) {
+                    return false; // A vertical merge is possible
+                }
+            }
+        }
+    }
+
+    return true; 
+}
+
+bool Grid::CheckWin() {
+    for (const auto& tile : mTiles) {
+        if (tile->GetValue() == 2048) return true;
+    }
+    return false;
 }
 
 Tile* Grid::GetTileAt(int row, int column) {

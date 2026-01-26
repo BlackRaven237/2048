@@ -21,6 +21,8 @@ class Grid {
 public:
     Grid(Vector2D position, float width);
     void Initialize(int NumberofTiles);
+    bool IsGameOver();
+    bool CheckWin();
     void Reset();
 
     void MoveTiles(Key key);
