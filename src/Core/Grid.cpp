@@ -137,6 +137,8 @@ void Grid::Render(Window* window) {
     for(auto& tile : mTiles) {
         tile.Render(window);
     }
+
+    window->RenderText("Score: " + std::to_string(m_AccumulatedScore), m_position.x, m_position.y - 50.0f, Color::White());
 }
 
 void Grid::EmptyGrid() {
@@ -175,17 +177,16 @@ bool Grid::Merge(std::vector<Tile*>& row) {
         if(row[i]->GetValue() == row[i+1]->GetValue()) {
             int newValue = row[i]->GetValue() * 2;
             row[i]->SetValue(newValue);
+            m_AccumulatedScore += newValue; // Calculates score after each merge
 
             int deleteRow = row[i+1]->row;
             int deleteColumn = row[i+1]->column;
 
             RemoveTileAt(deleteRow, deleteColumn);
             row.erase(row.begin() + i + 1);
-
             merged = true;
         }
     }
-    
     return merged;
 }
 
@@ -239,7 +240,6 @@ bool Grid::slideRight() {
         if(rowTiles.empty()) continue;
 
         std::reverse(rowTiles.begin(), rowTiles.end());
-
         if(Merge(rowTiles)) moved = true;
 
         int targetColumn = 3;
@@ -250,7 +250,6 @@ bool Grid::slideRight() {
             }
             targetColumn--;
         }
-        std::reverse(rowTiles.begin(), rowTiles.end());
     }
     return moved;
 }
@@ -281,8 +280,8 @@ bool Grid::slideDown() {
         std::vector<Tile*> colTiles = CollectTiles(col);
 
         if(colTiles.empty()) continue;
+
         std::reverse(colTiles.begin(), colTiles.end());
-        
         if(Merge(colTiles)) moved = true;
 
         int targetColumn = 3;
@@ -293,7 +292,6 @@ bool Grid::slideDown() {
             }
             targetColumn--;
         }
-        std::reverse(colTiles.begin(), colTiles.end());
     }
 
     return moved;
