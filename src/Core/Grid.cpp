@@ -106,10 +106,7 @@ void Grid::AddNewTile(float size) {
     }
 
     // Creating a new tile 
-    Tile newTile(value, mCells[row][column].position, row, column, size);
-
-    newTile.color = Color(238, 228, 218);
-    mTiles.push_back(newTile);
+    mTiles.push_back(Tile(value, mCells[row][column].position, row, column, size));
 }
 
 void Grid::RemoveDeadTiles() {
@@ -145,8 +142,9 @@ void Grid::Render(Window* window) {
     window->RenderText("Score: " + std::to_string(m_AccumulatedScore), m_position.x, m_position.y - 50.0f, Color::White());
 }
 
-void Grid::EmptyGrid() {
+void Grid::Clear() {
     mTiles.clear();
+
     for (auto& row : mCells) {
         for (auto& cell : row) {
             cell.SetOccupied(false);
@@ -172,9 +170,6 @@ bool Grid::Merge(std::vector<Tile*>& row) {
             int newValue = row[i]->GetValue() * 2;
             row[i]->SetValue(newValue);
             m_AccumulatedScore += newValue; // Calculates score after each merge
-
-            int deleteRow = row[i+1]->row;
-            int deleteColumn = row[i+1]->column;
 
             row[i+1]->SetValue(0);
 

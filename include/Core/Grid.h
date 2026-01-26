@@ -21,7 +21,7 @@ class Grid {
 public:
     Grid(Vector2D position, float width);
     void Initialize(int NumberofCells, int NumberofTiles);
-    void EmptyGrid();
+    void Clear();
 
     void MoveTiles(Key key);
     void Update(float deltaTime);
