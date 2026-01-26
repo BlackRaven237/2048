@@ -11,12 +11,18 @@ Tile::Tile(const Tile &other) :
     size(other.size), color(other.color) {}
 
 void Tile::Move(Vector2D targetPosition, float deltaTime) {    
-    float speed = 30.0f;
+    float speed = 15.0f;
     position.x += (targetPosition.x - position.x) * speed * deltaTime;
     position.y += (targetPosition.y - position.y) * speed * deltaTime;
 
-    if (std::abs(targetPosition.x - position.x) < 0.01f) position.x = targetPosition.x;
-    if (std::abs(targetPosition.y - position.y) < 0.01f) position.y = targetPosition.y;
+    if (std::abs(targetPosition.x - position.x) < 2.0f) position.x = targetPosition.x;
+    if (std::abs(targetPosition.y - position.y) < 2.0f) position.y = targetPosition.y;
+
+    // Spawning pop-up effects
+    if (scale < 1.0f) {
+        scale += 5.0f * deltaTime;
+        if (scale > 1.0f) scale = 1.0f;
+    }
 }
 
 void Tile::RenderValue(Window* window) {
@@ -56,11 +62,14 @@ Color Tile::GetColorBasedOnValue() const {
 
 void Tile::Render(Window* window)
 {
+    float drawSize = size * scale;
+    float offset = (size - drawSize) / 2;
+
     SDL_FRect tile = {
-        position.x,
-        position.y,
-        size,
-        size
+        position.x + offset,
+        position.y + offset,
+        drawSize,
+        drawSize
     };
 
     color = GetColorBasedOnValue();
