@@ -37,10 +37,10 @@ private:
     std::vector<Tile*> CollectTiles(const std::vector<Cell>& row);
     std::vector<std::vector<Cell>> Transpose();
 
-    void slideUp();
-    void slideDown();
-    void slideLeft();
-    void slideRight();
+    bool slideUp();
+    bool slideDown();
+    bool slideLeft();
+    bool slideRight();
 };
 
 #endif

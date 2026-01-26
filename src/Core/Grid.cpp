@@ -45,16 +45,19 @@ void Grid::InitializeCellsPosition() {
 }
 
 void Grid::MoveTiles(Key direction) {
+    bool moved = false;
     switch (direction) {
-        case Key::UP: slideUp(); break;;
-        case Key::DOWN: slideDown(); break;
-        case Key::LEFT: slideLeft(); break;
-        case Key::RIGHT: slideRight(); break;
+        case Key::UP: moved = slideUp(); break;
+        case Key::DOWN: moved = slideDown(); break;
+        case Key::LEFT: moved = slideLeft(); break;
+        case Key::RIGHT: moved = slideRight(); break;
         default: break;
     }
 
-    UpdateOccupiedCells(); // Update cells status
-    AddNewTile(cellSize); // Add a new tile
+    if (moved) {
+        UpdateOccupiedCells(); // Update cells status
+        AddNewTile(cellSize); // Add a new tile
+    }
 }
 
 void Grid::UpdateOccupiedCells() {
@@ -135,16 +138,12 @@ void Grid::Render(Window* window) {
 }
 
 void Grid::EmptyGrid() {
-    // for (auto& tile : mTiles) {
-    //     mTiles.pop_back();
-    // }
-
-    // for (auto& row : mCells) {
-    //     for(auto& cell : row) {
-    //         row.pop_back();
-    //     }
-    //     mCells.pop_back();
-    // }
+    mTiles.clear();
+    for (auto& row : mCells) {
+        for (auto& cell : row) {
+            cell.SetOccupied(false);
+        }
+    }
 }
 
 Tile* Grid::GetTileAt(int row, int column) {
@@ -181,46 +180,64 @@ std::vector<std::vector<Cell>> Grid::Transpose() {
     return Transposed;
 }
 
-void Grid::slideLeft() {
+bool Grid::slideLeft() {
+    bool moved = false;
     for(auto& row : mCells) {
         std::vector<Tile*> rowTiles = CollectTiles(row);
+        if(rowTiles.empty()) continue;
+
         for (size_t i = 0; i < rowTiles.size(); ++i) {
             rowTiles[i]->column = i; 
         }
+        moved = true;
     }
+    return moved;
 }
 
-void Grid::slideRight() {
+bool Grid::slideRight() {
+    bool moved = false;
     for(auto& row : mCells) {
         std::vector<Tile*> rowTiles = CollectTiles(row);
+        if(rowTiles.empty()) continue;
+
         int targetColumn = 3;
         for (int i = (int)rowTiles.size() - 1; i>=0; --i) {
             rowTiles[i]->column = targetColumn;
             targetColumn--;
         }
+        moved = true;
     }
+    return moved;
 }
 
-void Grid::slideUp() {
+bool Grid::slideUp() {
     std::vector<std::vector<Cell>> TransposedCells = Transpose();
-
+    bool moved = false;
     for (auto& col : TransposedCells) {
         std::vector<Tile*> colTiles = CollectTiles(col);
+        if(colTiles.empty()) continue;
+
         for (size_t i = 0; i < colTiles.size(); ++i) {
             colTiles[i]->row = i;
         }
+        moved = true;
     }
+    return moved;
 }
 
-void Grid::slideDown() {
+bool Grid::slideDown() {
     std::vector<std::vector<Cell>> TransposedCells = Transpose();
-
+    bool moved = false;
     for (auto& col : TransposedCells) {
         std::vector<Tile*> colTiles = CollectTiles(col);
+        if(colTiles.empty()) continue;
+
         int targetColumn = 3;
         for (int i = (int)colTiles.size() - 1; i >= 0; --i) {
             colTiles[i]->row = targetColumn;
             targetColumn--;
         }
+        moved = true;
     }
+    return moved;
 }
