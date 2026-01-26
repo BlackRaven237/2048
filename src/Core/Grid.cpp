@@ -19,8 +19,9 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
     InitializeCellsPosition();
 
     for(int i=0; i<NumberofTiles; ++i) {
-        int row = rand() % mCells.size();
-        int column = rand() % mCells.size();
+        std::uniform_int_distribution<int> index(0, (int)mCells.size() - 1);
+        int row = index(mRandomGenerator);
+        int column = index(mRandomGenerator);
         
         mCells[row][column].SetOccupied(true);
 
