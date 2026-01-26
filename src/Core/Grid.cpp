@@ -23,7 +23,7 @@ void Grid::Initialize(int NumberofCells, int NumberofTiles) {
         
         mCells[row][column].SetOccupied(true);
 
-        Tile newTile = Tile(mCells[row][column].position, row, column, cellSize);
+        Tile newTile = Tile(2, mCells[row][column].position, row, column, cellSize);
         mTiles.push_back(newTile);
     }
 }
@@ -77,6 +77,7 @@ void Grid::Update(float deltaTime) {
 
 void Grid::AddNewTile(float size) {
     if (mTiles.size() >= mMaxTiles) return;
+    int value = 2;
 
     // Collecting the row and column of empty cells
     std::vector<std::pair<int, int>> emptyCells;
@@ -85,22 +86,21 @@ void Grid::AddNewTile(float size) {
             if (!cell.isOccupied()) emptyCells.push_back({cell.row, cell.column});
         }
     }
+    if (emptyCells.empty()) return;
 
-    if (!emptyCells.empty()) {
-        // Choosing a random pair in those empty cells
-        int randomIndex = rand() % emptyCells.size();
-        int row = emptyCells[randomIndex].first;
-        int column = emptyCells[randomIndex].second;
+    // Choosing a random pair in those empty cells
+    int randomIndex = rand() % emptyCells.size();
+    int row = emptyCells[randomIndex].first;
+    int column = emptyCells[randomIndex].second;
 
-        // Marks cell as occupied
-        mCells[row][column].SetOccupied(true);
+    // Marks cell as occupied
+    mCells[row][column].SetOccupied(true);
 
-        // Creating a new tile 
-        Tile newTile(Vector2D(mCells[row][column].position), row, column, size);
+    // Creating a new tile 
+    Tile newTile(value, mCells[row][column].position, row, column, size);
 
-        newTile.color = Color(238, 228, 218);
-        mTiles.push_back(newTile);
-    }
+    newTile.color = Color(238, 228, 218);
+    mTiles.push_back(newTile);
 }
 
 void Grid::Render(Window* window) {
