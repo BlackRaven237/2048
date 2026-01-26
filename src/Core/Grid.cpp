@@ -50,6 +50,7 @@ void Grid::MoveTiles(Key direction) {
     }
 
     if (moved) {
+        RemoveDeadTiles(); // Clean-up all dead cells
         UpdateOccupiedCells(); // Update cells status
         AddNewTile(cellSize); // Add a new tile
     }
@@ -111,6 +112,16 @@ void Grid::AddNewTile(float size) {
     mTiles.push_back(newTile);
 }
 
+void Grid::RemoveDeadTiles() {
+    mTiles.erase(
+        std::remove_if(mTiles.begin(), mTiles.end(),
+            [](const Tile& t) { 
+                return t.GetValue() == 0; 
+            }),
+        mTiles.end()
+    );
+}
+
 void Grid::Render(Window* window) {
     SDL_FRect Grid = {
         m_position.x,
@@ -151,16 +162,6 @@ Tile* Grid::GetTileAt(int row, int column) {
     }
     return nullptr;
 }
-
-void Grid::RemoveTileAt(int row, int column) {
-    mTiles.erase(
-        std::remove_if(mTiles.begin(), mTiles.end(),
-            [row, column](const Tile& t) { 
-                return t.row == row && t.column == column; 
-            }),
-        mTiles.end()
-    );
-}
     
 bool Grid::Merge(std::vector<Tile*>& row) {
     bool merged = false;
@@ -175,7 +176,8 @@ bool Grid::Merge(std::vector<Tile*>& row) {
             int deleteRow = row[i+1]->row;
             int deleteColumn = row[i+1]->column;
 
-            RemoveTileAt(deleteRow, deleteColumn);
+            row[i+1]->SetValue(0);
+
             row.erase(row.begin() + i + 1);
             merged = true;
         }
