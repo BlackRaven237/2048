@@ -2,7 +2,7 @@
 
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
     mWindow(new Window(title, width, height)),
-    mGrid(Vector2D(static_cast<float>(width * 0.25), static_cast<float>(height * 0.1875)), width / 2), 
+    mGrid(Vector2D(0.0f, height - width), width), 
     Direction(Key::NONE), IsKeyPressed(false), 
     isInitialized(false), mRunning(false) {}
 
