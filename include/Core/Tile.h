@@ -12,7 +12,7 @@ public:
     int row;
     int column;
     float size;
-    float scale = 0.8f;
+    float scale = 0.2f;
     Color color;
 
     Tile(int value, Vector2D pos, int row, int column, float size);
