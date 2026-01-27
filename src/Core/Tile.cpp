@@ -42,12 +42,12 @@ void Tile::RenderValue(Renderer* renderer) {
         return;
     }
 
-    SDL_FRect dstRect = { 
-        position.x, 
-        position.y, 
-        static_cast<float>(surface->w), 
-        static_cast<float>(surface->h)
-    };
+    SDL_FRect dstRect;
+    dstRect.w = (float)surface->w;
+    dstRect.h = (float)surface->h;
+    dstRect.x = position.x + (size - dstRect.w) / 2.0f;
+    dstRect.y = position.y + (size - dstRect.h) / 2.0f;
+
 
     SDL_RenderTexture(renderer->GetRenderer(), texture, NULL, &dstRect);
     SDL_DestroySurface(surface);
