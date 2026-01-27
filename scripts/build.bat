@@ -68,78 +68,24 @@ if not exist "%LIBS_DIR%\SDL3.dll" if not exist "%LIBS_DIR%\SDL3_ttf.dll" (
 )
 echo       ✅ Bibliothèques SDL3 trouvé !!!
 
-if not exist "%LIBS_DIR%\libImgui.a" (
-    echo       📦 Création d'une archive Imgui !!!
-    REM ==== Compilation des fichiers sources imgui en fichiers objets
-    for /r %%f in (%IMGUI_DIR%\*.cpp %IMGUI_DIR%\backends\*.cpp) do (
-        echo        Compilation: %%~nxf
-        set OBJ_FILE="%OBJ_DIR%\%%~nf.o"
-        %CXX% %CXXFLAGS% %IMGUI_INCLUDES% -c "%%f" -o !OBJ_FILE!
-
-        if !errorlevel! neq 0 (
-            echo       ❌ Erreur générer: %%~nxf
-            exit /b 1
-        )
-
-        set OBJ_FILES=!OBJ_FILES! %%f
-        set /a OBJ_COUNT+=1
-    )
-
-    ar rcs %LIBS_DIR%\libImgui.a %OBJ_FILES%
-    echo       ✅ Archive Imgui créer avec succès !!!
-
-    REM ==== Reset variables ====
-    set OBJ_FILES=
-    set OBJ_FILE=
-)
-echo       ✅ Archive Imgui trouvé !!!
-echo.
-
 echo [4/5] 🛠️  Compilation des fichiers sources en objets....
-set LAST_MODIF_DATE=
-set CURRENT_MODIF_DATE=
-set CHECK="TRUE"
-
-
-for /r %%f in (src\*.cpp src\Core\*.cpp src\Graphics\*.cpp) do (
-    @REM ====== Collecte des dates de modifications ======
-    for /f "tokens=*" %%a in ('findstr "%%~nxf" %BUILD_DIR%\modif_date.txt') do (
-        set LAST_MODIF_DATE=%%a
-        set LAST_MODIF_DATE=!LAST_MODIF_DATE:~0,16!
-    )
-
-    if !LAST_MODIF_DATE! neq %%~tf (
-        echo       Compilation: %%~nxf
-        set OBJ_FILE="%OBJ_DIR%\%%~nf.o"
-        %CXX% %CXXFLAGS% %INCLUDE_DIR% -c "%%f" -o !OBJ_FILE!
-        set CHECK="FALSE"
-    )
+for /r %%f in (*.cpp) do (
+    echo       Compilation: %%~nxf
+    set OBJ_FILE="%OBJ_DIR%\%%~nf.o"
+    %CXX% %CXXFLAGS% %INCLUDE_DIR% -c "%%f" -o !OBJ_FILE!
+    set CHECK="FALSE"
 
     if !errorlevel! neq 0 (
         echo       ❌ Erreur générer: %%~nxf
         exit /b 1
     )
 
-    set OBJ_FILES=!OBJ_FILES! %%f
+    set OBJ_FILES=!OBJ_FILES! !OBJ_FILE!
     set /a OBJ_COUNT+=1
 )
 
-if %CHECK% equ "TRUE" (
-    echo       🙂 Aucun fichier source n'a été modifié.
-)
-
-@REM ====== Mises à jour des nouvelles dates de modifications ======
-echo. > %BUILD_DIR%\modif_date.txt
-for /r %%f in (*.cpp) do (
-    set CURRENT_MODIF_DATE=%%~tf %%~nxf 
-    echo !CURRENT_MODIF_DATE! >> %BUILD_DIR%\modif_date.txt
-)
-echo       ✅ Compilation des fichiers objets réussi.
-echo.
-
-
 echo [5/5] ⛓️  Éditeur de liens (linking)....
-%CXX% %CXXFLAGS% %OBJ_FILES% %INCLUDE_DIR% -o %OUTPUT_NAME% -L%LIBS_DIR% %SDL3_LIBS% %IMGUI_LIB%
+%CXX% %CXXFLAGS% %OBJ_FILES% %INCLUDE_DIR% -o %OUTPUT_NAME% -L%LIBS_DIR% %SDL3_LIBS%
 
 if not exist "%OUTPUT_NAME%.exe" (
     echo       ⛔ Aucun éxecutable créer !!!
