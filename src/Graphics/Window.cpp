@@ -32,7 +32,7 @@ bool Window::Initialize() {
         mTitle.c_str(),
         static_cast<int>(mWidth),
         static_cast<int>(mHeight),
-        SDL_WINDOW_RESIZABLE
+        0
     );
 
     if(!mWindow) {
@@ -40,6 +40,10 @@ bool Window::Initialize() {
         SDL_Quit();
         return false;
     }
+
+    // Makes window to have a fixed size;
+    SDL_SetWindowMaximumSize(mWindow, 600, 800);
+    SDL_SetWindowMinimumSize(mWindow, 600, 800);
 
     if(!mRenderer->CreateRenderer(mWindow)) {
         SDL_Log("❌ Couldn't create renderer: %s\n", SDL_GetError());
