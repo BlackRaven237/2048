@@ -141,7 +141,7 @@ void Grid::Render(Renderer* renderer) {
         tile->Render(renderer);
     }
 
-    //window->RenderText("Score: " + std::to_string(m_AccumulatedScore), m_position.x, m_position.y - 50.0f, Color::White());
+    renderer->RenderText("Score: " + std::to_string(m_AccumulatedScore), m_position.x, m_position.y - 50.0f, Color::White());
 }
 
 void Grid::Reset() {
