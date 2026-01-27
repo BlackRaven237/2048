@@ -70,7 +70,6 @@ void GameEngine::HandleEvents() {
             mRunning = false;
             break;
         case SDL_EVENT_KEY_DOWN:
-            IsKeyPressed = true;
             GameEngine::HandleInputs(event.key.key);
             break;
         }
@@ -82,19 +81,23 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
     {
     case SDLK_UP:
         Direction = Key::UP;
+        IsKeyPressed = true;
         break;
     case SDLK_DOWN:
         Direction = Key::DOWN;
+        IsKeyPressed = true;
         break;
     case SDLK_LEFT:
         Direction = Key::LEFT;
+        IsKeyPressed = true;
         break;
     case SDLK_RIGHT:
         Direction = Key::RIGHT;
+        IsKeyPressed = true;
         break;
     case SDLK_R:
         mGrid.Reset();
-        mGrid.Initialize(1);
+        mGrid.Initialize(2);
         std::cout << "🔁 Restart" << std::endl;
         break;
     default: 
@@ -115,6 +118,5 @@ void GameEngine::Render(Renderer* renderer) {
     mWindow->Clear();
     mGrid.Render(renderer);
     // mWindow->GetRenderer()->RenderText("Hello World!!!", 10.0f, 10.0f, Color::White());
-    // mWindow->GetRenderer()->RenderText(m_fpsCount, 400.0f, 10.0f, Color::White());
     mWindow->Present();
 }
