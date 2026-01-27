@@ -58,7 +58,7 @@ bool Window::Initialize() {
 }
 
 void Window::Clear() {
-    mRenderer->SetRenderDrawColor(Color::TomatoOrange());
+    mRenderer->SetRenderDrawColor(Color(249, 246, 242));
     mRenderer->Clear();
 }
 
