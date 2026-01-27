@@ -21,6 +21,4 @@ public:
 
 };
 
-void RenderText(SDL_Renderer* renderer, const std::string& text, float x, float y, const Color& color);
-
 #endif

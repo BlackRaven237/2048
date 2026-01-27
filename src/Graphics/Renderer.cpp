@@ -41,7 +41,3 @@ void Renderer::Present() {
         SDL_RenderPresent(mRenderer);
     }
 }
-
-void RenderText(SDL_Renderer* renderer, const std::string& text, float x, float y, const Color& color) {
-
-}
