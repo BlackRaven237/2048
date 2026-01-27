@@ -17,8 +17,10 @@ public:
     void Clear();
     void Present();
     SDL_Renderer* GetRenderer() const { return mRenderer; };
+    TTF_Font* GetFont() { return mFont.GetFont(); }
 
-    void RenderText(const std::string& text, float x, float y, const Color& color);
 };
+
+void RenderText(SDL_Renderer* renderer, const std::string& text, float x, float y, const Color& color);
 
 #endif

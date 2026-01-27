@@ -121,19 +121,19 @@ void Grid::RemoveDeadTiles() {
     );
 }
 
-void Grid::Render(SDL_Renderer* renderer) {
+void Grid::Render(Renderer* renderer) {
     SDL_FRect Grid = {
         m_position.x,
         m_position.y,
         mWidth,
         mWidth
     };
-    SDL_SetRenderDrawColor(renderer, m_color.red, m_color.green, m_color.blue, 255);
-    SDL_RenderFillRect(renderer, &Grid);
+    SDL_SetRenderDrawColor(renderer->GetRenderer(), m_color.red, m_color.green, m_color.blue, 255);
+    SDL_RenderFillRect(renderer->GetRenderer(), &Grid);
 
     for(auto& row : mCells) {
         for (auto& cell : row) {
-            cell.Render(renderer);
+            cell.Render(renderer->GetRenderer());
         }
     }
 

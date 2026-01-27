@@ -27,7 +27,7 @@ private:
     void HandleEvents();
     void HandleInputs(SDL_Keycode key);
     void Update(float deltaTime);
-    void Render(SDL_Renderer* renderer);
+    void Render(Renderer* renderer);
 };
 
 #endif

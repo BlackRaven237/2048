@@ -111,7 +111,7 @@ void GameEngine::Update(float deltaTime) {
     mGrid.Update(deltaTime);
 }
 
-void GameEngine::Render(SDL_Renderer* renderer) {
+void GameEngine::Render(Renderer* renderer) {
     mWindow->Clear();
     mGrid.Render(renderer);
     // mWindow->GetRenderer()->RenderText("Hello World!!!", 10.0f, 10.0f, Color::White());

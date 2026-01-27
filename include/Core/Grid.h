@@ -31,7 +31,7 @@ public:
     void RemoveDeadTiles();
     void AddNewTile(float size);
     
-    void Render(SDL_Renderer* renderer);
+    void Render(Renderer* renderer);
     int GetScore() const { return m_AccumulatedScore; }
 private:
     void InitializeCellsPosition();

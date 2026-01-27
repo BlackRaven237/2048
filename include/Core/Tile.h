@@ -2,7 +2,8 @@
 #define TILE_H
 
 #include "Cell.h"
-#include "Graphics\Window.h"
+#include <SDL3/SDL.h>
+#include "Graphics\Renderer.h"
 
 class Tile {
     int m_value;
@@ -18,8 +19,8 @@ public:
     Tile(const Tile& other);
 
     void Move(Vector2D targetPosition, float deltaTime);
-    void Render(SDL_Renderer* renderer);
-    void RenderValue(Window* window);
+    void Render(Renderer* renderer);
+    void RenderValue(Renderer* renderer);
     
     int GetValue() const { return m_value; }
     void SetValue(int value) { m_value = value; }
