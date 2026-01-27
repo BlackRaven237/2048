@@ -42,8 +42,8 @@ bool Window::Initialize() {
     }
 
     // Makes window to have a fixed size;
-    SDL_SetWindowMaximumSize(mWindow, 600, 800);
-    SDL_SetWindowMinimumSize(mWindow, 600, 800);
+    SDL_SetWindowMaximumSize(mWindow, mWidth, mHeight);
+    SDL_SetWindowMinimumSize(mWindow, mWidth, mHeight);
 
     if(!mRenderer->CreateRenderer(mWindow)) {
         SDL_Log("❌ Couldn't create renderer: %s\n", SDL_GetError());
