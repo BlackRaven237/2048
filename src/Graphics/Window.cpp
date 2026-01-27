@@ -66,6 +66,6 @@ SDL_Window* Window::GetWindow() const {
     return mWindow;
 }
 
-SDL_Renderer* Window::GetRenderer() const {
-    return mRenderer->GetRenderer();
+Renderer* Window::GetRenderer() const {
+    return mRenderer;
 }

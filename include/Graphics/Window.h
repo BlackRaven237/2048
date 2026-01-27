@@ -21,7 +21,7 @@ public:
     void Present();
 
     SDL_Window* GetWindow() const;
-    SDL_Renderer* GetRenderer() const;
+    Renderer* GetRenderer() const;
 };
 
 #endif
