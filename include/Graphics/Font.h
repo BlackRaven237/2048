@@ -8,10 +8,10 @@ class Font {
     TTF_Font* font;
     
 public:
-    bool InitializeFont(const char* file) {
+    bool InitializeFont(const char* file, float fontSize) {
         if (!TTF_Init()) return false;
 
-        font = TTF_OpenFont(file, 30.0f);
+        font = TTF_OpenFont(file, fontSize);
 
         if(!font) return false;
         return true;

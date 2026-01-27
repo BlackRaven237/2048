@@ -2,11 +2,14 @@
 #define RENDERER_H
 
 #include <SDL3/SDL.h>
+#include <string>
+#include "Font.h"
 #include "Helpers/color.h"
 
 class Renderer
 {
     SDL_Renderer* mRenderer;
+    Font mFont;
 public:
     bool SetRenderDrawColor(Color color);
     bool CreateRenderer(SDL_Window* window);
@@ -14,6 +17,8 @@ public:
     void Clear();
     void Present();
     SDL_Renderer* GetRenderer() const { return mRenderer; };
+
+    void RenderText(const std::string& text, float x, float y, const Color& color);
 };
 
 #endif
