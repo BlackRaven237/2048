@@ -121,27 +121,27 @@ void Grid::RemoveDeadTiles() {
     );
 }
 
-void Grid::Render(Window* window) {
+void Grid::Render(SDL_Renderer* renderer) {
     SDL_FRect Grid = {
         m_position.x,
         m_position.y,
         mWidth,
         mWidth
     };
-    SDL_SetRenderDrawColor(window->GetRenderer(), m_color.red, m_color.green, m_color.blue, 255);
-    SDL_RenderFillRect(window->GetRenderer(), &Grid);
+    SDL_SetRenderDrawColor(renderer, m_color.red, m_color.green, m_color.blue, 255);
+    SDL_RenderFillRect(renderer, &Grid);
 
     for(auto& row : mCells) {
         for (auto& cell : row) {
-            cell.Render(window->GetRenderer());
+            cell.Render(renderer);
         }
     }
 
     for(const auto& tile : mTiles) {
-        tile->Render(window);
+        tile->Render(renderer);
     }
 
-    window->RenderText("Score: " + std::to_string(m_AccumulatedScore), m_position.x, m_position.y - 50.0f, Color::White());
+    //window->RenderText("Score: " + std::to_string(m_AccumulatedScore), m_position.x, m_position.y - 50.0f, Color::White());
 }
 
 void Grid::Reset() {

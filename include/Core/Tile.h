@@ -18,7 +18,7 @@ public:
     Tile(const Tile& other);
 
     void Move(Vector2D targetPosition, float deltaTime);
-    void Render(Window* window);
+    void Render(SDL_Renderer* renderer);
     void RenderValue(Window* window);
     
     int GetValue() const { return m_value; }

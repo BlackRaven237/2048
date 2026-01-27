@@ -32,7 +32,7 @@ void Tile::RenderValue(Window* window) {
     float x = position.x; //+ ((size - text.first) / 4);
     float y = position.y; //+ ((size - text.second) / 4);
 
-    window->RenderText(value, x, y, GetTextColor());
+    //window->RenderText(value, x, y, GetTextColor());
 }
 
 Color Tile::GetTextColor() const {
@@ -60,7 +60,7 @@ Color Tile::GetColorBasedOnValue() const {
     }
 }
 
-void Tile::Render(Window* window)
+void Tile::Render(SDL_Renderer* renderer)
 {
     float drawSize = size * scale;
     float offset = (size - drawSize) / 2;
@@ -74,8 +74,8 @@ void Tile::Render(Window* window)
 
     color = GetColorBasedOnValue();
 
-    SDL_SetRenderDrawColor(window->GetRenderer(), color.red, color.green, color.blue, 255);
-    SDL_RenderFillRect(window->GetRenderer(), &tile);
+    SDL_SetRenderDrawColor(renderer, color.red, color.green, color.blue, 255);
+    SDL_RenderFillRect(renderer, &tile);
 
-    RenderValue(window);
+    //RenderValue(window);
 }

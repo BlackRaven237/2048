@@ -54,7 +54,7 @@ void GameEngine::Run() {
             fpsTimer = SDL_GetTicks();
         }
 
-        GameEngine::Render();
+        GameEngine::Render(mWindow->GetRenderer());
         
         // limiting to ~60 FPS
         // Achieved by the use of SDL_RenderVSync() in Renderer class
@@ -111,10 +111,10 @@ void GameEngine::Update(float deltaTime) {
     mGrid.Update(deltaTime);
 }
 
-void GameEngine::Render() {
+void GameEngine::Render(SDL_Renderer* renderer) {
     mWindow->Clear();
-    mGrid.Render(mWindow);
-    mWindow->RenderText("Hello World!!!", 10.0f, 10.0f, Color::White());
-    mWindow->RenderText(m_fpsCount, 400.0f, 10.0f, Color::White());
+    mGrid.Render(renderer);
+    // mWindow->GetRenderer()->RenderText("Hello World!!!", 10.0f, 10.0f, Color::White());
+    // mWindow->GetRenderer()->RenderText(m_fpsCount, 400.0f, 10.0f, Color::White());
     mWindow->Present();
 }
