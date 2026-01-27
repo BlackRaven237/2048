@@ -11,7 +11,7 @@ Tile::Tile(const Tile &other) :
     size(other.size), color(other.color) {}
 
 void Tile::Move(Vector2D targetPosition, float deltaTime) {    
-    float speed = 15.0f;
+    float speed = 40.0f;
     position.x += (targetPosition.x - position.x) * speed * deltaTime;
     position.y += (targetPosition.y - position.y) * speed * deltaTime;
 
