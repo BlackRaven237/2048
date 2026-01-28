@@ -9,6 +9,7 @@ void UI::Init(SDL_Window* window, SDL_Renderer* renderer) {
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
+    largeFont = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto-Bold.ttf", 16.0f);
 
     // 2. Setup Platform/Renderer backends
     ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
@@ -33,10 +34,10 @@ bool UI::RenderGameUI(int currentScore, int bestScore) {
 
     // Create a floating window for stats
     // We force a specific position (top-right) and size for consistency
-    ImGui::SetNextWindowPos(ImVec2(-20, -20), ImGuiCond_FirstUseEver);
-    ImGui::SetNextWindowSize(ImVec2(200, 140), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowPos(ImVec2(-1.0f, 1.0f), ImGuiCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(200.0f, 100.0f), ImGuiCond_Always);
 
-    ImGui::Begin("2048", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+    ImGui::Begin("2048", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
     // Use large text for the score
     ImGui::Text("SCORE");
@@ -50,10 +51,10 @@ bool UI::RenderGameUI(int currentScore, int bestScore) {
     ImGui::Separator();
     
     // Add some spacing
-    ImGui::Dummy(ImVec2(0.0f, 10.0f)); 
+    ImGui::Dummy(ImVec2(0.0f, 5.0f)); 
 
     // A nice big button that matches your Gunmetal theme
-    if (ImGui::Button("NEW GAME", ImVec2(-1.0f, 40.0f))) { // -1.0f width = fill window
+    if (ImGui::Button("RESET GAME", ImVec2(-1.0f, 25.0f))) { // -1.0f width = fill window
         resetGame = true;
     }
 

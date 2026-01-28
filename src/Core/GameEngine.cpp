@@ -7,10 +7,13 @@ GameEngine::GameEngine(const std::string& title, float width, float height) :
     isInitialized(false), mRunning(false) {}
 
 GameEngine::~GameEngine() {
+    ui.Shutdown();
+
     if (mWindow) {
         delete mWindow;
         mWindow = nullptr;
     }
+
     GameEngine::ShutDown();
 }
 
@@ -18,6 +21,8 @@ bool GameEngine::Initialize() {
     if(!mWindow->Initialize()) isInitialized = false;
 
     mGrid.Initialize(2);
+
+    ui.Init(mWindow->GetWindow(), mWindow->GetRenderer()->GetRenderer());
 
     isInitialized = true;
     mRunning = true;
@@ -44,6 +49,13 @@ void GameEngine::Run() {
 
         GameEngine::Update(deltaTime);
 
+        ui.BeginFrame();
+        if(ui.RenderGameUI(mGrid.GetScore(), 100000)) {
+            mGrid.Reset();
+            mGrid.Initialize(2);
+            std::cout << "🔁 Restart" << std::endl;
+        }
+
         // FPS calculation
         frames++;
         if (SDL_GetTicks() > fpsTimer + 1000) {
@@ -55,7 +67,6 @@ void GameEngine::Run() {
         }
 
         GameEngine::Render(mWindow->GetRenderer());
-        
         // limiting to ~60 FPS
         // Achieved by the use of SDL_RenderVSync() in Renderer class
     }
@@ -64,6 +75,7 @@ void GameEngine::Run() {
 void GameEngine::HandleEvents() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
+        ui.HandleEvent(&event);
         switch (event.type)
         {
         case SDL_EVENT_QUIT:
@@ -117,9 +129,17 @@ void GameEngine::Update(float deltaTime) {
     mGrid.Update(deltaTime);
 }
 
+bool GameEngine::CheckWin() {
+    return mGrid.CheckWin();
+}
+
+bool GameEngine::IsGameOver() {
+    return mGrid.IsGameOver();
+}
+
 void GameEngine::Render(Renderer* renderer) {
     mWindow->Clear();
     mGrid.Render(renderer);
-    // mWindow->GetRenderer()->RenderText("Hello World!!!", 10.0f, 10.0f, Color::White());
+    ui.Render(renderer->GetRenderer());
     mWindow->Present();
 }

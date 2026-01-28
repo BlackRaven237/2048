@@ -7,6 +7,7 @@
 #include <imgui_impl_sdlrenderer3.h>
 
 class UI {
+    ImFont* largeFont;
 public:
     UI();
     ~UI();

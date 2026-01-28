@@ -3,11 +3,13 @@
 
 #include "Grid.h"
 #include "Graphics\Window.h"
+#include "Graphics\RendererUI.h"
 #include <iostream>
 #include <SDL3/SDL_timer.h>
 
 class GameEngine {
     Window* mWindow;
+    UI ui;
     Grid mGrid;
     Key Direction;
     bool IsKeyPressed;
