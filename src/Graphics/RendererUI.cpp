@@ -62,7 +62,7 @@ bool UI::RenderGameUI(int currentScore, int bestScore) {
     return resetGame;
 }
 
-void UI::Draw(SDL_Renderer* renderer) {
+void UI::Render(SDL_Renderer* renderer) {
     ImGui::Render();
     ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), renderer);
 }

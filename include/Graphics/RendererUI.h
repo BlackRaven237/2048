@@ -25,7 +25,7 @@ public:
     bool RenderGameUI(int currentScore, int bestScore);
 
     // Finalize the frame and send draw data to SDL
-    void Draw(SDL_Renderer* renderer);
+    void Render(SDL_Renderer* renderer);
 
     // Clean up memory
     void Shutdown();
