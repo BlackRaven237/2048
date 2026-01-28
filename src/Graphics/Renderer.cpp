@@ -9,7 +9,7 @@ bool Renderer::SetRenderDrawColor(Color color) {
 }
 
 bool Renderer::CreateRenderer(SDL_Window* window) {
-    if(!mFont.InitializeFont("assets/fonts/Roboto-Bold.ttf", 0.0f)) {
+    if(!mFont.InitializeFont("assets/fonts/Roboto-Bold.ttf", 50.0f)) {
         SDL_Log("❌ Couldn't load TTF: %s\n", SDL_GetError());
         if (!mFont.InitializeFont("C:/Windows/Fonts/arial.ttf", 30.0f)) {
             SDL_Log("⚠️ No font found");
