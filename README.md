@@ -21,7 +21,7 @@ _A simplified version of the world's most popular number combination game, made 
 │   ├───Imgui
 │   │   └───backends
 │   └───SDL3
-├───include			# Dépendances externes
+├───include			# Dépendances internes
 │   ├───Core
 │   ├───Graphics
 │   └───Helpers
