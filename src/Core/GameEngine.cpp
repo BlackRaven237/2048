@@ -50,11 +50,22 @@ void GameEngine::Run() {
         GameEngine::Update(deltaTime);
 
         ui.BeginFrame();
+
         if(ui.RenderGameUI(mGrid.GetScore(), 100000)) {
-            mGrid.Reset();
-            mGrid.Initialize(2);
-            std::cout << "🔁 Restart" << std::endl;
+            GameEngine::ResetGame();
         }
+
+        if (mGrid.IsGameOver()) {
+            if (ui.RenderGameOver(500, 600)) {
+                mRunning = false;
+            } else {
+                GameEngine::ResetGame();
+            }
+        }
+
+        //if (mGrid.CheckWin()) {
+            // ui.BeginFrame();
+        // }
 
         // FPS calculation
         frames++;
@@ -70,6 +81,12 @@ void GameEngine::Run() {
         // limiting to ~60 FPS
         // Achieved by the use of SDL_RenderVSync() in Renderer class
     }
+}
+
+void GameEngine::ResetGame() {
+    mGrid.Reset();
+    mGrid.Initialize(2);
+    std::cout << "🔁 Restart" << std::endl;
 }
 
 void GameEngine::HandleEvents() {
@@ -108,9 +125,7 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
         IsKeyPressed = true;
         break;
     case SDLK_R:
-        mGrid.Reset();
-        mGrid.Initialize(2);
-        std::cout << "🔁 Restart" << std::endl;
+        GameEngine::ResetGame();
         break;
     case SDLK_ESCAPE:
         mRunning = false;
@@ -127,14 +142,6 @@ void GameEngine::Update(float deltaTime) {
     }
 
     mGrid.Update(deltaTime);
-}
-
-bool GameEngine::CheckWin() {
-    return mGrid.CheckWin();
-}
-
-bool GameEngine::IsGameOver() {
-    return mGrid.IsGameOver();
 }
 
 void GameEngine::Render(Renderer* renderer) {
