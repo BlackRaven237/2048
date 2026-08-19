@@ -4,7 +4,7 @@
 #include <SDL3/SDL.h>
 #include <string>
 #include "Font.h"
-#include "utils/color.h"
+#include "utils/Color.h"
 
 class Renderer
 {

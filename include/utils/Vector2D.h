@@ -1,18 +1,10 @@
-#ifndef STRUCTS_H
-#define STRUCTS_H
+#pragma once
+
 #include <cmath>
-
-enum class Key {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT,
-    NONE
-};
-
 struct Vector2D {
     float x;
     float y;
+
     Vector2D(float xValue = 0.0f, float yValue = 0.0f) : x(xValue), y(yValue) {}
     Vector2D(const Vector2D& other) : x(other.x), y(other.y) {}
     Vector2D& operator=(const Vector2D& other) {
@@ -38,5 +30,3 @@ struct Vector2D {
         return Vector2D(x * scalar, y * scalar);
     }
 };
-
-#endif

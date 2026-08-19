@@ -1,8 +1,8 @@
 #ifndef CELL_H
 #define CELL_H
 
-#include "utils/color.h"
-#include "utils/structs.h"
+#include "utils/Color.h"
+#include "utils/Vector2D.h"
 #include <SDL3/SDL.h>
 
 class Cell {
