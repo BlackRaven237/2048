@@ -8,5 +8,6 @@
 *.txt
 # [4] all static library files (.a)
 *.a
+*.dll
 # [5] all configuration files (.ini)
 *.ini
