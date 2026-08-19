@@ -88,7 +88,8 @@ def main():
 
     # ====== SDL3 ======
     SDL3_DIR = r"C:\msys64\ucrt64\include"
-    SDL3_LIBS = "-lSDL3 -lSDL3_ttf"
+    #SDL3_LIBS = "-lSDL3 -lSDL3_ttf"
+    SDL3_LIBS = f"$(pkg-config --cflags --libs sdl3 sdl3-ttf)"
 
     # ====== Includes ======
     INCLUDE_DIR = f"-Iinclude {IMGUI_INCLUDES}"
@@ -121,7 +122,7 @@ def main():
 
     if not os.path.exists(os.path.join(SDL3_DIR, "SDL3")):
         print("       ❌ Répertoire SDL3 introuvable !!!")
-        sys.exit(1)
+        #sys.exit(1)
     print("       ✅ Répertoire SDL3 trouvé !!!\n")
 
     # ====== [3/5] Check Libraries ======
@@ -227,7 +228,7 @@ def main():
     print_step(5, 5, "⛓️  Éditeur de liens (linking)....")
     
     obj_list = ' '.join(f'"{obj}"' for obj in obj_files)
-    link_cmd = f'{CXX} {CXXFLAGS} {obj_list} {INCLUDE_DIR} -o "{OUTPUT_NAME}" -L"{LIBS_DIR}" {SDL3_LIBS} {IMGUI_LIB}'
+    link_cmd = f'{CXX} {CXXFLAGS} {obj_list} {INCLUDE_DIR} -o "{OUTPUT_NAME}.exe" -L"{LIBS_DIR}" {IMGUI_LIB} {SDL3_LIBS}'
     
     if not run_command(link_cmd, "Linking"):
         print("       ⛔ Erreur générée au niveau du linker")
@@ -247,8 +248,8 @@ def main():
     print(f"      Nombre de fichiers objets: {obj_count}")
     print(f"      Exécutable: {OUTPUT_NAME}.exe")
     print(f"      Emplacement: {OUTPUT_NAME}")
-    print(f"      Lancement: run.bat ou {OUTPUT_NAME}.exe")
-    print(f"      Nettoyage: clean.bat")
+    print(f"      Lancement: run.bat, run.py ou {OUTPUT_NAME}.exe")
+    print(f"      Nettoyage: clean.bat ou clean.py")
     print("=" * 50)
 
 if __name__ == "__main__":

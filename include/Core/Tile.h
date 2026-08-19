@@ -3,7 +3,7 @@
 
 #include "Cell.h"
 #include <SDL3/SDL.h>
-#include "Graphics\Renderer.h"
+#include "Graphics/Renderer.h"
 
 class Tile {
     int m_value;

@@ -1,4 +1,4 @@
-#include "Core\GameEngine.h"
+#include "Core/GameEngine.h"
 
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
     mWindow(new Window(title, width, height)),
@@ -55,13 +55,13 @@ void GameEngine::Run() {
             GameEngine::ResetGame();
         }
 
-        if (mGrid.IsGameOver()) {
-            if (ui.RenderGameOver(500, 600)) {
-                mRunning = false;
-            } else {
-                GameEngine::ResetGame();
-            }
-        }
+        // if (mGrid.IsGameOver()) {
+        //     if (ui.RenderGameOver(500, 600)) {
+        //         mRunning = false;
+        //     } else {
+        //         GameEngine::ResetGame();
+        //     }
+        // }
 
         //if (mGrid.CheckWin()) {
             // ui.BeginFrame();
