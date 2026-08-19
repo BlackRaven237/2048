@@ -1,4 +1,4 @@
-#include "Core/Tile.h"
+#include "entities/Tile.h"
 
 Tile::Tile(int value, Vector2D pos, int row, int column, float size) : 
     m_value(value), position(pos), 

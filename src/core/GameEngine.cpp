@@ -1,4 +1,4 @@
-#include "Core/GameEngine.h"
+#include "core/GameEngine.h"
 
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
     mWindow(new Window(title, width, height)),

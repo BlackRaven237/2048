@@ -1,4 +1,4 @@
-#include "Core/Grid.h"
+#include "include/entities/Grid.h"
 #include <algorithm>
 
 Grid::Grid(Vector2D position, float width) : 

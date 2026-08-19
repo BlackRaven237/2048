@@ -1,4 +1,4 @@
-#include "Graphics/Renderer.h"
+#include "graphics/Renderer.h"
 
 bool Renderer::SetRenderDrawColor(Color color) {
     if(mRenderer) {
