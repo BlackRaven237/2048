@@ -2,8 +2,8 @@
 #define GAME_ENGINE_H
 
 #include "Grid.h"
-#include "graphics/Window.h"
-#include "graphics/RendererUI.h"
+#include "../graphics/Window.h"
+#include "../graphics/RendererUI.h"
 #include <iostream>
 #include <SDL3/SDL_timer.h>
 

@@ -2,7 +2,7 @@
 #define FONT_H
 
 #include <SDL3_ttf/SDL_ttf.h>
-#include "utils/Color.h"
+#include "../utils/Color.h"
 
 class Font {
     TTF_Font* font;

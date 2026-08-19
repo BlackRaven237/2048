@@ -1,23 +1,20 @@
 #ifndef CELL_H
 #define CELL_H
 
-#include "utils/Color.h"
-#include "utils/Vector2D.h"
-#include <SDL3/SDL.h>
+#include "Square.h"
 
-class Cell {
+class Cell : Square {
     bool mIsOccupied;
 public:
     int row;
     int column;
     Vector2D position;
-    float size;
     Color color;
 
     Cell(int row, int column, float size);
     void SetOccupied(bool value);
     bool isOccupied();
-    void Render(SDL_Renderer* renderer);
+    void render(SDL_Renderer* renderer);
 };
 
 #endif

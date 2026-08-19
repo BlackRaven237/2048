@@ -8,7 +8,7 @@
 #include <utility>
 #include <random>
 
-class Grid {
+class Grid : Square {
     float mWidth;
     std::vector<std::vector<Cell>> mCells;
     std::vector<std::unique_ptr<Tile>> mTiles;
@@ -32,7 +32,7 @@ public:
     void RemoveDeadTiles();
     void AddNewTile(float size);
     
-    void Render(Renderer* renderer);
+    void render(SDL_Renderer* renderer) override;
     int GetScore() const { return m_AccumulatedScore; }
 private:
     void InitializeCellsPosition();

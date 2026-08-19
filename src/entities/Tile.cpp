@@ -1,14 +1,12 @@
-#include "entities/Tile.h"
+#include "Tile.h"
 
 Tile::Tile(int value, Vector2D pos, int row, int column, float size) : 
-    m_value(value), position(pos), 
-    row(row), column(column), 
-    size(size), color(Color::Green()) {}
+    Square(size), m_value(value), position(pos), 
+    row(row), column(column), color(Color::Green()) {}
 
 Tile::Tile(const Tile &other) : 
-    m_value(other.m_value), position(other.position), 
-    row(other.row), column(other.column),
-    size(other.size), color(other.color) {}
+    Square(other.size), m_value(other.m_value), position(other.position), 
+    row(other.row), column(other.column), color(other.color) {}
 
 void Tile::Move(Vector2D targetPosition, float deltaTime) {    
     float speed = 40.0f;
@@ -25,17 +23,17 @@ void Tile::Move(Vector2D targetPosition, float deltaTime) {
     }
 }
 
-void Tile::RenderValue(Renderer* renderer) {
+void Tile::RenderValue(SDL_Renderer* renderer) {
     std::string value = std::to_string(m_value);
 
     Color color = GetTextColor();
 
-    SDL_Surface* surface = TTF_RenderText_Solid(renderer->GetFont(), value.c_str(), value.length(), 
+    SDL_Surface* surface = TTF_RenderText_Solid(nullptr /* renderer->GetFont() */, value.c_str(), value.length(), 
     {color.red, color.green, color.blue, color.green});
         
     if (!surface) return;
 
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer->GetRenderer(), surface);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
 
     if(!texture) {
         SDL_DestroySurface(surface);
@@ -49,7 +47,7 @@ void Tile::RenderValue(Renderer* renderer) {
     dstRect.y = position.y + (size - dstRect.h) / 2.0f;
 
 
-    SDL_RenderTexture(renderer->GetRenderer(), texture, NULL, &dstRect);
+    SDL_RenderTexture(renderer, texture, NULL, &dstRect);
     SDL_DestroySurface(surface);
     SDL_DestroyTexture(texture);
 }
@@ -79,8 +77,7 @@ Color Tile::GetColorBasedOnValue() const {
     }
 }
 
-void Tile::Render(Renderer* renderer)
-{
+void Tile::render(SDL_Renderer* renderer) {
     float drawSize = size * scale;
     float offset = (size - drawSize) / 2;
 
@@ -93,8 +90,8 @@ void Tile::Render(Renderer* renderer)
 
     color = GetColorBasedOnValue();
 
-    SDL_SetRenderDrawColor(renderer->GetRenderer(), color.red, color.green, color.blue, 255);
-    SDL_RenderFillRect(renderer->GetRenderer(), &tile);
+    SDL_SetRenderDrawColor(renderer, color.red, color.green, color.blue, 255);
+    SDL_RenderFillRect(renderer, &tile);
 
     RenderValue(renderer);
 }

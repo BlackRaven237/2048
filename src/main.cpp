@@ -1,4 +1,4 @@
-#include "../include/Core/GameEngine.h"
+#include "../include/core/GameEngine.h"
 #include <ctime>
 
 int main (int argc, char* argv[]) {

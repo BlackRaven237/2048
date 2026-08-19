@@ -1,4 +1,4 @@
-#include "core/GameEngine.h"
+#include "../../include/core/GameEngine.h"
 
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
     mWindow(new Window(title, width, height)),
@@ -146,7 +146,7 @@ void GameEngine::Update(float deltaTime) {
 
 void GameEngine::Render(Renderer* renderer) {
     mWindow->Clear();
-    mGrid.Render(renderer);
+    mGrid.render(renderer->GetRenderer());
     ui.Render(renderer->GetRenderer());
     mWindow->Present();
 }

@@ -1,8 +1,8 @@
-#include "include/entities/Grid.h"
+#include "Grid.h"
 #include <algorithm>
 
 Grid::Grid(Vector2D position, float width) : 
-    mWidth(width), mMaxTiles(16), m_color(Color::Gainsboro()), 
+    Square(width), mMaxTiles(16), m_color(Color::Gainsboro()), 
     m_position(position), cellSize((mWidth * 0.95) / 4),
     m_AccumulatedScore(0), mRandomGenerator(std::random_device{}()) {}
 
@@ -121,27 +121,27 @@ void Grid::RemoveDeadTiles() {
     );
 }
 
-void Grid::Render(Renderer* renderer) {
+void Grid::render(SDL_Renderer* renderer) {
     SDL_FRect Grid = {
         m_position.x,
         m_position.y,
         mWidth,
         mWidth
     };
-    SDL_SetRenderDrawColor(renderer->GetRenderer(), m_color.red, m_color.green, m_color.blue, 255);
-    SDL_RenderFillRect(renderer->GetRenderer(), &Grid);
+    SDL_SetRenderDrawColor(renderer, m_color.red, m_color.green, m_color.blue, 255);
+    SDL_RenderFillRect(renderer, &Grid);
 
     for(auto& row : mCells) {
         for (auto& cell : row) {
-            cell.Render(renderer->GetRenderer());
+            cell.render(renderer);
         }
     }
 
     for(const auto& tile : mTiles) {
-        tile->Render(renderer);
+        tile->render(renderer);
     }
 
-    renderer->RenderText("Score: " + std::to_string(m_AccumulatedScore), m_position.x, m_position.y - 100.0f, Color(118, 110, 101));
+    //renderer->RenderText("Score: " + std::to_string(m_AccumulatedScore), m_position.x, m_position.y - 100.0f, Color(118, 110, 101));
 }
 
 void Grid::Reset() {

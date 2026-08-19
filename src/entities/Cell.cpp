@@ -1,8 +1,8 @@
-#include "Core/Cell.h"
+#include "Cell.h"
 
 Cell::Cell(int row, int column, float size) : 
-    mIsOccupied(false), row(row), column(column), 
-    size(size), color(Color::LightGray()) {}
+    Square(size), mIsOccupied(false), row(row), 
+    column(column), color(Color::LightGray()) {}
 
 void Cell::SetOccupied(bool value) { 
     mIsOccupied = value; 
@@ -12,7 +12,7 @@ bool Cell::isOccupied() {
     return mIsOccupied; 
 }
 
-void Cell::Render(SDL_Renderer* renderer) {
+void Cell::render(SDL_Renderer* renderer) {
     SDL_FRect cell = {
         position.x,
         position.y,
