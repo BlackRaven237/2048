@@ -6,8 +6,10 @@
 *.o
 # [3] all text files (.txt)
 *.txt
-# [4] all static library files (.a)
+# [4] all library files (.a, .dll)
 *.a
 *.dll
 # [5] all configuration files (.ini)
 *.ini
+
+run.sh
