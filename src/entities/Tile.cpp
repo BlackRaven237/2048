@@ -28,7 +28,7 @@ void Tile::RenderValue(SDL_Renderer* renderer) {
 
     Color color = GetTextColor();
 
-    SDL_Surface* surface = TTF_RenderText_Solid(nullptr /* renderer->GetFont() */, value.c_str(), value.length(), 
+    SDL_Surface* surface = TTF_RenderText_Solid(nullptr, value.c_str(), value.length(), 
     {color.red, color.green, color.blue, color.green});
         
     if (!surface) return;
