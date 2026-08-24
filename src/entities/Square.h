@@ -11,5 +11,6 @@ protected:
     Color color;
 public:
     Square(float size, Vector2D position) : size(size), position(position) {}
+    Vector2D getPosition() { return position; }
     virtual void render(SDL_Renderer* renderer) = 0;
 };
