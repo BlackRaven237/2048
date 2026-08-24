@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/coderaven/Desktop/2048/externals/Imgui -I/home/coderaven/Desktop/2048/externals/Imgui/backends -I/home/coderaven/Desktop/2048/src/core/includes -I/home/coderaven/Desktop/2048/src/entities/includes -I/home/coderaven/Desktop/2048/src/graphics/includes -I/home/coderaven/Desktop/2048/src/utils
+CXX_INCLUDES = -I/home/coderaven/Desktop/2048/externals/Imgui -I/home/coderaven/Desktop/2048/externals/Imgui/backends -I/home/coderaven/Desktop/2048/src/core -I/home/coderaven/Desktop/2048/src/entities -I/home/coderaven/Desktop/2048/src/graphics -I/home/coderaven/Desktop/2048/src/utils
 
 CXX_FLAGS = -std=gnu++20
 

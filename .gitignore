@@ -12,4 +12,7 @@
 # [5] all configuration files (.ini)
 *.ini
 
+build/
+build2/
+
 run.sh
