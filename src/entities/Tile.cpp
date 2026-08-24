@@ -23,35 +23,6 @@ void Tile::move(Vector2D targetPosition, float deltaTime) {
     }
 }
 
-void Tile::render(SDL_Renderer* renderer) {
-    std::string value = std::to_string(m_value);
-
-    Color color = GetTextColor();
-
-    SDL_Surface* surface = TTF_RenderText_Solid(nullptr, value.c_str(), value.length(), 
-    {color.red, color.green, color.blue, color.green});
-        
-    if (!surface) return;
-
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-
-    if(!texture) {
-        SDL_DestroySurface(surface);
-        return;
-    }
-
-    SDL_FRect dstRect;
-    dstRect.w = (float)surface->w;
-    dstRect.h = (float)surface->h;
-    dstRect.x = position.x + (size - dstRect.w) / 2.0f;
-    dstRect.y = position.y + (size - dstRect.h) / 2.0f;
-
-
-    SDL_RenderTexture(renderer, texture, NULL, &dstRect);
-    SDL_DestroySurface(surface);
-    SDL_DestroyTexture(texture);
-}
-
 Color Tile::GetTextColor() const {
     // Dark grey text for '2' and '4' values
     if(m_value <= 4) return Color(119, 110, 101);
@@ -94,4 +65,33 @@ void Tile::render(SDL_Renderer* renderer) {
     SDL_RenderFillRect(renderer, &tile);
 
     renderValue(renderer);
+}
+
+void Tile::renderValue(SDL_Renderer* renderer) {
+    std::string value = std::to_string(m_value);
+
+    Color color = GetTextColor();
+
+    SDL_Surface* surface = TTF_RenderText_Solid(nullptr, value.c_str(), value.length(), 
+    {color.red, color.green, color.blue, color.green});
+        
+    if (!surface) return;
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+    if(!texture) {
+        SDL_DestroySurface(surface);
+        return;
+    }
+
+    SDL_FRect dstRect;
+    dstRect.w = (float)surface->w;
+    dstRect.h = (float)surface->h;
+    dstRect.x = position.x + (size - dstRect.w) / 2.0f;
+    dstRect.y = position.y + (size - dstRect.h) / 2.0f;
+
+
+    SDL_RenderTexture(renderer, texture, NULL, &dstRect);
+    SDL_DestroySurface(surface);
+    SDL_DestroyTexture(texture);
 }
