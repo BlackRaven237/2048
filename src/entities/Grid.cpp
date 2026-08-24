@@ -1,14 +1,14 @@
 #include "Grid.h"
 #include <algorithm>
 
-Grid::Grid(Vector2D position, float width) : 
-    Square(width), mMaxTiles(16), m_color(Color::Gainsboro()), 
-    m_position(position), cellSize((mWidth * 0.95) / 4),
-    m_AccumulatedScore(0), mRandomGenerator(std::random_device{}()) {}
+Grid::Grid(float size, Vector2D position) : 
+    Square(size, position), mRandomGenerator(std::random_device{}()) {}
 
-void Grid::Initialize(int NumberofTiles) {
+void Grid::Initialize() {
     mCells.clear();
     mTiles.clear();
+
+    cellSize = (size * 0.95) / 4;
 
     for(int i=0; i < 4; ++i) {
         std::vector<Cell> row; // create a new row
@@ -19,23 +19,22 @@ void Grid::Initialize(int NumberofTiles) {
     }
     InitializeCellsPosition();
 
-    for(int i=0; i<NumberofTiles; ++i) {
+    for(int i=0; i<2; ++i) {
         AddNewTile(cellSize);
     }
 }
 
 void Grid::InitializeCellsPosition() {
-    float margin = (mWidth * 0.05) / 5;
-    float x = 0.0f, y = m_position.y + margin;
+    float margin = (size * 0.05) / 5;
+    float x = 0.0f, y = position.y + margin;
+
     for (int row=0; row<4; ++row) {
-        x = m_position.x + margin;
+        x = position.x + margin;
         for (int column=0; column<4; ++column) {
-            // move to the x-coordinate of next cell (horizontally)
-            mCells[row][column].position = Vector2D(x, y);
+            mCells[row][column].position = Vector2D(x, y); // move to the x-coordinate of next cell (horizontally)
             x += cellSize + margin;
         }
-        // move to the y-coordinate of next cell (vertically)
-        y += cellSize + margin;
+        y += cellSize + margin; // move to the y-coordinate of next cell (vertically)
     }
 }
 
@@ -122,13 +121,16 @@ void Grid::RemoveDeadTiles() {
 }
 
 void Grid::render(SDL_Renderer* renderer) {
+    color = Color::Gainsboro();
+
     SDL_FRect Grid = {
-        m_position.x,
-        m_position.y,
-        mWidth,
-        mWidth
+        position.x,
+        position.y,
+        size,
+        size
     };
-    SDL_SetRenderDrawColor(renderer, m_color.red, m_color.green, m_color.blue, 255);
+
+    SDL_SetRenderDrawColor(renderer, color.red, color.green, color.blue, 255);
     SDL_RenderFillRect(renderer, &Grid);
 
     for(auto& row : mCells) {

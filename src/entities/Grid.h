@@ -9,19 +9,17 @@
 #include <random>
 
 class Grid : Square {
-    float mWidth;
     std::vector<std::vector<Cell>> mCells;
     std::vector<std::unique_ptr<Tile>> mTiles;
-    size_t mMaxTiles;
-    Color m_color;
-    Vector2D m_position;
+
+    size_t mMaxTiles = 16;
     float cellSize;
 
-    int m_AccumulatedScore;
+    int m_AccumulatedScore = 0;
     mutable std::mt19937 mRandomGenerator;
 public:
-    Grid(Vector2D position, float width);
-    void Initialize(int NumberofTiles);
+    Grid(float size, Vector2D position);
+    void Initialize();
     bool IsGameOver();
     bool CheckWin();
     void Reset();
