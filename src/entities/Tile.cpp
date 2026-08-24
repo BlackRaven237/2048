@@ -7,7 +7,7 @@ Tile::Tile(const Tile &other) :
     Square(other.size, other.position), m_value(other.m_value), 
     row(other.row), column(other.column) {}
 
-void Tile::Move(Vector2D targetPosition, float deltaTime) {    
+void Tile::move(Vector2D targetPosition, float deltaTime) {    
     float speed = 40.0f;
 
     position.x += (targetPosition.x - position.x) * speed * deltaTime;
@@ -23,7 +23,7 @@ void Tile::Move(Vector2D targetPosition, float deltaTime) {
     }
 }
 
-void Tile::RenderValue(SDL_Renderer* renderer) {
+void Tile::render(SDL_Renderer* renderer) {
     std::string value = std::to_string(m_value);
 
     Color color = GetTextColor();
@@ -93,5 +93,5 @@ void Tile::render(SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, color.red, color.green, color.blue, 255);
     SDL_RenderFillRect(renderer, &tile);
 
-    RenderValue(renderer);
+    renderValue(renderer);
 }
