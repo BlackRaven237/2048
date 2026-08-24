@@ -1,0 +1,30 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/coderaven/Desktop/2048/src/core/GameEngine.cpp" "CMakeFiles/Game.dir/src/core/GameEngine.cpp.o" "gcc" "CMakeFiles/Game.dir/src/core/GameEngine.cpp.o.d"
+  "/home/coderaven/Desktop/2048/src/entities/Cell.cpp" "CMakeFiles/Game.dir/src/entities/Cell.cpp.o" "gcc" "CMakeFiles/Game.dir/src/entities/Cell.cpp.o.d"
+  "/home/coderaven/Desktop/2048/src/entities/Grid.cpp" "CMakeFiles/Game.dir/src/entities/Grid.cpp.o" "gcc" "CMakeFiles/Game.dir/src/entities/Grid.cpp.o.d"
+  "/home/coderaven/Desktop/2048/src/entities/Tile.cpp" "CMakeFiles/Game.dir/src/entities/Tile.cpp.o" "gcc" "CMakeFiles/Game.dir/src/entities/Tile.cpp.o.d"
+  "/home/coderaven/Desktop/2048/src/graphics/Renderer.cpp" "CMakeFiles/Game.dir/src/graphics/Renderer.cpp.o" "gcc" "CMakeFiles/Game.dir/src/graphics/Renderer.cpp.o.d"
+  "/home/coderaven/Desktop/2048/src/graphics/RendererUI.cpp" "CMakeFiles/Game.dir/src/graphics/RendererUI.cpp.o" "gcc" "CMakeFiles/Game.dir/src/graphics/RendererUI.cpp.o.d"
+  "/home/coderaven/Desktop/2048/src/graphics/Window.cpp" "CMakeFiles/Game.dir/src/graphics/Window.cpp.o" "gcc" "CMakeFiles/Game.dir/src/graphics/Window.cpp.o.d"
+  "/home/coderaven/Desktop/2048/src/main.cpp" "CMakeFiles/Game.dir/src/main.cpp.o" "gcc" "CMakeFiles/Game.dir/src/main.cpp.o.d"
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_FORWARD_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")

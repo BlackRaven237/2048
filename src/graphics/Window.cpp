@@ -1,4 +1,4 @@
-#include "graphics/Window.h"
+#include "Window.h"
 
 Window::Window(const std::string& title, float width, float height) : 
     mTitle(title), mWidth(width), mHeight(height),
