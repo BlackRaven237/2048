@@ -71,7 +71,8 @@ void Grid::UpdateOccupiedCells() {
 
 void Grid::Update(float deltaTime) {
     for (const auto& tile : mTiles) {
-        tile->Move(mCells[tile->row][tile->column].position, deltaTime);
+        Vector2D targetPosition = mCells[tile->row][tile->column].getPosition();
+        tile->Move(targetPosition, deltaTime);
     }
 }
 
@@ -106,7 +107,8 @@ void Grid::AddNewTile(float size) {
     }
 
     // Creating a new tile 
-    mTiles.push_back(std::make_unique<Tile>(value, mCells[row][column].position, row, column, size));
+    Vector2D position = mCells[row][column].getPosition();
+    mTiles.push_back(std::make_unique<Tile>(value, position, row, column, size));
 }
 
 void Grid::RemoveDeadTiles() {
