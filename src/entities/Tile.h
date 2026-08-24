@@ -18,7 +18,7 @@ public:
     Tile(const Tile& other);
 
     void move(Vector2D targetPosition, float deltaTime);
-    void render(SDL_Renderer* renderer);
+    void render(SDL_Renderer* renderer) override;
     
     int GetValue() const { return m_value; }
     void SetValue(int value) { m_value = value; }
