@@ -2,6 +2,7 @@
 #define GRID_H
 
 #include "Tile.h"
+#include "Cell.h"
 #include "../utils/Enums.h"
 #include <vector>
 #include <memory>
