@@ -9,12 +9,10 @@
 
 class Tile : Square {
     int m_value;
+    float scale = 0.2f;
 public: 
-    Vector2D position;
     int row;
     int column;
-    float scale = 0.2f;
-    Color color;
 
     Tile(int value, Vector2D pos, int row, int column, float size);
     Tile(const Tile& other);

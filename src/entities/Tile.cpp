@@ -1,15 +1,15 @@
 #include "Tile.h"
 
-Tile::Tile(int value, Vector2D pos, int row, int column, float size) : 
-    Square(size), m_value(value), position(pos), 
-    row(row), column(column), color(Color::Green()) {}
+Tile::Tile(int value, Vector2D position, int row, int column, float size) : 
+    Square(size, position), m_value(value), row(row), column(column) {}
 
 Tile::Tile(const Tile &other) : 
-    Square(other.size), m_value(other.m_value), position(other.position), 
-    row(other.row), column(other.column), color(other.color) {}
+    Square(other.size, other.position), m_value(other.m_value), 
+    row(other.row), column(other.column) {}
 
 void Tile::Move(Vector2D targetPosition, float deltaTime) {    
     float speed = 40.0f;
+
     position.x += (targetPosition.x - position.x) * speed * deltaTime;
     position.y += (targetPosition.y - position.y) * speed * deltaTime;
 
