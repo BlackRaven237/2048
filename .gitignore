@@ -13,6 +13,7 @@
 *.ini
 
 build/
+build1/
 build2/
 
 run.sh
