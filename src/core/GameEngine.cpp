@@ -1,10 +1,7 @@
 #include "GameEngine.h"
 
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
-    mWindow(new Window(title, width, height)),
-    mGrid(width, Vector2D(0.0f, height - width)), 
-    Direction(Key::NONE), IsKeyPressed(false), 
-    isInitialized(false), mRunning(false) {}
+    mWindow(new Window(title, width, height)), mGrid(width, Vector2D(0.0f, height - width)) {}
 
 GameEngine::~GameEngine() {
     ui.Shutdown();
