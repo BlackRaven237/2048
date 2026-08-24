@@ -14,7 +14,7 @@ public:
     int row;
     int column;
 
-    Tile(int value, Vector2D pos, int row, int column, float size);
+    Tile(int value, Vector2D position, int row, int column, float size);
     Tile(const Tile& other);
 
     void Move(Vector2D targetPosition, float deltaTime);
