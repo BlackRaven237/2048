@@ -2,7 +2,7 @@
 
 GameEngine::GameEngine(const std::string& title, float width, float height) : 
     mWindow(new Window(title, width, height)),
-    mGrid(Vector2D(0.0f, height - width), width), 
+    mGrid(width, Vector2D(0.0f, height - width)), 
     Direction(Key::NONE), IsKeyPressed(false), 
     isInitialized(false), mRunning(false) {}
 
@@ -20,7 +20,7 @@ GameEngine::~GameEngine() {
 bool GameEngine::Initialize() {
     if(!mWindow->Initialize()) isInitialized = false;
 
-    mGrid.Initialize(2);
+    mGrid.Initialize();
 
     ui.Init(mWindow->GetWindow(), mWindow->GetRenderer()->GetRenderer());
 
@@ -85,7 +85,7 @@ void GameEngine::Run() {
 
 void GameEngine::ResetGame() {
     mGrid.Reset();
-    mGrid.Initialize(2);
+    mGrid.Initialize();
     std::cout << "🔁 Restart" << std::endl;
 }
 
