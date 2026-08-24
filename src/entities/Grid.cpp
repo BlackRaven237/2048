@@ -8,33 +8,32 @@ void Grid::Initialize() {
     mCells.clear();
     mTiles.clear();
 
-    cellSize = (size * 0.95) / 4;
-
-    for(int i=0; i < 4; ++i) {
-        std::vector<Cell> row; // create a new row
-        for (int j=0; j < 4; ++j) {
-            row.push_back(Cell(i, j, cellSize)); // Add cells to row
-        }
-        mCells.push_back(row); // Add the row to mCells
-    }
-    InitializeCellsPosition();
+    InitializeCells();
 
     for(int i=0; i<2; ++i) {
         AddNewTile(cellSize);
     }
 }
 
-void Grid::InitializeCellsPosition() {
+void Grid::InitializeCells() {
+    cellSize = (size * 0.95) / 4;
+
     float margin = (size * 0.05) / 5;
-    float x = 0.0f, y = position.y + margin;
+    float x = 0.0f;
+    float y = position.y + margin;
 
     for (int row=0; row<4; ++row) {
+        std::vector<Cell> _row; // create new row
         x = position.x + margin;
+
         for (int column=0; column<4; ++column) {
-            mCells[row][column].position = Vector2D(x, y); // move to the x-coordinate of next cell (horizontally)
+            Vector2D position = Vector2D(x, y);
+            _row.push_back(Cell(row, column, cellSize, position)); // Add cells to row
             x += cellSize + margin;
         }
-        y += cellSize + margin; // move to the y-coordinate of next cell (vertically)
+
+        mCells.push_back(_row);  // Add the row to mCells
+        y += cellSize + margin;
     }
 }
 

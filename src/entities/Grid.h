@@ -33,8 +33,7 @@ public:
     void render(SDL_Renderer* renderer) override;
     int GetScore() const { return m_AccumulatedScore; }
 private:
-    void InitializeCellsPosition();
-
+    void InitializeCells();
     Tile* GetTileAt(int row, int column);
     bool Merge(std::vector<Tile*>& row);
     std::vector<Tile*> Compressed(const std::vector<Cell>& row);
