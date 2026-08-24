@@ -7,7 +7,7 @@
 #include <string>
 // #include "Renderer.h"
 
-class Tile : Square {
+class Tile : public Square {
     int m_value;
     float scale = 0.2f;
 public: 

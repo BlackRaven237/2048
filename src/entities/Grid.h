@@ -8,7 +8,7 @@
 #include <utility>
 #include <random>
 
-class Grid : Square {
+class Grid : public Square {
     std::vector<std::vector<Cell>> mCells;
     std::vector<std::unique_ptr<Tile>> mTiles;
 

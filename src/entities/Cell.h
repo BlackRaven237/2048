@@ -3,7 +3,7 @@
 
 #include "Square.h"
 
-class Cell : Square {
+class Cell : public Square {
     bool mIsOccupied = false;
 public:
     int row;
