@@ -11,6 +11,7 @@ public:
 
     Cell(int row, int column, float size, Vector2D position);
     void SetOccupied(bool value);
+    bool isOccupied();
     void render(SDL_Renderer* renderer);
 };
 

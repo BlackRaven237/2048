@@ -72,7 +72,7 @@ void Grid::UpdateOccupiedCells() {
 void Grid::Update(float deltaTime) {
     for (const auto& tile : mTiles) {
         Vector2D targetPosition = mCells[tile->row][tile->column].getPosition();
-        tile->Move(targetPosition, deltaTime);
+        tile->move(targetPosition, deltaTime);
     }
 }
 
