@@ -7,7 +7,9 @@
 class Square {
 protected:
     float size;
+    Vector2D position;
+    Color color;
 public:
-    Square(float size) { this->size = size; }
+    Square(float size, Vector2D position) : size(size), position(position) {}
     virtual void render(SDL_Renderer* renderer) = 0;
 };
