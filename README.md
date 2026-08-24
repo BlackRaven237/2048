@@ -8,28 +8,20 @@ _A simplified version of the world's most popular number combination game, made 
 - **Rendering system**
 - **Scripting support** (Python)
 
-## **Project Structure**
+## **Architecture**
 ``` bash
-├───assets			# Fichier externes
-│   ├───fonts
-│   └───textures
+├── assets          # Fichiers externes
+│   └── fonts
 ├───build			# Artéfacts de compilation
-│   ├───bin
-│   ├───libs
-│   └───obj
-├───externals		# Dépendances externes
-│   ├───Imgui
-│   │   └───backends
-│   └───SDL3
-├───include			# Dépendances internes
-│   ├───Core
-│   ├───Graphics
-│   └───Helpers
-├───scripts			# Script de compilation
-└───src				# Implémentations
+├── externals       # Dépendances externes
+│   └── Imgui
+├── scripts         # Scripts de compilation 
+└── src             # Dépendances internes
 	├───main.cpp	# Point d'entrée principale
-    ├───Core
-    └───Graphics
+    ├── core
+    ├── entities
+    ├── graphics
+    └── utils
 ```
 ## **Installation & Setup**
 
@@ -77,4 +69,4 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 ## **Contributors**
 
-- **YOUMBI NONO CLAKY BOVAN** - Student of NASEY (AN-ING-1)
+- **YOUMBI NONO CLAKY BOVAN** - BlackRaven237
