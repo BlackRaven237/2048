@@ -8,8 +8,6 @@ class Cell : public Square {
 public:
     int row;
     int column;
-    // Vector2D position;
-    // Color color;
 
     Cell(int row, int column, float size, Vector2D position);
     void SetOccupied(bool value);
