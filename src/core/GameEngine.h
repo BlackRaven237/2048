@@ -30,6 +30,8 @@ private:
     void HandleInputs(SDL_Keycode key);
     void Update(float deltaTime);
     void Render(Renderer* renderer);
+
+    float calculateDeltaTime(Uint64& lastUpdateTime, Uint64& currentTime);
 };
 
 #endif

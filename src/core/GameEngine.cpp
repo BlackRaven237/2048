@@ -39,8 +39,7 @@ void GameEngine::Run() {
 
         // elasped time for each frame
         Uint64 CurrentTime = SDL_GetTicks();
-        float deltaTime = (CurrentTime - LastUpdateTime) / 1000.0f;
-        LastUpdateTime = CurrentTime;
+        float deltaTime = calculateDeltaTime(LastUpdateTime, CurrentTime);
 
         GameEngine::Update(deltaTime);
 
@@ -82,6 +81,12 @@ void GameEngine::ResetGame() {
     mGrid.Reset();
     mGrid.Initialize();
     std::cout << "🔁 Restart" << std::endl;
+}
+
+float GameEngine::calculateDeltaTime(Uint64& lastUpdateTime, Uint64& currentTime) {
+    float deltaTime = (currentTime - lastUpdateTime) / 1000.0f;
+    lastUpdateTime = currentTime;
+    return deltaTime;
 }
 
 void GameEngine::HandleEvents() {
