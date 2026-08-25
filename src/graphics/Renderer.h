@@ -9,7 +9,7 @@
 class Renderer
 {
     SDL_Renderer* mRenderer;
-    Font mFont;
+    // Font mFont;
 public:
     bool SetRenderDrawColor(Color color);
     bool CreateRenderer(SDL_Window* window);
@@ -17,8 +17,11 @@ public:
     void Clear();
     void Present();
     SDL_Renderer* GetRenderer() const { return mRenderer; };
-    TTF_Font* GetFont() { return mFont.GetFont(); }
-    void RenderText(const std::string& text, float x, float y, Color color);
+    // TTF_Font* GetFont() { return mFont.GetFont(); }
+    // void RenderText(const std::string& text, float x, float y, Color color);
 };
+
+void RenderText(SDL_Renderer* renderer, const std::string& text, float x, float y, Color color);
+TTF_Font* font();
 
 #endif
