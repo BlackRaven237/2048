@@ -1,4 +1,5 @@
 #include "Tile.h"
+#include "../graphics/Renderer.h"
 
 Tile::Tile(int value, Vector2D position, int row, int column, float size) : 
     Square(size, position), m_value(value), row(row), column(column) {}
@@ -64,27 +65,10 @@ void Tile::renderValue(SDL_Renderer* renderer) {
 
     Color color = GetTextColor();
 
-    SDL_Surface* surface = TTF_RenderText_Solid(nullptr, value.c_str(), value.length(), 
-    {color.red, color.green, color.blue, color.green});
-        
-    if (!surface) return;
+    float x = position.x + (size /*- dstRect.w */) / 2.0f;
+    float y = position.y + (size /*- dstRect.h */) / 2.0f;
 
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-
-    if(!texture) {
-        SDL_DestroySurface(surface);
-        return;
-    }
-
-    SDL_FRect dstRect;
-    dstRect.w = (float)surface->w;
-    dstRect.h = (float)surface->h;
-    dstRect.x = position.x + (size - dstRect.w) / 2.0f;
-    dstRect.y = position.y + (size - dstRect.h) / 2.0f;
-
-    SDL_RenderTexture(renderer, texture, NULL, &dstRect);
-    SDL_DestroySurface(surface);
-    SDL_DestroyTexture(texture);
+    RenderText(renderer, value, x, y, color);
 }
 
 Color Tile::GetTextColor() const {
