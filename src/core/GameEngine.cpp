@@ -14,8 +14,6 @@ GameEngine::~GameEngine() {
     if (this) {
         delete this;
     }
-
-    GameEngine::ShutDown();
 }
 
 bool GameEngine::Initialize() {
@@ -29,10 +27,6 @@ bool GameEngine::Initialize() {
     mRunning = true;
     std::cout << "🚀 GameEngine is correctly initialized" << std::endl;
     return isInitialized;
-}
-
-void GameEngine::ShutDown() {
-    std::cout << "🛑 GameEngine correctly stops" << std::endl;
 }
 
 void GameEngine::Run() {

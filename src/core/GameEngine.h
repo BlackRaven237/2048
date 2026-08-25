@@ -24,7 +24,6 @@ public:
     ~GameEngine();
     bool Initialize();
     void Run();
-    void ShutDown();
 private:
     void ResetGame();
     void HandleEvents();
