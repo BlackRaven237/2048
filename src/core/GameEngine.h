@@ -17,8 +17,6 @@ class GameEngine {
     bool IsKeyPressed = false;
     bool isInitialized = false;
     bool mRunning = false;
-
-    std::string m_fpsCount;
 public:
     GameEngine(const std::string& title, float width, float height);
     ~GameEngine();

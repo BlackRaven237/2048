@@ -84,7 +84,6 @@ void GameEngine::calculateFPS(Uint64& fpsTimer, int& frames) {
     if (SDL_GetTicks() > fpsTimer + 1000) {
         std::string newTitle = "🧩 2048 - FPS: " + std::to_string(frames);
         SDL_SetWindowTitle(mWindow->GetWindow(), newTitle.c_str());
-        m_fpsCount = std::to_string(frames) + " FPS";
         frames = 0;
         fpsTimer = SDL_GetTicks();
     }
