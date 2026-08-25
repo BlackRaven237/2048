@@ -25,7 +25,6 @@ bool GameEngine::Initialize() {
 
     isInitialized = true;
     mRunning = true;
-    std::cout << "🚀 GameEngine is correctly initialized" << std::endl;
     return isInitialized;
 }
 
@@ -70,7 +69,6 @@ void GameEngine::Run() {
 void GameEngine::ResetGame() {
     mGrid.Reset();
     mGrid.Initialize();
-    std::cout << "🔁 Restart" << std::endl;
 }
 
 float GameEngine::calculateDeltaTime(Uint64& lastUpdateTime, Uint64& currentTime) {
