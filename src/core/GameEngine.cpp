@@ -106,6 +106,7 @@ void GameEngine::HandleEvents() {
             mRunning = false;
             break;
         case SDL_EVENT_KEY_DOWN:
+            IsKeyPressed = true;
             GameEngine::HandleInputs(event.key.key);
             break;
         }
@@ -117,19 +118,15 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
     {
     case SDLK_UP:
         Direction = Key::UP;
-        IsKeyPressed = true;
         break;
     case SDLK_DOWN:
         Direction = Key::DOWN;
-        IsKeyPressed = true;
         break;
     case SDLK_LEFT:
         Direction = Key::LEFT;
-        IsKeyPressed = true;
         break;
     case SDLK_RIGHT:
         Direction = Key::RIGHT;
-        IsKeyPressed = true;
         break;
     case SDLK_R:
         GameEngine::ResetGame();
