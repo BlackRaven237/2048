@@ -15,7 +15,6 @@ class GameEngine {
     Key Direction = Key::NONE;
 
     bool IsKeyPressed = false;
-    bool isInitialized = false;
     bool mRunning = false;
 public:
     GameEngine(const std::string& title, float width, float height);

@@ -17,15 +17,13 @@ GameEngine::~GameEngine() {
 }
 
 bool GameEngine::Initialize() {
-    if(!mWindow->Initialize()) isInitialized = false;
+    if(!mWindow->Initialize()) return false;
 
     mGrid.Initialize();
-
     ui.Init(mWindow->GetWindow(), mWindow->GetRenderer()->GetRenderer());
-
-    isInitialized = true;
     mRunning = true;
-    return isInitialized;
+    
+    return true;
 }
 
 void GameEngine::Run() {
