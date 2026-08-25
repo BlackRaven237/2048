@@ -33,32 +33,6 @@ void Renderer::Present() {
     }
 }
 
-// void Renderer::RenderText(const std::string& text, float x, float y, Color color) {
-//     if(!mRenderer) return;
-
-//     SDL_Surface* surface = TTF_RenderText_Solid(mFont.GetFont(), text.c_str(), text.length(), 
-//     {color.red, color.green, color.blue, color.green});
-        
-//     if (!surface) return;
-
-//     SDL_Texture* texture = SDL_CreateTextureFromSurface(mRenderer, surface);
-
-//     if(!texture) {
-//         SDL_DestroySurface(surface);
-//         return;
-//     }
-
-//     SDL_FRect dstRect;
-//     dstRect.w = (float)surface->w;
-//     dstRect.h = (float)surface->h;
-//     dstRect.x = x;
-//     dstRect.y = y;
-
-//     SDL_RenderTexture(mRenderer, texture, NULL, &dstRect);
-//     SDL_DestroySurface(surface);
-//     SDL_DestroyTexture(texture);
-// }
-
 void RenderText(SDL_Renderer* renderer, const std::string& text, float x, float y, Color color) {
     if(!renderer) return;
     
