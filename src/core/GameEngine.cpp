@@ -37,7 +37,6 @@ void GameEngine::Run() {
     while(mRunning) {
         GameEngine::HandleEvents();
 
-        // elasped time for each frame
         Uint64 CurrentTime = SDL_GetTicks();
         float deltaTime = calculateDeltaTime(LastUpdateTime, CurrentTime);
 
@@ -61,19 +60,10 @@ void GameEngine::Run() {
             // ui.BeginFrame();
         // }
 
-        // FPS calculation
-        frames++;
-        if (SDL_GetTicks() > fpsTimer + 1000) {
-            std::string newTitle = "🧩 2048 - FPS: " + std::to_string(frames);
-            SDL_SetWindowTitle(mWindow->GetWindow(), newTitle.c_str());
-            m_fpsCount = std::to_string(frames) + " FPS";
-            frames = 0;
-            fpsTimer = SDL_GetTicks();
-        }
+    
+        calculateFPS(fpsTimer, frames);
 
         GameEngine::Render(mWindow->GetRenderer());
-        // limiting to ~60 FPS
-        // Achieved by the use of SDL_RenderVSync() in Renderer class
     }
 }
 
@@ -87,6 +77,17 @@ float GameEngine::calculateDeltaTime(Uint64& lastUpdateTime, Uint64& currentTime
     float deltaTime = (currentTime - lastUpdateTime) / 1000.0f;
     lastUpdateTime = currentTime;
     return deltaTime;
+}
+
+void GameEngine::calculateFPS(Uint64& fpsTimer, int& frames) {
+    frames++;
+    if (SDL_GetTicks() > fpsTimer + 1000) {
+        std::string newTitle = "🧩 2048 - FPS: " + std::to_string(frames);
+        SDL_SetWindowTitle(mWindow->GetWindow(), newTitle.c_str());
+        m_fpsCount = std::to_string(frames) + " FPS";
+        frames = 0;
+        fpsTimer = SDL_GetTicks();
+    }
 }
 
 void GameEngine::HandleEvents() {

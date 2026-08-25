@@ -32,6 +32,7 @@ private:
     void Render(Renderer* renderer);
 
     float calculateDeltaTime(Uint64& lastUpdateTime, Uint64& currentTime);
+    void calculateFPS(Uint64& fpsTimer, int& frames);
 };
 
 #endif
