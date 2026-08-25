@@ -11,6 +11,10 @@ GameEngine::~GameEngine() {
         mWindow = nullptr;
     }
 
+    if (this) {
+        delete this;
+    }
+
     GameEngine::ShutDown();
 }
 
