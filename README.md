@@ -13,7 +13,7 @@ _A simplified version of the world's most popular number combination game, made 
 ├── assets          # Fichiers externes
 │   └── fonts
 ├───build			# Artéfacts de compilation
-├── externals       # Dépendances externes
+├── third-party     # Dépendances externes
 │   └── Imgui
 ├── scripts         # Scripts de compilation 
 └── src             # Dépendances internes
