@@ -42,7 +42,6 @@ void GameEngine::Run() {
         GameEngine::Update(deltaTime);
 
         ui.BeginFrame();
-
         if(ui.RenderGameUI(mGrid.GetScore(), 100000)) {
             GameEngine::ResetGame();
         }
@@ -58,7 +57,6 @@ void GameEngine::Run() {
         //if (mGrid.CheckWin()) {
             // ui.BeginFrame();
         // }
-
     
         calculateFPS(fpsTimer, frames);
 
@@ -66,15 +64,19 @@ void GameEngine::Run() {
     }
 }
 
-void GameEngine::ResetGame() {
-    mGrid.Reset();
-    mGrid.Initialize();
-}
-
 float GameEngine::calculateDeltaTime(Uint64& lastUpdateTime, Uint64& currentTime) {
     float deltaTime = (currentTime - lastUpdateTime) / 1000.0f;
     lastUpdateTime = currentTime;
     return deltaTime;
+}
+
+void GameEngine::Update(float deltaTime) {
+    if (IsKeyPressed) {
+        mGrid.MoveTiles(Direction);
+        IsKeyPressed = false;
+    }
+
+    mGrid.Update(deltaTime);
 }
 
 void GameEngine::calculateFPS(Uint64& fpsTimer, int& frames) {
@@ -86,6 +88,13 @@ void GameEngine::calculateFPS(Uint64& fpsTimer, int& frames) {
         frames = 0;
         fpsTimer = SDL_GetTicks();
     }
+}
+
+void GameEngine::Render(Renderer* renderer) {
+    mWindow->Clear();
+    mGrid.render(renderer->GetRenderer());
+    ui.Render(renderer->GetRenderer());
+    mWindow->Present();
 }
 
 void GameEngine::HandleEvents() {
@@ -134,18 +143,7 @@ void GameEngine::HandleInputs(SDL_Keycode key) {
     }
 }
 
-void GameEngine::Update(float deltaTime) {
-    if (IsKeyPressed) {
-        mGrid.MoveTiles(Direction);
-        IsKeyPressed = false;
-    }
-
-    mGrid.Update(deltaTime);
-}
-
-void GameEngine::Render(Renderer* renderer) {
-    mWindow->Clear();
-    mGrid.render(renderer->GetRenderer());
-    ui.Render(renderer->GetRenderer());
-    mWindow->Present();
+void GameEngine::ResetGame() {
+    mGrid.Reset();
+    mGrid.Initialize();
 }
