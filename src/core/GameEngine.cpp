@@ -116,26 +116,14 @@ void GameEngine::HandleEvents() {
 void GameEngine::HandleInputs(SDL_Keycode key) {
     switch (key)
     {
-    case SDLK_UP:
-        Direction = Key::UP;
-        break;
-    case SDLK_DOWN:
-        Direction = Key::DOWN;
-        break;
-    case SDLK_LEFT:
-        Direction = Key::LEFT;
-        break;
-    case SDLK_RIGHT:
-        Direction = Key::RIGHT;
-        break;
-    case SDLK_R:
-        GameEngine::ResetGame();
-        break;
-    case SDLK_ESCAPE:
-        mRunning = false;
-        break;
-    default: 
-        break;
+        case SDLK_UP:     Direction = Key::UP;      break;
+        case SDLK_DOWN:   Direction = Key::DOWN;    break;
+        case SDLK_LEFT:   Direction = Key::LEFT;    break;
+        case SDLK_RIGHT:  Direction = Key::RIGHT;   break;
+        case SDLK_R:      GameEngine::ResetGame();  break;
+        case SDLK_ESCAPE: mRunning = false;         break;
+
+        default: break;
     }
 }
 
