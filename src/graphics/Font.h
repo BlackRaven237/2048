@@ -6,7 +6,6 @@
 
 class Font {
     TTF_Font* font;
-    
 public:
     bool InitializeFont(const char* file, float fontSize) {
         if (!TTF_Init()) return false;
@@ -17,12 +16,11 @@ public:
         return true;
     }
 
-    void CloseFont() {
+    ~Font() {
         if(font) {
             TTF_CloseFont(font);
             font = nullptr;
         }
-
         TTF_Quit();
     }
 
